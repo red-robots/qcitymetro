@@ -45,28 +45,30 @@ get_header(); ?>
                 
                 
 				<div class="business-details">
-               <div class="fe-location"><strong>Address:</strong> <?php echo $trimmedAdd; ?></div>
-            	<div class="fe-start"><strong>Phone:</strong> <?php echo $phone; ?></div>
-            	
-                <div class="fe-start"><strong>Email:</strong> <a href="<?php echo 'mailto:'.antispambot($email); ?>"><?php echo antispambot($email); ?></a></div>
-            	<div class="fe-cost"><strong>Business Category:</strong> <?php echo $category[0]->name; ?></div>
-                
-                <div class="fe-cost">
-                    <a target="_blank" href="<?php echo $website; ?>">
-                    	<strong>View Website</strong>
-                    </a>
-                </div>
-                
+
+                    <?php if( $image != '' ) { ?>
+                        <div class="col-1">
+                    <?php }?>
+                       <div class="fe-location"><strong>Address:</strong> <?php echo $trimmedAdd; ?></div>
+                        <div class="fe-start"><strong>Phone:</strong> <?php echo $phone; ?></div>
+
+                        <div class="fe-start"><strong>Email:</strong> <a href="<?php echo 'mailto:'.antispambot($email); ?>"><?php echo antispambot($email); ?></a></div>
+                        <div class="fe-cost"><strong>Business Category:</strong> <?php echo $category[0]->name; ?></div>
+
+                        <div class="fe-cost">
+                            <a target="_blank" href="<?php echo $website; ?>">
+                                <strong>View Website</strong>
+                            </a>
+                        </div>
+					<?php if( $image != '' ) { ?>
+                        </div><!--.col-1-->
+                        <div class="col-2">
+                            <img src="<?php echo $thumb; ?>" />
+                        </div><!--.col-2-->
+                        <div class="clear"></div>
+					<?php } ?>
                 </div><!-- business details -->
-				
-				
-				<?php if( $image != '' ) { ?>
-                    <div class="f_image">
-                    	<img src="<?php echo $thumb; ?>" class="alignright" />
-                    </div>
-                <?php } ?>
-                
-               
+
                 
                 	<?php the_content(); ?>
                 </div><!-- entry content -->

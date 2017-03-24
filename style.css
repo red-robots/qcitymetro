@@ -1065,6 +1065,17 @@ section#third {
 	margin:0 0 30px 0;
 	position: relative;
 }
+.business-details .col-1 {
+    width: 100%;
+}
+.business-details .col-2 {
+    width: 100%;
+}
+.business-details .col-2 img {
+    width: 100%;
+    display: block;
+}
+
 .business-header {
 	width: 100%;
 	padding: 20px 0;
@@ -3037,6 +3048,18 @@ section#third {
 	text-align: right;
 }
 .pnl{text-align: right;}
+/*
+Business details
+ */
+    .business-details .col-1 {
+        width: 72%;
+        float: left;
+    }
+    .business-details .col-2 {
+        width: 25%;
+        float: left;
+        margin-left: 3%;
+    }
 }
 /* Minimum width of 960 pixels. */
 @media screen and (min-width: 720px) {

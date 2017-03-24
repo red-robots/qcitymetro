@@ -51,6 +51,9 @@ get_header(); ?>
                 <div class="entry-content">
                 
                 <div class="business-details">
+            <?php if( $churchImage != '' ) { ?>
+                <div class="col-1">
+                <?php }?>
                
                <?php if( $founded != '' ) { ?>
             	<div class="fe-cost"><strong>Founded:</strong> <?php echo $founded; ?></div>
@@ -79,15 +82,17 @@ get_header(); ?>
                     </a>
                 </div>
             <?php } ?>
-            
+	                <?php if( $churchImage != '' ) { ?>
+                        </div><!--.col-1-->
+                            <div class="col-2">
+                                <img src="<?php echo $church; ?>" />
+                            </div>
+                        </div><!--.col-2-->
+	                <?php } ?>
                
                 </div><!-- business details -->
                 
-               <?php if( $churchImage != '' ) { ?>
-               <div class="f_image">
-                <img src="<?php echo $church; ?>" />
-                </div>
-                <?php } ?>
+
                 
                <!-- <h1><?php the_title(); ?></h1>
                 <div class="clear"></div>-->
