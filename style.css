@@ -1037,10 +1037,14 @@ section#third {
 }
 .business-directory-search-box form select{
     max-width: 100%;
+    margin-top: 10px;
+}
+.business-directory-search-box form input[type=submit]{
+    margin-top: 10px;
 }
 .business-directory-search-box h3 {
     color: white;
-    margin: 10px 0;
+    margin: 20px 0 10px 0;
     font-size: 150%;
 }
 .business-directory-search-box h3:first-child {
