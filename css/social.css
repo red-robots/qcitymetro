@@ -1,0 +1,102 @@
+/* Social CSS */
+
+/*
+	Below are the classes that get added dependant on how many
+	social media icons are needed. This happens automatically
+	when fields are filled out in theme options. 
+	
+	You may need to adjust the widths depending on the size of the icons.
+
+*/
+.socialone{width: 40px;}
+.socialtwo{width: 90px;}
+.socialthree{width: 120px;}
+.socialfour{width: 160px;}
+.socialfive{width: 200px;}
+.socialsix{width: 240px;}
+#sociallinks {
+	text-align: left;
+	margin: 10px auto;	
+}
+#sociallinks  ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	z-index: 2;	
+	position: relative;
+}
+/*
+	The amount of margin between each icon
+*/
+#sociallinks  ul li {
+	float: left;
+	position: relative;
+	margin: 0px 5px 0px 5px;
+}
+
+#sociallinks  ul a {
+	text-decoration: none;
+	/*background-image: url(../images/social.png);*/
+	background-size: 70px 35px;
+	background-repeat: no-repeat;
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	/*text-indent: -9000px;*/
+	position: relative;
+	display: block;
+}
+#sociallinks i {
+	font-size: 2vw;
+}
+/*#sociallinks  ul a:hover {
+	opacity:1;
+}*/
+#sociallinks  .facebook a {
+	width: 35px;
+	background-position: -0px -0px;
+}	
+/*#sociallinks .facebook a:hover {
+	background-position: -0px -30px;
+}*/
+#sociallinks  .twitter a {
+	width: 35px;
+	background-position: -35px -0px;
+}
+/*	
+#sociallinks .twitter a:hover {
+	background-position: -30px -30px;
+}*/
+#sociallinks  .linkedin a {
+	width: 30px;
+	background-position: -60px 0px;
+}
+	
+#sociallinks  .linkedin a:hover {
+	background-position: -60px -30px;
+}
+#sociallinks  .instagram a {
+	width: 30px;
+	background-position: -90px -0px;
+}
+	
+#sociallinks .instagram a:hover {
+	background-position: -90px -30px;
+}	
+#sociallinks  .google a {
+	width: 30px;
+	background-position: -120px -0px;
+}
+	
+#sociallinks .google a:hover {
+	background-position: -120px -30px;
+}
+@media screen and (min-width: 652px) {
+#sociallinks {
+	float:right;
+	margin: 10px 0;	
+}
+#sociallinks  ul li {
+	margin: 0px 0px 0px 10px;
+}
+}
