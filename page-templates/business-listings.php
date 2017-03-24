@@ -16,86 +16,29 @@ get_header(); ?>
                     <h1><?php the_title(); ?></h1>
                 </div><!-- border title -->
 			</header><!-- .archive-header -->
-			
-<?php get_template_part('inc/business-header'); ?> 		
-			
-<!-- 
-			Events Query 3 days
-           
-
-======================================================== --> 
-<?php 
-$today = date('Ymd');
-$i = 0;
-/*
-
-		TODAY  FEATURED
----------------------------------
-*/
-// Start query
-	$wp_query = new WP_Query();
-    $wp_query->query(array(
-    'post_type'=>'business_listing',
-    'posts_per_page' => 30,
-    
-    'orderby' => 'title',
-    'order' => 'ASC'
-));
-    if ($wp_query->have_posts()) : 
-	while ($wp_query->have_posts()) :  $wp_query->the_post(); 
-	 $image = get_field('business_thumbnail'); 
-	 $size = 'thumbnail';
-	 $thumb = $image['sizes'][ $size ];
-	 $location = get_field('address');
-	 $email = get_field('email');
-	 $phone = get_field('phone');
-	 $website = get_field('website');
-	 $category = get_field('category');
-	 
-     if( $location ) {
-    	$address = $location['address'];
-    	$us = ', United States';
-    	$trimmedAdd = str_replace($us, '', $address);
-    }
-
-    // echo '<pre>';
-    // print_r($address);
-    // echo '</pre>';
-	 
-	?>
-    
-    <div class="featured-event">
-    
-    <div class="featured-event-content-details">
-        	<a href="<?php the_permalink(); ?>">DETAILS</a>
-        </div><!-- featured event content -->
-    
-    	<div class="featured-event-image">
-        <?php if( $image != '' ) { ?>
-        		<img src="<?php echo $thumb; ?>" />
-        <?php } ?>
-        </div><!-- featured event image -->
-        <div class="featured-event-content">
-        	<h2><?php the_title(); ?></h2>
-            <?php if( $location != '' ) { ?>
-            	<div class="fe-location"><?php echo $trimmedAdd; ?></div>
-            <?php } ?>
-            <?php if( $phone != '' ) { ?>
-            	<div class="fe-start"><?php echo $phone; ?></div>
-            <?php } ?>
-            <?php if( $website != '' ) { ?>
-            	<div class="fe-website"><a target="_blank" href="<?php echo $website; ?>">view website</a></div>
-            <?php } ?>
-        </div><!-- featured event content -->
-        
-        <div class="submit-box-link"><a href="<?php the_permalink(); ?>">DETAILS</a></div>
-        
-    </div><!-- featured event -->
-    
-<?php
-endwhile; endif; wp_reset_query(); wp_reset_postdata();
-?>
-           
+			<div class="business-listings-wrapper">
+                <div class="col-1">
+                    <?php $args    = array(
+                        'taxonomy'   => "business_category",
+                        'order'      => 'ASC',
+                        'orderby'    => 'term_order',
+                        'hide_empty' => 0
+                    );
+                    $terms         = get_terms( $args );
+                    if ( ! is_wp_error( $terms ) && is_array( $terms ) && ! empty( $terms ) ): ?>
+                        <?php foreach($terms as $term):?>
+                            <div class="category">
+                                <a href="<?php echo get_term_link($term->term_id);?>">
+                                    <?php echo $term->name;?>
+                                </a>
+                            </div><!--.category-->
+                        <?php endforeach;?>
+                    <?php endif;?>
+                </div><!--.col-1-->
+                <div class="col-2">
+                    <?php the_content();?>
+                </div><!--.col-2-->
+            </div><!--.business-listings-wrapper-->
             
             </div><!-- site content -->
             
