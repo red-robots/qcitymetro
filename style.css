@@ -1024,6 +1024,33 @@ section#third {
 .event-image-thumb img {width: 100%;}
 /* = Business Listings
 -------------------------------------------------------------- */
+.business-listings-wrapper:after {
+    clear: both;
+    display: block;
+    content: "";
+}
+.business-listings-wrapper >.col-1{
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+.business-listings-wrapper >.col-1 .category {
+    border: 1px solid #7E3518;
+    border-bottom: 2px solid #7E3518;
+    width: calc(50% - 22px);
+    min-width: 170px;
+    display: inline-block;
+    margin: 0 20px 20px 0;
+    box-sizing: border-box;
+}
+.business-listings-wrapper >.col-1 .category a {
+    color: #7E3518;
+    padding: 5px 10px;
+    display: block;
+}
+.business-listings-wrapper >.col-2 {
+    width: 100%
+}
 .business-directory-search {
     float: left;
     width: 100%;
@@ -3059,6 +3086,16 @@ Business details
         width: 25%;
         float: left;
         margin-left: 3%;
+    }
+    .business-listings-wrapper >.col-1{
+        width: calc(50% - 12px);
+        float: left;
+        margin: 0 24px 0 0;
+        text-align: center;
+    }
+    .business-listings-wrapper >.col-2{
+        width: calc(50% - 12px);
+        float: left;
     }
 }
 /* Minimum width of 960 pixels. */
