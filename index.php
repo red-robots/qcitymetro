@@ -525,6 +525,75 @@ endwhile; endif; wp_reset_query();
         </section>
         
         <div class="clear"></div>
+
+        <div class="site-content">
+
+            <div class="border-title">
+                <h1>Business Directory</h1>
+            </div><!-- border title -->
+            <div class="business-listings-wrapper">
+                <div class="col-1">
+                    <?php $args    = array(
+                        'taxonomy'   => "business_category",
+                        'order'      => 'ASC',
+                        'orderby'    => 'term_order',
+                        'hide_empty' => 0
+                    );
+                    $terms         = get_terms( $args );
+                    if ( ! is_wp_error( $terms ) && is_array( $terms ) && ! empty( $terms ) ): ?>
+                        <?php foreach($terms as $term):?>
+                            <div class="category">
+                                <a href="<?php echo get_term_link($term->term_id);?>">
+                                    <?php echo $term->name;?>
+                                </a>
+                            </div><!--.category-->
+                        <?php endforeach;?>
+                    <?php endif;?>
+                </div><!--.col-1-->
+                <div class="col-2">
+                    <div class="business-directory-search-box">
+                        <h3>Search Businesses</h3>
+                        <form id="category-select" class="category-select replace"  action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
+			                <?php $args = array(
+				                'show_option_none'  => 'Select category',
+				                'show_count'        => 1,
+				                'orderby'       => 'name',
+				                'hierarchical'      => 1,
+				                'echo'          => 0,
+				                'value_field' => 'slug',
+				                'taxonomy'           => 'business_category',
+				                'name' => 'business_category'
+			                ); ?>
+			                <?php $select  = wp_dropdown_categories( $args );
+			                ?>
+			                <?php $replace = "<select$1 onchange='return this.form.submit()' class= 'replace' >"; ?>
+			                <?php $select  = preg_replace( '#<select([^>]*)>#', $replace, $select ); ?>
+			                <?php echo $select; ?>
+                            <noscript>
+                                <input type="submit" value="View" />
+                            </noscript>
+                        </form>
+                        <h3>Most Viewed Business Listings</h3>
+		                <?php
+		                $query  = "SELECT posts.ID AS ID, posts.post_title AS title FROM $wpdb->postmeta AS meta 
+                                    INNER JOIN $wpdb->posts AS posts ON meta.post_id = posts.ID 
+                                    WHERE meta.meta_key='views' AND posts.post_type='business_listing'
+                                    ORDER BY CAST(meta.meta_value as UNSIGNED) DESC LIMIT 5";
+		                $results = $wpdb->get_results( $query );
+		                for($i=1;$i<=count($results);$i++){
+			                $result = $results[$i-1];?>
+                            <div class="listing">
+				                <?php echo $i.". ";?><a href="<?php echo get_the_permalink($result->ID);?>"><?php echo $result->title;?></a>
+                            </div>
+		                <?php } ?>
+                        <div class="button viewmore-short">
+                            <a href="<?php bloginfo('url'); ?>/business-directory/business-directory-sign-up">Add your business to this directory</a>
+                        </div><!-- button -->
+                    </div><!--.business-directory-search-box-->
+                </div><!--.col-2-->
+            </div><!--.business-listings-wrapper-->
+
+        </div><!-- site content -->
   <!-- 
 			Videos & Photos
 
