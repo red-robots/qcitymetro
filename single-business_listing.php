@@ -29,6 +29,7 @@ get_header(); ?>
 			 	$us = ', United States';
 				$trimmedAdd = str_replace($us, '', $address);
 			 }
+				$google_maps_link = get_field('google_maps_link');
 			 
 			
 			//echo '<pre>';
@@ -49,7 +50,16 @@ get_header(); ?>
                     <?php if( $image != '' ) { ?>
                         <div class="col-1">
                     <?php }?>
-                       <div class="fe-location"><strong>Address:</strong> <?php echo $trimmedAdd; ?></div>
+                       <div class="fe-location"><strong>Address:</strong>
+
+	                       <?php if($google_maps_link):?>
+                               <a href="<?php echo $google_maps_link;?>" target="_blank">
+	                       <?php endif;?>
+                                <?php echo $trimmedAdd; ?>
+	                       <?php if($google_maps_link):?>
+                               </a>
+                            <?php endif;?>
+                       </div>
                         <div class="fe-start"><strong>Phone:</strong> <?php echo $phone; ?></div>
 
                         <div class="fe-start"><strong>Email:</strong> <a href="<?php echo 'mailto:'.antispambot($email); ?>"><?php echo antispambot($email); ?></a></div>

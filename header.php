@@ -35,7 +35,7 @@
 <script type="text/javascript"async src="http://launch.newsinc.com/js/embed.js" id="_nw2e-js"></script>
 <?php wp_head(); ?>
 <?php
-// 
+//
 //		Need to query Google AD scripts
 //
 	$wp_query = new WP_Query();
@@ -43,7 +43,7 @@
 	'post_type'=>'ad',
 	'posts_per_page' => -1
 ));
-	if ($wp_query->have_posts()) :  while ($wp_query->have_posts()) :  $wp_query->the_post(); 
+	if ($wp_query->have_posts()) :  while ($wp_query->have_posts()) :  $wp_query->the_post();
 	$headerScript = get_field('header_script');
 	$enable = get_field('enable_ad');
 	if( $enable == 'Yes' ) :

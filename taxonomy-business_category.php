@@ -66,7 +66,9 @@ $website = get_field('website');
         <div class="featured-event-content">
         	<h2><?php the_title(); ?></h2>
             <?php if( $location != '' ) { ?>
-            	<div class="fe-location"><?php echo $location['address']; ?></div>
+            	<div class="fe-location">
+                        <?php echo $location['address']; ?>
+                </div>
             <?php } ?>
             <?php if( $phone != '' ) { ?>
             	<div class="fe-start"><?php echo $phone; ?></div>
