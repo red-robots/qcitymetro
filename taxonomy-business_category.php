@@ -45,7 +45,8 @@ $location = get_field('address');
 $email = get_field('email');
 $phone = get_field('phone');
 $website = get_field('website');
-$category = get_field('category');
+	$category = get_field('category');
+	$description = get_field('description');
 
 ?>	
 
@@ -70,9 +71,12 @@ $category = get_field('category');
             <?php if( $phone != '' ) { ?>
             	<div class="fe-start"><?php echo $phone; ?></div>
             <?php } ?>
-            <?php if( $website != '' ) { ?>
-            	<div class="fe-cost"><a target="_blank" href="<?php echo $website; ?>">view website</a></div>
-            <?php } ?>
+	        <?php if( $description != '' ) { ?>
+                <div class="fe-desc"><?php echo $description;?></div>
+	        <?php } ?>
+	        <?php if( $website != '' ) { ?>
+                <div class="fe-cost"><a target="_blank" href="<?php echo $website; ?>">view website</a></div>
+	        <?php } ?>
         </div><!-- featured event content -->
         
     </div><!-- featured event -->

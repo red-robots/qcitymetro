@@ -1585,6 +1585,7 @@ nav.footermenu a {
 	float:left;
 	position: relative;
 	line-height: 0;
+    margin-right: 2%;
 }
 .featured-event-image img {width: 100%;}
 .featured-event-featured {
@@ -1656,7 +1657,7 @@ nav.footermenu a {
 	margin: 10px 0 5px 0;
 	text-transform: uppercase;
 }
-.fe-location, .fe-start, .fe-cost, .fe-website {
+.fe-location, .fe-start, .fe-cost, .fe-website, .fe-desc {
 	font-size: 14px;
 	width: 100%;
 	margin: 0 0 8px 0;
@@ -1833,6 +1834,10 @@ figcaption {
 	text-transform: uppercase;
 	font-size:10px;
 	margin-bottom: 8px;
+}
+.small-post-content .excerpt, .small-post-content-full .excerpt {
+    margin-top: 20px;
+    color: #332C2C;
 }
 .homebars {
 	overflow: hidden;

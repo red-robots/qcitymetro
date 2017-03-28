@@ -37,6 +37,33 @@ get_header(); ?>
                 </div><!--.col-1-->
                 <div class="col-2">
                     <?php the_content();?>
+
+                    <?php $fp = get_field("featured_post");
+                    if($fp):
+                        $post = get_post($fp);
+                        setup_postdata($post);?>
+                        <?php   if ( has_post_thumbnail() ) {
+                            $smallClass = 'small-post-content';
+                        } else {
+                            $smallClass = 'small-post-content-full';
+                        }
+                        ?>
+                        <div class="small-post">
+                            <a href="<?php the_permalink(); ?>">
+                                <div class="small-post-thumb">
+                                    <?php if ( has_post_thumbnail() ) {
+                                        the_post_thumbnail('thumbnail');
+                                    } ?>
+                                </div><!-- small post thumb -->
+                                <div class="<?php echo $smallClass; ?>">
+                                    <div class="clear"></div>
+                                    <h2><?php the_title(); ?></h2>
+                                    <div class="excerpt"><?php the_excerpt();?></div><!--.excerpt-->
+                                </div><!-- small post content -->
+                            </a>
+                        </div><!-- smalll post -->
+                        <?php wp_reset_postdata();
+                    endif;?>
                 </div><!--.col-2-->
             </div><!--.business-listings-wrapper-->
             
