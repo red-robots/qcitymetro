@@ -293,7 +293,7 @@ endwhile; endif; wp_reset_query();
 								 				// 
 								 				//if( $postDate > $today || $postDate == '' ) :
 								 					echo '<!-- OK | Today:' .$today . ' | Expires:' . $postDate . '-->';
-													get_template_part('cat/sponsored-post'); 
+													get_template_part('cat/sponsored-post');
 
 												//endif; // end comparing post expire to today
 												// get more ids

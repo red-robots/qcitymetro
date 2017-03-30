@@ -8,7 +8,7 @@
 	if( $enable == 'Yes' ) :
 	echo '<!-- right big -->';
 	echo '<div class="ad">';
-	
+
 		if( $googleScript != '' ) {
 			echo $googleScript;
 		}
@@ -30,7 +30,7 @@
 	if( $enable == 'Yes' ) :
 	echo '<!-- right big -->';
 	echo '<div class="ad">';
-	
+
 		if( $googleScript != '' ) {
 			echo $googleScript;
 		}

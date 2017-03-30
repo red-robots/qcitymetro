@@ -18,7 +18,7 @@
  } else  {
  	// If is not in Sponsored Content, proceed
 	if(!in_category(30)) :
- 		get_template_part('ads/leaderboard-interior'); 
+ 		get_template_part('ads/leaderboard-interior');
  	endif;
  }
 ?>
@@ -61,8 +61,6 @@
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
-
-
 
 <?php the_field('google_analytics','option'); ?>
 <?php 

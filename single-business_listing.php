@@ -24,14 +24,14 @@ get_header(); ?>
 			 $phone = get_field('phone');
 			 $website = get_field('website');
 			 $category = get_field('category');
+			 $viewMap = null;
 			 if($location != '') {
 			 	$address = $location['address'];
 			 	$us = ', United States';
 				$trimmedAdd = str_replace($us, '', $address);
+                $stringAdd = str_replace(' ', '+', $location['address']);
+                $viewMap = 'https://www.google.com/maps/place/'.$stringAdd;
 			 }
-				$google_maps_link = get_field('google_maps_link');
-			 
-			
 			//echo '<pre>';
 			//print_r($category);
 			?>
@@ -52,11 +52,11 @@ get_header(); ?>
                     <?php }?>
                        <div class="fe-location"><strong>Address:</strong>
 
-	                       <?php if($google_maps_link):?>
-                               <a href="<?php echo $google_maps_link;?>" target="_blank">
+	                       <?php if($viewMap):?>
+                               <a href="<?php echo $viewMap;?>" target="_blank">
 	                       <?php endif;?>
                                 <?php echo $trimmedAdd; ?>
-	                       <?php if($google_maps_link):?>
+	                       <?php if($viewMap):?>
                                </a>
                             <?php endif;?>
                        </div>
