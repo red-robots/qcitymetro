@@ -594,6 +594,10 @@ endwhile; endif; wp_reset_query();
             </div><!--.business-listings-wrapper-->
 
         </div><!-- site content -->
+        <div class="widget-area">
+	        <?php get_template_part('ads/home-business-directory'); ?>
+        </div><!--.widget-area-->
+        <div class="clear"></div>
   <!-- 
 			Videos & Photos
 

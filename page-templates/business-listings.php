@@ -36,8 +36,9 @@ get_header(); ?>
                     <?php endif;?>
                 </div><!--.col-1-->
                 <div class="col-2">
-                    <?php the_content();?>
-
+                    <div class="entry-content">
+                        <?php the_content();?>
+                    </div><!--.entry-content-->
                     <?php $fp = get_field("featured_post");
                     if($fp):
                         $post = get_post($fp);
@@ -75,7 +76,7 @@ get_header(); ?>
 ======================================================== -->        
         <div class="widget-area">
         	<?php 
-			get_template_part('ads/right-big'); 
+			get_template_part('ads/right-business-directory');
 			get_template_part('ads/right-small');
 			get_template_part('ads/right-rail');
 			?>
