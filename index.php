@@ -20,7 +20,8 @@ $sponsoredPost = get_field('sponsored_content', 349);
 $featuredPost = get_field('featured_post');
 $section1 = get_field('section_1_article');
 $section2 = get_field('section_2_article');
-$section3 = get_field('section_3_article');
+	$section3 = get_field('section_3_article');
+	$section4 = get_field('section_4_article');
 
 endwhile; endif; wp_reset_query();
 // End Homepage Query
@@ -485,7 +486,7 @@ endwhile; endif; wp_reset_query();
         
         <section id="third" class="third-last">
         	<?php 
-            $posts = $section3; 
+            $posts = $section3;
             foreach( $posts as $post):
 			 setup_postdata( $post ); 
 			 $term = get_the_terms($section3->ID, 'category');
@@ -533,24 +534,6 @@ endwhile; endif; wp_reset_query();
             </div><!-- border title -->
             <div class="business-listings-wrapper">
                 <div class="col-1">
-                    <?php $args    = array(
-                        'taxonomy'   => "business_category",
-                        'order'      => 'ASC',
-                        'orderby'    => 'term_order',
-                        'hide_empty' => 0
-                    );
-                    $terms         = get_terms( $args );
-                    if ( ! is_wp_error( $terms ) && is_array( $terms ) && ! empty( $terms ) ): ?>
-                        <?php foreach($terms as $term):?>
-                            <div class="category">
-                                <a href="<?php echo get_term_link($term->term_id);?>">
-                                    <?php echo $term->name;?>
-                                </a>
-                            </div><!--.category-->
-                        <?php endforeach;?>
-                    <?php endif;?>
-                </div><!--.col-1-->
-                <div class="col-2">
                     <div class="business-directory-search-box">
                         <h3>Search Businesses</h3>
                         <form id="category-select" class="category-select replace"  action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
@@ -590,6 +573,47 @@ endwhile; endif; wp_reset_query();
                             <a href="<?php bloginfo('url'); ?>/business-directory/business-directory-sign-up">Add your business to this directory</a>
                         </div><!-- button -->
                     </div><!--.business-directory-search-box-->
+                </div><!--.col-1-->
+                <div class="col-2">
+                    <section class="business-featured-post">
+		                <?php
+		                $posts = $section4;
+		                foreach( $posts as $post):
+			                setup_postdata( $post );
+			                $term = get_the_terms($post->ID, 'category');
+			                $termId = $term[0]->term_id;
+			                $color = get_field( 'category_color', 'category_'.$termId );
+			                $video = get_field( 'video_single_post' );
+
+			                ?>
+                            <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
+                                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term[0]->name; ?></h2>
+                            </div><!-- border title -->
+
+                            <div class="post-block blocks">
+
+
+				                <?php
+				                if( $video != '' ) :
+					                echo $video;
+				                else:
+					                if ( has_post_thumbnail() ) { ?>
+                                        <div class="post-block-image js-titles">
+							                <?php  the_post_thumbnail('thirds'); ?>
+                                        </div>
+					                <?php } endif; ?>
+
+                                <h2><?php the_title(); ?></h2>
+                                <div class="postdate"><?php echo get_the_date(); ?></div>
+                                <div class="entry-content home-content"><?php the_excerpt(); ?></div>
+                                <div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
+                            </div><!-- post block -->
+
+			                <?php // get more ids
+			                $ids[] = get_the_ID();
+		                endforeach;
+		                wp_reset_postdata(); ?>
+                    </section>
                 </div><!--.col-2-->
             </div><!--.business-listings-wrapper-->
 
