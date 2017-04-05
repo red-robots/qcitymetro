@@ -122,12 +122,40 @@ get_header(); ?>
                     <div class="clear"></div>
                 </div><!-- entry content -->
 
-				<nav class="nav-single">
-					<h3 class="assistive-text"><?php _e( 'Post navigation', 'twentytwelve' ); ?></h3>
-					<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'twentytwelve' ) . '</span> %title' ); ?></span>
-					<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'twentytwelve' ) . '</span>' ); ?></span>
-				</nav><!-- .nav-single -->
-
+			<?php
+			$args = array(
+				'post_type'=>'church_listing',
+				'posts_per_page' => -1,
+				'orderby'=>'name',
+				'order'=>'DESC'
+			);
+			$terms = get_the_terms($post->ID,'denomination');
+			if(!is_wp_error($terms)&&is_array($terms)&&!empty($terms)):
+				$args['tax_query'] = array(
+					array(
+						'taxonomy'=>'denomination',
+						'field'=>'term_id',
+						'terms'=> $terms[0]->term_id
+					)
+				);
+			endif;
+			$posts = get_posts($args);
+			$index = array_search($post,$posts);
+			if($index !== false && count($posts)>1):?>
+                <nav class="nav-single">
+                    <h3 class="assistive-text"><?php _e( 'Post navigation', 'twentytwelve' ); ?></h3>
+					<?php if(count($posts) >2):?>
+						<?php $previous_index = $index > 0 ? $index -1 : count($posts) -1;?>
+                        <span class="nav-previous">
+                                <a href="<?php echo get_the_permalink($posts[$previous_index]);?>"><span class="meta-nav">&larr;</span><?php echo $posts[$previous_index]->post_title;?></a>
+                            </span>
+					<?php endif;?>
+					<?php $next_index = $index < (count($posts) -1) ? $index +1 : 0; ?>
+                    <span class="nav-next">
+                            <a href="<?php echo get_the_permalink($posts[$next_index]);?>"><?php echo $posts[$next_index]->post_title;?><span class="meta-nav">&rarr;</span></a>
+                        </span>
+                </nav><!-- .nav-single -->
+			<?php endif;?>
 				<?php //comments_template( '', true ); ?>
 
 			<?php endwhile; // end of the loop. ?>
