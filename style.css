@@ -1027,17 +1027,17 @@ section#third {
 .page-template-business-listings .entry-content p, .single-business_listing .entry-content p {
     font-size: 14px;
 }
-.business-listings-wrapper:after {
+.business-listings-wrapper:after, .church-listings-wrapper:after {
     clear: both;
     display: block;
     content: "";
 }
-.business-listings-wrapper >.col-1{
+.business-listings-wrapper >.col-1,.church-listings-wrapper >.col-1 {
     width: 100%;
     margin: 0;
     float: left;
 }
-.business-listings-wrapper >.col-1 .category {
+.business-listings-wrapper >.col-1 .category, .church-listings-wrapper >.col-1 .category {
     border: 1px solid #7E3518;
     border-bottom: 2px solid #7E3518;
     width: calc(50% - 22px);
@@ -1046,12 +1046,12 @@ section#third {
     margin: 0 20px 20px 0;
     box-sizing: border-box;
 }
-.business-listings-wrapper >.col-1 .category a {
+.business-listings-wrapper >.col-1 .category a, .church-listings-wrapper >.col-1 .category a {
     color: #7E3518;
     padding: 5px 10px;
     display: block;
 }
-.business-listings-wrapper >.col-2 {
+.business-listings-wrapper >.col-2, .church-listings-wrapper >.col-2 {
     width: 100%;
     float: left;
     margin-top: 20px;
@@ -1060,40 +1060,45 @@ section#third {
     float: left;
     width: 100%;
 }
-.business-directory-search-box {
+#business_category, #denomination {
+    box-sizing: border-box;
+    padding: 5px;
+    font-size: 15px;
+}
+.business-directory-search-box, .church-directory-search-box {
     background-color: #7E3518;
     float: left;
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
 }
-.business-directory-search-box form select{
+.business-directory-search-box form select, .church-directory-search-box form select{
     max-width: 100%;
     margin-top: 10px;
 }
-.business-directory-search-box form input[type=submit]{
+.business-directory-search-box form input[type=submit], .church-directory-search-box form input[type=submit]{
     margin-top: 10px;
 }
-.business-directory-search-box h3 {
+.business-directory-search-box h3, .church-directory-search-box h3 {
     color: white;
     margin: 20px 0 10px 0;
     font-size: 150%;
 }
-.business-directory-search-box h3:first-child {
+.business-directory-search-box h3:first-child, .church-directory-search-box h3:first-child {
     margin-top: 0;
 }
-.business-directory-search-box .listing {
+.business-directory-search-box .listing, .church-directory-search-box .listing {
     margin-top: 10px;
     color: white;
 }
-.business-directory-search-box .listing a {
+.business-directory-search-box .listing a, .church-directory-search-box .listing a {
     color: inherit;
 }
-.business-directory-search-box .button {
+.business-directory-search-box .button, .church-directory-search-box .button  {
     border: 1px solid #D1BA00;
     margin-top: 20px;
 }
-.business-directory-search-box .button a {
+.business-directory-search-box .button a, .church-directory-search-box .button a {
     color: #D1BA00;
 }
 .business-details {
@@ -3096,19 +3101,19 @@ section#third {
 Business details
  */
     .business-details .col-1 {
-        width: 72%;
+        width: 80%;
         float: left;
     }
     .business-details .col-2 {
-        width: 25%;
+        width: 17%;
         float: left;
         margin-left: 3%;
     }
-    .business-listings-wrapper >.col-1{
+    .business-listings-wrapper >.col-1, .church-listings-wrapper >.col-1{
         width: calc(50% - 12px);
         margin: 0 24px 0 0;
     }
-    .business-listings-wrapper >.col-2{
+    .business-listings-wrapper >.col-2, .church-listings-wrapper >.col-2{
         width: calc(50% - 12px);
         margin-top: 0;
     }

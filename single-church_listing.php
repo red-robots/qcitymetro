@@ -31,6 +31,7 @@ get_header(); ?>
 			 $size = 'large';
 			 $pastorSize = 'small';
         	 $church = $churchImage['sizes'][ $size ];
+                $church_thumb = $churchImage['sizes'][ 'thumbnail' ];
 			 $pastorImg = $pastorImage['sizes'][ $pastorSize ];
 			 
              if( $location ) {
@@ -62,7 +63,7 @@ get_header(); ?>
             	<div class="fe-location"><strong>Location:</strong> <?php echo $trimmedAdd; ?></div>
             <?php } ?>
             <?php if( $phone != '' ) { ?>
-            	<div class="fe-start"><strong>Phone:</strong> <?php echo $phone; ?></div>
+                <div class="fe-start"><strong>Phone:</strong><a href="tel:<?php echo preg_replace("/[^0-9]/","",$phone);?>"><?php echo $phone; ?></a></div>
             <?php } ?>
             
             <?php if( $membership != '' ) { ?>
@@ -85,7 +86,7 @@ get_header(); ?>
 	                <?php if( $churchImage != '' ) { ?>
                         </div><!--.col-1-->
                             <div class="col-2">
-                                <img src="<?php echo $church; ?>" />
+                                <img src="<?php echo $church_thumb; ?>" />
                             </div>
                         </div><!--.col-2-->
 	                <?php } ?>

@@ -542,6 +542,7 @@ endwhile; endif; wp_reset_query();
 				                'show_count'        => 1,
 				                'orderby'       => 'name',
 				                'hierarchical'      => 1,
+				                'hide_empty'        => 0,
 				                'echo'          => 0,
 				                'value_field' => 'slug',
 				                'taxonomy'           => 'business_category',

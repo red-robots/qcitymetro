@@ -19,6 +19,8 @@ get_header(); ?>
 			$image = get_field('business_photo'); 
 			 $size = 'large';
 			 $thumb = $image['sizes'][ $size ];
+			 $thumb_thumb = $image['sizes']['thumbnail'];
+			 $alt = $image['alt'];
 			 $location = get_field('address');
 			 $email = get_field('email');
 			 $phone = get_field('phone');
@@ -41,6 +43,7 @@ get_header(); ?>
                     <h1><?php the_title(); ?></h1>
                 </div><!-- border title -->
 				</header><!-- .archive-header -->
+				<?php get_template_part('inc/business-header'); ?>
                 
                 <div class="entry-content">
                 
@@ -60,7 +63,7 @@ get_header(); ?>
                                </a>
                             <?php endif;?>
                        </div>
-                        <div class="fe-start"><strong>Phone:</strong> <?php echo $phone; ?></div>
+                            <div class="fe-start"><strong>Phone:</strong><a href="tel:<?php echo preg_replace("/[^0-9]/","",$phone);?>"><?php echo $phone; ?></a></div>
 
                         <div class="fe-start"><strong>Email:</strong> <a href="<?php echo 'mailto:'.antispambot($email); ?>"><?php echo antispambot($email); ?></a></div>
                         <div class="fe-cost"><strong>Business Category:</strong> <?php echo $category[0]->name; ?></div>
@@ -73,7 +76,7 @@ get_header(); ?>
 					<?php if( $image != '' ) { ?>
                         </div><!--.col-1-->
                         <div class="col-2">
-                            <img src="<?php echo $thumb; ?>" />
+                            <img src="<?php echo $thumb_thumb; ?>" alt="<?php echo $alt;?>"/>
                         </div><!--.col-2-->
                         <div class="clear"></div>
 					<?php } ?>

@@ -3,7 +3,9 @@
  * Template Name: Church Listings
  */
 
-get_header(); ?>
+get_header();
+$featured_post = get_field('featured_post');
+?>
 
 	<div id="primary" class="">
 		<div id="content" role="main" class="wrapper">
@@ -17,104 +19,91 @@ get_header(); ?>
                     <h1><?php the_title(); ?></h1>
                 </div><!-- border title -->
 			</header><!-- .archive-header -->
-            
-<?php get_template_part('inc/church-header'); ?>
-                
-<!-- 
-			Events Query 3 days
-           
+            <div class="church-listings-wrapper">
+                <div class="col-1">
+                    <div class="church-directory-search-box">
+                        <h3>Search Denominations</h3>
+                        <form id="category-select" class="category-select replace"  action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
+				            <?php $args = array(
+					            'show_option_none'  => 'Select Denomination',
+					            'show_count'        => 1,
+					            'hide_empty'        => 0,
+					            'orderby'       => 'name',
+					            'hierarchical'      => 1,
+					            'echo'          => 0,
+					            'value_field' => 'slug',
+					            'taxonomy'           => 'denomination',
+					            'name' => 'denomination'
+				            ); ?>
+				            <?php $select  = wp_dropdown_categories( $args );
+				            ?>
+				            <?php $replace = "<select$1 onchange='return this.form.submit()' class= 'replace' >"; ?>
+				            <?php $select  = preg_replace( '#<select([^>]*)>#', $replace, $select ); ?>
+				            <?php echo $select; ?>
+                            <noscript>
+                                <input type="submit" value="View" />
+                            </noscript>
+                        </form>
+                        <h3>Most Viewed Church Listings</h3>
+			            <?php
+			            $query  = "SELECT posts.ID AS ID, posts.post_title AS title FROM $wpdb->postmeta AS meta 
+                                    INNER JOIN $wpdb->posts AS posts ON meta.post_id = posts.ID 
+                                    WHERE meta.meta_key='views' AND posts.post_type='church_listing'
+                                    ORDER BY CAST(meta.meta_value as UNSIGNED) DESC LIMIT 5";
+			            $results = $wpdb->get_results( $query );
+			            for($i=1;$i<=count($results);$i++){
+				            $result = $results[$i-1];?>
+                            <div class="listing">
+					            <?php echo $i.". ";?><a href="<?php echo get_the_permalink($result->ID);?>"><?php echo $result->title;?></a>
+                            </div>
+			            <?php } ?>
+                        <div class="button viewmore-short">
+                            <a href="<?php bloginfo('url'); ?>/church-directory/church-directory-sign-up">Add your church to this directory</a>
+                        </div><!-- button -->
+                    </div><!--.business-directory-search-box-->
+                </div><!--.col-1-->
+                <div class="col-2">
+                    <section class="church-featured-post">
+			            <?php
+			            $posts = $featured_post;
+			            foreach( $posts as $post):
+				            setup_postdata( $post );
+				            $term = get_the_terms($post->ID, 'category');
+				            $termId = $term[0]->term_id;
+				            $color = get_field( 'category_color', 'category_'.$termId );
+				            $video = get_field( 'video_single_post' );
 
-======================================================== --> 
-<?php 
-$today = date('Ymd');
-$i = 0;
-/*
+				            ?>
+                            <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
+                                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term[0]->name; ?></h2>
+                            </div><!-- border title -->
 
-		TODAY  FEATURED
----------------------------------
-*/
-// Start query
-	$wp_query = new WP_Query();
-    $wp_query->query(array(
-    'post_type'=>'church_listing',
-    'posts_per_page' => 30,
-    'paged' => $paged,
-    'orderby' => 'title',
-    'order' => 'ASC'
-));
-    if ($wp_query->have_posts()) : 
-	while ($wp_query->have_posts()) :  $wp_query->the_post(); 
-	 $founded = get_field('founded'); 
-	 $location = get_field('address');
-	 $email = get_field('email');
-	 $phone = get_field('phone');
-	 $website = get_field('website');
-	 /*$membershipObject = get_field('membership');
-	 $membership = $membershipObject->name;
-	 $denominationObject = get_field('denomination');
-	 $denomination = $denominationObject[0]->name;*/
-	 $postId = get_the_ID();
-	 $sizeTerms = get_the_terms( $postId, 'size' );
-	 $membership = $sizeTerms[0]->name;
-	 $denominationTerms = get_the_terms( $postId, 'denomination' );
-	 $denomination = $denominationTerms[0]->name;
-	 $pastor = get_field('pastor');
-    if( $location ) {
-    	$address = $location['address'];
-    	$us = ', United States';
-    	$trimmedAdd = str_replace($us, '', $address);
-    }
-	 
-	/* echo '<pre>';
-	 print_r($sizeTerms);
-	 echo '</pre>';*/
-	 //die;
-	?>
-    
-    <div class="featured-event">
-    
-    <div class="featured-event-content-details">
-        	<a href="<?php the_permalink(); ?>">DETAILS</a>
-        </div><!-- featured event content -->
-    
-        <div class="featured-event-content">
-        	<h2><?php the_title(); ?></h2>
-           <?php if( $founded != '' ) { ?>
-            	<div class="fe-cost"><strong>Founded:</strong> <?php echo $founded; ?></div>
-            <?php } ?> 
-			<?php if( $location != '' ) { ?>
-            	<div class="fe-location"><strong>Location:</strong> <?php echo $trimmedAdd; ?></div>
-            <?php } ?>
-            <?php if( $phone != '' ) { ?>
-            	<div class="fe-start"><strong>Phone:</strong> <?php echo $phone; ?></div>
-            <?php } ?>
-            <?php if( $membership != '' ) { ?>
-            	<div class="fe-start"><strong>Size:</strong> <?php echo $membership ?></div>
-            <?php } ?>
-            <?php if( $denomination != '' ) { ?>
-            	<div class="fe-cost"><strong>Denomination:</strong> <?php echo $denomination; ?></div>
-            <?php } ?>
-            
-            <?php if( $pastor != '' ) { ?>
-            	<div class="fe-cost"><strong>Pastor:</strong> <?php echo $pastor; ?></div>
-            <?php } ?>
-            
-            <?php if( $website != '' ) { ?>
-            	<div class="fe-website">
-                    <a target="_blank" href="<?php echo $website; ?>">
-                    	Visit Website
-                    </a>
-                </div>
-            <?php } ?>
-            
-        </div><!-- featured event content -->
-        <div class="submit-box-link"><a href="<?php the_permalink(); ?>">DETAILS</a></div>
-    </div><!-- featured event -->
-    
-<?php
-endwhile; pagi_posts_nav(); endif; wp_reset_query(); wp_reset_postdata();
-?>
-           
+                            <div class="post-block blocks">
+
+
+					            <?php
+					            if( $video != '' ) :
+						            echo $video;
+					            else:
+						            if ( has_post_thumbnail() ) { ?>
+                                        <div class="post-block-image js-titles">
+								            <?php  the_post_thumbnail('thirds'); ?>
+                                        </div>
+						            <?php } endif; ?>
+
+                                <h2><?php the_title(); ?></h2>
+                                <div class="postdate"><?php echo get_the_date(); ?></div>
+                                <div class="entry-content home-content"><?php the_excerpt(); ?></div>
+                                <div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
+                            </div><!-- post block -->
+
+				            <?php // get more ids
+				            $ids[] = get_the_ID();
+			            endforeach;
+			            wp_reset_postdata(); ?>
+                    </section>
+                </div><!--.col-2-->
+            </div><!--.church-listings-wrapper-->
             
             </div><!-- site content -->
             
@@ -123,8 +112,8 @@ endwhile; pagi_posts_nav(); endif; wp_reset_query(); wp_reset_postdata();
 
 ======================================================== -->        
         <div class="widget-area">
-        	<?php 
-			get_template_part('ads/right-big'); 
+        	<?php
+	        get_template_part('ads/right-church-directory');
 			get_template_part('ads/right-small');
 			get_template_part('ads/right-rail');
 			?>
