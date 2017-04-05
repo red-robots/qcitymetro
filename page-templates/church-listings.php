@@ -66,6 +66,7 @@ $featured_post = get_field('featured_post');
                     <section class="church-featured-post">
 			            <?php
 			            $posts = $featured_post;
+			            if($posts):
 			            foreach( $posts as $post):
 				            setup_postdata( $post );
 				            $term = get_the_terms($post->ID, 'category');
@@ -100,7 +101,8 @@ $featured_post = get_field('featured_post');
 				            <?php // get more ids
 				            $ids[] = get_the_ID();
 			            endforeach;
-			            wp_reset_postdata(); ?>
+			            wp_reset_postdata();
+			            endif;?>
                     </section>
                 </div><!--.col-2-->
             </div><!--.church-listings-wrapper-->

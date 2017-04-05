@@ -66,7 +66,8 @@ $featured_post = get_field('featured_post');
                     <section class="business-featured-post">
 		                <?php
 		                $posts = $featured_post;
-		                foreach( $posts as $post):
+		                if($posts):
+                            foreach( $posts as $post):
 			                setup_postdata( $post );
 			                $term = get_the_terms($post->ID, 'category');
 			                $termId = $term[0]->term_id;
@@ -100,7 +101,8 @@ $featured_post = get_field('featured_post');
 			                <?php // get more ids
 			                $ids[] = get_the_ID();
 		                endforeach;
-		                wp_reset_postdata(); ?>
+		                wp_reset_postdata();
+		                endif;?>
                     </section>
                 </div><!--.col-2-->
             </div><!--.business-listings-wrapper-->

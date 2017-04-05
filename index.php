@@ -579,6 +579,7 @@ endwhile; endif; wp_reset_query();
                     <section class="business-featured-post">
 		                <?php
 		                $posts = $section4;
+		                if($posts):
 		                foreach( $posts as $post):
 			                setup_postdata( $post );
 			                $term = get_the_terms($post->ID, 'category');
@@ -613,7 +614,8 @@ endwhile; endif; wp_reset_query();
 			                <?php // get more ids
 			                $ids[] = get_the_ID();
 		                endforeach;
-		                wp_reset_postdata(); ?>
+		                wp_reset_postdata();
+		                endif;?>
                     </section>
                 </div><!--.col-2-->
             </div><!--.business-listings-wrapper-->
