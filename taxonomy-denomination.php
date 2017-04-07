@@ -129,7 +129,7 @@ get_header(); ?>
 
 	   ======================================================== -->
             <div class="widget-area">
-				<?php get_template_part( 'ads/right-big' ); ?>
+                <?php get_template_part('ads/right-church-directory');?>
             </div><!-- widget area -->
 
 

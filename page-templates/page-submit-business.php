@@ -65,6 +65,7 @@ get_header(); ?>
 							'fields' => array(
 								'email',
 								'phone',
+                                'description',
 								'website',
 								'category',
 								'business_thumbnail',

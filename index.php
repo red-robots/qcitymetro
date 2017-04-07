@@ -562,14 +562,21 @@ endwhile; endif; wp_reset_query();
 		                $query  = "SELECT posts.ID AS ID, posts.post_title AS title FROM $wpdb->postmeta AS meta 
                                     INNER JOIN $wpdb->posts AS posts ON meta.post_id = posts.ID 
                                     WHERE meta.meta_key='views' AND posts.post_type='business_listing'
-                                    ORDER BY CAST(meta.meta_value as UNSIGNED) DESC LIMIT 5";
+                                    ORDER BY CAST(meta.meta_value as UNSIGNED) DESC LIMIT 20";
 		                $results = $wpdb->get_results( $query );
-		                for($i=1;$i<=count($results);$i++){
-			                $result = $results[$i-1];?>
-                            <div class="listing">
-				                <?php echo $i.". ";?><a href="<?php echo get_the_permalink($result->ID);?>"><?php echo $result->title;?></a>
-                            </div>
-		                <?php } ?>
+		                $used = [];
+		                if(count($results)>4) {
+			                for ( $i = 0; $i < 5; $i ++ ) {
+				                do {
+					                $index  = rand( 0, count( $results ) - 1 );
+				                } while (in_array($index,$used));
+				                $used[] = $index;
+				                $result = $results[ $index ]; ?>
+                                <div class="listing">
+                                    <a href="<?php echo get_the_permalink( $result->ID ); ?>"><?php echo $result->title; ?></a>
+                                </div>
+			                <?php }
+		                }?>
                         <div class="button viewmore-short">
                             <a href="<?php bloginfo('url'); ?>/business-directory/business-directory-sign-up">Add your business to this directory</a>
                         </div><!-- button -->
@@ -582,15 +589,9 @@ endwhile; endif; wp_reset_query();
 		                if($posts):
 		                foreach( $posts as $post):
 			                setup_postdata( $post );
-			                $term = get_the_terms($post->ID, 'category');
-			                $termId = $term[0]->term_id;
-			                $color = get_field( 'category_color', 'category_'.$termId );
 			                $video = get_field( 'video_single_post' );
 
 			                ?>
-                            <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-                                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term[0]->name; ?></h2>
-                            </div><!-- border title -->
 
                             <div class="post-block blocks">
 
@@ -606,8 +607,6 @@ endwhile; endif; wp_reset_query();
 					                <?php } endif; ?>
 
                                 <h2><?php the_title(); ?></h2>
-                                <div class="postdate"><?php echo get_the_date(); ?></div>
-                                <div class="entry-content home-content"><?php the_excerpt(); ?></div>
                                 <div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
                             </div><!-- post block -->
 

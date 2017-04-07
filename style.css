@@ -1024,7 +1024,7 @@ section#third {
 .event-image-thumb img {width: 100%;}
 /* = Business Listings
 -------------------------------------------------------------- */
-.page-template-business-listings .entry-content p, .single-business_listing .entry-content p {
+.page-template-church-listings .entry-content p,.page-template-business-listings .entry-content p, .single-business_listing .entry-content p {
     font-size: 14px;
 }
 .business-listings-wrapper:after, .church-listings-wrapper:after {

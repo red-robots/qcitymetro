@@ -63,7 +63,7 @@ get_header(); ?>
             	<div class="fe-location"><strong>Location:</strong> <?php echo $trimmedAdd; ?></div>
             <?php } ?>
             <?php if( $phone != '' ) { ?>
-                <div class="fe-start"><strong>Phone:</strong><a href="tel:<?php echo preg_replace("/[^0-9]/","",$phone);?>"><?php echo $phone; ?></a></div>
+                <div class="fe-start"><strong>Phone:</strong> <a href="tel:<?php echo preg_replace("/[^0-9]/","",$phone);?>"><?php echo $phone; ?></a></div>
             <?php } ?>
             
             <?php if( $membership != '' ) { ?>
@@ -166,28 +166,15 @@ get_header(); ?>
 
 ======================================================== -->        
         <div class="widget-area">
-        	<?php get_template_part('ads/right-big'); ?>
+        	<?php get_template_part('ads/right-church-directory'); ?>
             <?php get_template_part('ads/right-small'); ?>
         </div><!-- widget area -->
         
         <div class="clear"></div>
-        
-<!-- 
-			Related Posts
 
-======================================================== --> 
- 			<?php  wp_related_posts(); ?>
-            <div class="clear"></div>
-            
-            
 </div><!-- #content -->
 	</div><!-- #primary -->
     
-    
-<!-- 
-			Events
 
-======================================================== --> 
-<?php get_template_part('inc/events'); ?>
 		
 <?php get_footer(); ?>

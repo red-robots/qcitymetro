@@ -337,14 +337,21 @@
 	                    $query  = "SELECT posts.ID AS ID, posts.post_title AS title FROM $wpdb->postmeta AS meta 
                                     INNER JOIN $wpdb->posts AS posts ON meta.post_id = posts.ID 
                                     WHERE meta.meta_key='views' AND posts.post_type='business_listing'
-                                    ORDER BY CAST(meta.meta_value as UNSIGNED) DESC LIMIT 5";
+                                    ORDER BY CAST(meta.meta_value as UNSIGNED) DESC LIMIT 20";
 	                    $results = $wpdb->get_results( $query );
-	                    for($i=1;$i<=count($results);$i++){
-	                        $result = $results[$i-1];?>
-                            <div class="listing">
-                                <?php echo $i.". ";?><a href="<?php echo get_the_permalink($result->ID);?>"><?php echo $result->title;?></a>
-                            </div>
-	                    <?php }?>
+	                    $used = [];
+	                    if(count($results)>4) {
+		                    for ( $i = 0; $i < 5; $i ++ ) {
+			                    do {
+				                    $index  = rand( 0, count( $results ) - 1 );
+			                    } while (in_array($index,$used));
+			                    $used[] = $index;
+			                    $result = $results[ $index ]; ?>
+                                <div class="listing">
+                                    <a href="<?php echo get_the_permalink( $result->ID ); ?>"><?php echo $result->title; ?></a>
+                                </div>
+		                    <?php }
+	                    }?>
                     </div><!--.business-directory-search-box-->
                 </div><!--.business-directory-search-->
 				<?php

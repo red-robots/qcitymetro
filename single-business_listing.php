@@ -26,6 +26,7 @@ get_header(); ?>
 			 $phone = get_field('phone');
 			 $website = get_field('website');
 			 $category = get_field('category');
+            $description = get_field( 'description' );
 			 $viewMap = null;
 			 if($location != '') {
 			 	$address = $location['address'];
@@ -63,11 +64,13 @@ get_header(); ?>
                                </a>
                             <?php endif;?>
                        </div>
-                            <div class="fe-start"><strong>Phone:</strong><a href="tel:<?php echo preg_replace("/[^0-9]/","",$phone);?>"><?php echo $phone; ?></a></div>
+                            <div class="fe-start"><strong>Phone:</strong> <a href="tel:<?php echo preg_replace("/[^0-9]/","",$phone);?>"><?php echo $phone; ?></a></div>
 
                         <div class="fe-start"><strong>Email:</strong> <a href="<?php echo 'mailto:'.antispambot($email); ?>"><?php echo antispambot($email); ?></a></div>
                         <div class="fe-cost"><strong>Business Category:</strong> <?php echo $category[0]->name; ?></div>
-
+                        <?php if ( $description != '' ) { ?>
+                            <div class="fe-desc"><?php echo $description; ?></div>
+                        <?php } ?>
                         <div class="fe-cost">
                             <a target="_blank" href="<?php echo $website; ?>">
                                 <strong>View Website</strong>
@@ -130,29 +133,15 @@ get_header(); ?>
 
 ======================================================== -->        
         <div class="widget-area">
-        	<?php get_template_part('ads/right-big'); ?>
+        	<?php get_template_part('ads/right-business-directory'); ?>
             <?php get_template_part('ads/right-small'); ?>
         </div><!-- widget area -->
         
         <div class="clear"></div>
         
-<!-- 
-			Related Posts
 
-======================================================== --> 
- 			<?php  wp_related_posts(); ?>
-            <div class="clear"></div>
-            
-            
 </div><!-- #content -->
 	</div><!-- #primary -->
     
-    
-<!-- 
-			Events
-
-======================================================== --> 
-<?php get_template_part('inc/events'); ?>
-		
 
 <?php get_footer(); ?>

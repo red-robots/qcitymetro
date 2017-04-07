@@ -103,7 +103,7 @@ get_header(); ?>
 
 			======================================================== -->
             <div class="widget-area">
-				<?php get_template_part( 'ads/right-big' ); ?>
+                <?php get_template_part('ads/right-business-directory'); ?>
             </div><!-- widget area -->
 
 
