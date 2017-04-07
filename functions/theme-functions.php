@@ -163,7 +163,7 @@ if( is_page(219) ) {
 //}
 }
 
-if( is_page(21) ) {
+if( is_page(37205) ) {
     if($field['name'] == '_post_content') {
         $field['label'] = 'Tell us about your business';
 	    $field['instructions'] = 'What products or services do your offer? What makes your business special? No more than 150 words.';
