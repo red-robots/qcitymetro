@@ -127,8 +127,12 @@ get_header(); ?>
                     </div><!-- business details -->
 					<?php endif; ?>
                     <?php if($church_special):?>
-                        <h3>What makes your church special?</h3>
-                        <?php echo $church_special;?>
+                        <div class="other-details">
+                            <h3>What makes your church special?</h3>
+                            <div class="entry-content">
+                                <?php echo $church_special;?>
+                            </div>
+                        </div><!-- other details -->
                     <?php endif;?>
                 	<?php the_content(); ?>
                     <div class="clear"></div>
