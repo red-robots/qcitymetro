@@ -39,6 +39,7 @@ get_header(); ?>
 						'image_of_church',
 						'image_of_pastor',
 						'services',
+                        'church_special',
 						//'service',
 						'address',
 						'field_561688a693209',

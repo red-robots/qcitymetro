@@ -3101,11 +3101,11 @@ section#third {
 Business details
  */
     .business-details .col-1 {
-        width: 80%;
+        width: 75%;
         float: left;
     }
     .business-details .col-2 {
-        width: 17%;
+        width: 22%;
         float: left;
         margin-left: 3%;
     }

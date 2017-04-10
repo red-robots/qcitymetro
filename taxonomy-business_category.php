@@ -46,7 +46,12 @@ get_header(); ?>
 						$website     = get_field( 'website' );
 						$category    = get_field( 'category' );
 						$description = get_field( 'description' );
-
+						$trimmedAdd = "";
+						if($location != '') {
+							$address    = $location['address'];
+							$us         = ', United States';
+							$trimmedAdd = str_replace( $us, '', $address );
+						}
 						?>
 
 
@@ -63,9 +68,9 @@ get_header(); ?>
                             </div><!-- featured event image -->
                             <div class="featured-event-content">
                                 <h2><?php the_title(); ?></h2>
-								<?php if ( $location != '' ) { ?>
+								<?php if ( $trimmedAdd != '' ) { ?>
                                     <div class="fe-location">
-										<?php echo $location['address']; ?>
+										<?php echo $trimmedAdd; ?>
                                     </div>
 								<?php } ?>
 								<?php if ( $phone != '' ) { ?>

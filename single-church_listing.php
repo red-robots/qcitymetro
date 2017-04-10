@@ -26,6 +26,7 @@ get_header(); ?>
 			 $denominationTerms = get_the_terms( $postId, 'denomination' );
 			 $denomination = $denominationTerms[0]->name;
 			 $pastor = get_field('pastor');
+			 $church_special = get_field("church_special");
 			 $churchImage = get_field('image_of_church');
 			 $pastorImage = get_field('image_of_pastor');
 			 $size = 'large';
@@ -38,6 +39,8 @@ get_header(); ?>
     			 $address = $location['address'];
     			 $us = ', United States';
     			 $trimmedAdd = str_replace($us, '', $address);
+	             $stringAdd = str_replace(' ', '+', $location['address']);
+	             $viewMap = 'https://www.google.com/maps/place/'.$stringAdd;
             }
 			?>
 
@@ -60,7 +63,14 @@ get_header(); ?>
             	<div class="fe-cost"><strong>Founded:</strong> <?php echo $founded; ?></div>
             <?php } ?> 
 			<?php if( $location != '' ) { ?>
-            	<div class="fe-location"><strong>Location:</strong> <?php echo $trimmedAdd; ?></div>
+            	<div class="fe-location"><strong>Location:</strong>
+		            <?php if($viewMap):?>
+                    <a href="<?php echo $viewMap;?>" target="_blank">
+		            <?php endif;?>
+                        <?php echo $trimmedAdd; ?></div>
+                    <?php if($viewMap):?>
+                        </a>
+                    <?php endif;?>
             <?php } ?>
             <?php if( $phone != '' ) { ?>
                 <div class="fe-start"><strong>Phone:</strong> <a href="tel:<?php echo preg_replace("/[^0-9]/","",$phone);?>"><?php echo $phone; ?></a></div>
@@ -116,8 +126,10 @@ get_header(); ?>
                     </ul>
                     </div><!-- business details -->
 					<?php endif; ?>
-                 
-                
+                    <?php if($church_special):?>
+                        <h3>What makes your church special?</h3>
+                        <?php echo $church_special;?>
+                    <?php endif;?>
                 	<?php the_content(); ?>
                     <div class="clear"></div>
                 </div><!-- entry content -->

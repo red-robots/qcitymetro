@@ -69,6 +69,12 @@ get_header(); ?>
 						/*echo '<pre>';
 						print_r($termsDenomination);
 						echo '<pre>';*/
+						$trimmedAdd = "";
+						if($location != '') {
+							$address    = $location['address'];
+							$us         = ', United States';
+							$trimmedAdd = str_replace( $us, '', $address );
+						}
 						?>
 
 
@@ -85,8 +91,8 @@ get_header(); ?>
                             </div><!-- featured event image -->
                             <div class="featured-event-content">
                                 <h2><?php the_title(); ?></h2>
-								<?php if ( $location != '' ) { ?>
-                                    <div class="fe-location"><?php echo $location['address']; ?></div>
+								<?php if ( $trimmedAdd != '' ) { ?>
+                                    <div class="fe-location"><?php echo $trimmedAdd; ?></div>
 								<?php } ?>
 								<?php if ( $phone != '' ) { ?>
                                     <div class="fe-start"><?php echo $phone; ?></div>
