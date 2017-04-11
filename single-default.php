@@ -307,7 +307,7 @@
 				} ?>
                 <div class="business-directory-search">
                     <div class="border-title">
-                        <h2>Search Listings</h2>
+                        <h2>Business Directory</h2>
                     </div>
                     <div class="business-directory-search-box">
                         <h3>Search Businesses</h3>
