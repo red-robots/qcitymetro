@@ -344,6 +344,9 @@
 	                    );
 	                    wpp_get_mostpopular( $args );
 	                    ?>
+                        <div class="button viewmore-short">
+                            <a href="<?php bloginfo('url'); ?>/business-directory/business-directory-sign-up">Add your business to this directory</a>
+                        </div><!-- button -->
                     </div><!--.business-directory-search-box-->
                 </div><!--.business-directory-search-->
 				<?php
