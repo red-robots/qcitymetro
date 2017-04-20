@@ -1038,7 +1038,7 @@ section#third {
     top: 0;
     right: 0;
 }
-.template-video .social-float {
+.template-video .sd-content.social-float {
     position: static;
     width: 100%;
 }
