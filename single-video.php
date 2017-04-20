@@ -83,7 +83,54 @@ get_header();?>
         <div class="widget-area">
             <div class="entry-content">
                 <h1><?php the_title();?></h1>
+                <div class="author">
+		            <?php
+		            $chooseAuthor = get_field( 'choose_author' );
+		            $guestAuthor  = get_field( 'author_name' );
+		            if ( $chooseAuthor != '' ) {
+			            $authorID   = $chooseAuthor['ID'];
+			            $authorName = $chooseAuthor['display_name'];
+			            // echo $authorID;
+			            $authorPhoto = get_field( 'custom_picture', 'user_' . $authorID );
+			            $size        = 'thumbnail';
+			            if ( $authorPhoto ) { ?>
+
+                            <div class="top-author-photo">
+					            <?php echo wp_get_attachment_image( $authorPhoto, $size ); ?>
+                            </div>
+                            <div class="byline">
+                                <div class="top-author-name">By <?php echo $authorName; ?></div>
+                                <div class="postdate"><?php echo get_the_date(); ?></div>
+                            </div>
+			            <?php } else { ?>
+                            <div class="byline">
+                                <div class="top-author-name">By <?php echo $authorName; ?></div>
+                                <div class="postdate"><?php echo get_the_date(); ?></div>
+                            </div>
+			            <?php } //  if photo
+
+			            // Else use the Legacy Guest Author Field
+		            } elseif ( $guestAuthor != '' ) {
+
+			            ?>
+                        <div class="byline">
+                            <div class="top-author-name">By <?php echo $guestAuthor; ?></div>
+                            <div class="postdate"><?php echo get_the_date(); ?></div>
+                        </div>
+		            <?php } else { ?>
+                        <div class="byline">
+                            <div class="top-author-name">By <?php echo get_the_author(); ?></div>
+                            <div class="postdate"><?php echo get_the_date(); ?></div>
+                        </div>
+
+		            <?php } ?>
+                </div><!-- author -->
+                <div class="clear"></div>
                 <?php the_content(); ?>
+                <div class="clear"></div>
+	            <?php if ( function_exists( 'sharing_display' ) ) { ?>
+                    <div class="jetpack-social"><?php sharing_display( '', true ); ?></div>
+	            <?php } ?>
             </div><!--.entry-content-->
         </div><!--.widget-area-->
     </div><!--.template-video-->
