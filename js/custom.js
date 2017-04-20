@@ -214,6 +214,35 @@ __________________________________________
         heading.html(['<span class="uppercase">', last_word, '</span> ' , first_part].join(''));
     });
 
-
+    var $video_wrapper = $('.template-video .video-wrapper');
+    if($video_wrapper.length>0){
+        var $window = $(window);
+        var anchor = $video_wrapper.offset().top;
+        var $site_nav = $('#site-navigation');
+        var offset_y = 10;
+        var offset_x = 10;
+        if($site_nav.length>0){
+            offset_y = offset_y + $site_nav.height();
+        }
+        $window.on("scroll",function(){
+           if($window.scrollTop()>anchor && window.innerWidth > 600){
+               $video_wrapper.css({
+                   position:'fixed',
+                   top: offset_y + "px",
+                   right: offset_x+"px",
+                   width: '250px',
+                   paddingBottom: '250px'
+               });
+           } else {
+               $video_wrapper.css({
+                   position:'',
+                   top: '',
+                   right: '',
+                   width: '',
+                   paddingBottom: ''
+               });
+           }
+        });
+    }
 });// END #####################################    END Document Ready
 

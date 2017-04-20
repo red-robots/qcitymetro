@@ -439,3 +439,6 @@ function tsm_save_image_field_to_featured_image( $post_id ) {
     add_post_meta( $post_id, '_thumbnail_id', $image );
  
 }
+
+//adding post format support
+add_theme_support( 'post-formats', array( 'video' ) );

@@ -1022,6 +1022,23 @@ section#third {
 	margin: 0 10px 20px 0;
 }
 .event-image-thumb img {width: 100%;}
+/* Video Template*/
+.template-video {
+    position: relative;
+}
+.template-video .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    z-index: 3;
+}
+.template-video .video-wrapper iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+}
+
 /* = Business Listings
 -------------------------------------------------------------- */
 .page-template-church-listings .entry-content p,.page-template-business-listings .entry-content p, .single-business_listing .entry-content p {

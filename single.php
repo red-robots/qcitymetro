@@ -4,12 +4,15 @@
  *
  */
 
-get_header(); 
+get_header();
 
-
-if(in_category(30)) {
-	get_template_part('single-qcity-curious');
+if ( has_post_format( 'video' )) {
+	get_template_part( 'single-video' );
 } else {
-	get_template_part('single-default');
+	if ( in_category( 30 ) ) {
+		get_template_part( 'single-qcity-curious' );
+	} else {
+		get_template_part( 'single-default' );
+	}
 }
 ?>
