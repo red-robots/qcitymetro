@@ -31,7 +31,8 @@ get_header();?>
 				<header class="archive-header">
 					<div class="border-title">
 						<div class="catname">
-							Video
+							<?php $category = get_the_category( $id );
+							echo $category[0]->cat_name; ?>
 						</div>
 					</div><!-- border title -->
 				</header><!-- .archive-header -->
@@ -80,39 +81,16 @@ get_header();?>
                     </a>
                 </div>
             <div class="clear"></div>
-        </div><!--.site-content-->
-        <div class="widget-area">
-            <header class="archive-header">
-                <div class="border-title">
-                    <div class="catname">
-				        <?php $category = get_the_category( $id );
-				        echo $category[0]->cat_name; ?>
-                    </div>
-                </div><!-- border title -->
-            </header><!-- .archive-header -->
-            <div class="entry-content">
-                <h1><?php the_title();?></h1>
-                <div class="clear"></div>
-                <?php the_content(); ?>
-                <div class="clear"></div>
-	            <?php if ( function_exists( 'sharing_display' ) ) { ?>
-                    <div class="jetpack-social"><?php sharing_display( '', true ); ?></div>
-	            <?php } ?>
-            </div><!--.entry-content-->
-        </div><!--.widget-area-->
-    </div><!--.template-video-->
-        <div class="clear"></div>
-        <div class="site-content">
-				      <!--  <div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="true"></div> -->
+                <!--  <div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="true"></div> -->
 
 
 
 
-				<!--<div class="footer-meta">
+                <!--<div class="footer-meta">
                 	Categorized: <?php the_category( ', ' ); ?>
                 </div> footer meta -->
 
-				<!-- Your like button code -->
+                <!-- Your like button code -->
 
 
 				<?php
@@ -122,7 +100,7 @@ get_header();?>
 				?>
 
 
-				<!-- <nav class="nav-single">
+                <!-- <nav class="nav-single">
 					<h3 class="assistive-text"><?php _e( 'Post navigation', 'twentytwelve' ); ?></h3>
 					<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '', 'Previous post link', 'twentytwelve' ) . '</span> previous' ); ?></span>
 					<span class="nav-next"><?php next_post_link( '%link', 'next <span class="meta-nav">' . _x( '', 'Next post link', 'twentytwelve' ) . '</span>' ); ?></span>
@@ -139,134 +117,139 @@ get_header();?>
 			?>
 
             <div id="goto-comments"></div>
-	        <?php echo do_shortcode( '[fbcomments url="" width="375" count="off" num="3" countmsg="wonderful comments!"]' ); ?>
-		</div><!-- site content -->
-            <!--
-                        Ad Zone
+			<?php echo do_shortcode( '[fbcomments url="" width="375" count="off" num="3" countmsg="wonderful comments!"]' ); ?>
+        </div><!--.site-content-->
+        <div class="widget-area">
+            <div class="entry-content">
+                <h1><?php the_title();?></h1>
+                <div class="clear"></div>
+                <?php the_content(); ?>
+                <div class="clear"></div>
+	            <?php if ( function_exists( 'sharing_display' ) ) { ?>
+                    <div class="jetpack-social"><?php sharing_display( '', true ); ?></div>
+	            <?php } ?>
+            </div><!--.entry-content-->
+	        <?php
 
-            ======================================================== -->
-            <div class="widget-area">
+	        // Query latest three posts excluding the previously queried posts
+	        $wp_query = new WP_Query();
+	        $wp_query->query( array(
+		        //'category_name' => $category,
+		        'post_type'      => 'post',
+		        'posts_per_page' => '-1', // 4 if sponsored, 5 if no sponsored
+		        'cat'            => 30, // sponsored
 
-                <?php
-
-                // Query latest three posts excluding the previously queried posts
-                $wp_query = new WP_Query();
-                $wp_query->query( array(
-                    //'category_name' => $category,
-                    'post_type'      => 'post',
-                    'posts_per_page' => '-1', // 4 if sponsored, 5 if no sponsored
-                    'cat'            => 30, // sponsored
-
-                ) );
-                if ( $wp_query->have_posts() ) : ?>
-                <section class="sponsored-posts">
-                    <!-- <div class="about-sponsored">
+	        ) );
+	        if ( $wp_query->have_posts() ) : ?>
+            <section class="sponsored-posts">
+                <!-- <div class="about-sponsored">
                     <div class="about-sponsored-tab"><?php the_field( 'sponsored_content_title', 'option' ); ?></div>
                         <?php the_field( 'sponsored_content_verbiage', 'option' ); ?>
                     </div> -->
 
-                    <div class="border-title">
-                        <h2><?php the_field( 'sponsored_content_title', 'option' ); ?></h2>
-                    </div><!-- border title -->
-                    <div class="about-sponsored">
-                        <?php the_field( 'sponsored_content_verbiage', 'option' ); ?>
-                    </div>
-                    <?php
-                    while ( $wp_query->have_posts() ) : $wp_query->the_post();
-                        if ( has_post_thumbnail() ) {
-                            $smallClass = 'small-post-content';
-                        } else {
-                            $smallClass = 'small-post-content-full';
-                        }
-                        $pId      = get_the_ID();
-                        $term     = get_the_terms( $pId, 'category' );
-                        $termName = $term[0]->name;
+                <div class="border-title">
+                    <h2><?php the_field( 'sponsored_content_title', 'option' ); ?></h2>
+                </div><!-- border title -->
+                <div class="about-sponsored">
+			        <?php the_field( 'sponsored_content_verbiage', 'option' ); ?>
+                </div>
+		        <?php
+		        while ( $wp_query->have_posts() ) : $wp_query->the_post();
+			        if ( has_post_thumbnail() ) {
+				        $smallClass = 'small-post-content';
+			        } else {
+				        $smallClass = 'small-post-content-full';
+			        }
+			        $pId      = get_the_ID();
+			        $term     = get_the_terms( $pId, 'category' );
+			        $termName = $term[0]->name;
 
-                        // Finally - added August 25 2016
-                        // Don't show expired post.
-                        // Can't do this in the query becuase there are so many posts without a datefield
-                        $today = date( 'Ymd' );
-                        //echo $today;
-                        $postDate = get_field( 'post_expire' );
-
-
-                        //
-                        if ( $postDate > $today || $postDate == '' ) :
-                            echo '<!-- OK | Today:' . $today . ' | Expires:' . $postDate . '-->';
-
-                            ?>
-                            <div class="small-post">
-                                <a href="<?php the_permalink(); ?>">
-                                    <div class="small-post-thumb">
-                                        <?php if ( has_post_thumbnail() ) {
-                                            the_post_thumbnail( 'thumbnail' );
-                                        } ?>
-                                    </div><!-- small post thumb -->
-                                    <div class="<?php echo $smallClass; ?>">
-                                        <!-- <h3><?php echo $termName; ?></h3> -->
-                                        <div class="clear"></div>
-                                        <h2><?php the_title(); ?></h2>
-                                    </div><!-- small post content -->
-                                </a>
-                            </div><!-- smalll post -->
-                            <?php
-
-                        endif; // end comparing post expire to today
-
-                    endwhile;
-                    endif; // end sponsored posts category
+			        // Finally - added August 25 2016
+			        // Don't show expired post.
+			        // Can't do this in the query becuase there are so many posts without a datefield
+			        $today = date( 'Ymd' );
+			        //echo $today;
+			        $postDate = get_field( 'post_expire' );
 
 
-                    wp_reset_postdata();
-                    wp_reset_query(); ?>
-                </section>
+			        //
+			        if ( $postDate > $today || $postDate == '' ) :
+				        echo '<!-- OK | Today:' . $today . ' | Expires:' . $postDate . '-->';
 
-                <div class="business-directory-search">
-                    <div class="border-title">
-                        <h2>Business Directory</h2>
-                    </div>
-                    <div class="business-directory-search-box">
-                        <h3>Search Businesses</h3>
-                        <form id="category-select" class="category-select replace"  action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
-                            <?php $args = array(
-                                'show_option_none'  => 'Select category',
-                                'show_count'        => 1,
-                                'orderby'       => 'name',
-                                'hierarchical'      => 1,
-                                'hide_empty'        => 0,
-                                'echo'          => 0,
-                                'value_field' => 'slug',
-                                'taxonomy'           => 'business_category',
-                                'name' => 'business_category'
-                            ); ?>
-                            <?php $select  = wp_dropdown_categories( $args );
-                            ?>
-                            <?php $replace = "<select$1 onchange='return this.form.submit()' class= 'replace' >"; ?>
-                            <?php $select  = preg_replace( '#<select([^>]*)>#', $replace, $select ); ?>
-                            <?php echo $select; ?>
-                            <noscript>
-                                <input type="submit" value="View" />
-                            </noscript>
-                        </form>
-                        <h3>Most Viewed Business Listings</h3>
-                        <?php
-                        $args = array(
-                            'range' => 'weekly',
-                            'post_type' => 'business_listing',
-                            'wpp_start' => '',
-                            'wpp_end' => '',
-                            'limit'=>5,
-                            'post_html' => '<div class="listing"><a href="{url}">{text_title}</a></div>'
-                        );
-                        wpp_get_mostpopular( $args );
-                        ?>
-                        <div class="button viewmore-short">
-                            <a href="<?php bloginfo('url'); ?>/business-directory/business-directory-sign-up">Add your business to this directory</a>
-                        </div><!-- button -->
-                    </div><!--.business-directory-search-box-->
-                </div><!--.business-directory-search-->
-            </div><!-- widget area -->
-		<div class="clear"></div>
+				        ?>
+                        <div class="small-post">
+                            <a href="<?php the_permalink(); ?>">
+                                <div class="small-post-thumb">
+							        <?php if ( has_post_thumbnail() ) {
+								        the_post_thumbnail( 'thumbnail' );
+							        } ?>
+                                </div><!-- small post thumb -->
+                                <div class="<?php echo $smallClass; ?>">
+                                    <!-- <h3><?php echo $termName; ?></h3> -->
+                                    <div class="clear"></div>
+                                    <h2><?php the_title(); ?></h2>
+                                </div><!-- small post content -->
+                            </a>
+                        </div><!-- smalll post -->
+				        <?php
+
+			        endif; // end comparing post expire to today
+
+		        endwhile;
+		        endif; // end sponsored posts category
+
+
+		        wp_reset_postdata();
+		        wp_reset_query(); ?>
+            </section>
+
+            <div class="business-directory-search">
+                <div class="border-title">
+                    <h2>Business Directory</h2>
+                </div>
+                <div class="business-directory-search-box">
+                    <h3>Search Businesses</h3>
+                    <form id="category-select" class="category-select replace"  action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
+				        <?php $args = array(
+					        'show_option_none'  => 'Select category',
+					        'show_count'        => 1,
+					        'orderby'       => 'name',
+					        'hierarchical'      => 1,
+					        'hide_empty'        => 0,
+					        'echo'          => 0,
+					        'value_field' => 'slug',
+					        'taxonomy'           => 'business_category',
+					        'name' => 'business_category'
+				        ); ?>
+				        <?php $select  = wp_dropdown_categories( $args );
+				        ?>
+				        <?php $replace = "<select$1 onchange='return this.form.submit()' class= 'replace' >"; ?>
+				        <?php $select  = preg_replace( '#<select([^>]*)>#', $replace, $select ); ?>
+				        <?php echo $select; ?>
+                        <noscript>
+                            <input type="submit" value="View" />
+                        </noscript>
+                    </form>
+                    <h3>Most Viewed Business Listings</h3>
+			        <?php
+			        $args = array(
+				        'range' => 'weekly',
+				        'post_type' => 'business_listing',
+				        'wpp_start' => '',
+				        'wpp_end' => '',
+				        'limit'=>5,
+				        'post_html' => '<div class="listing"><a href="{url}">{text_title}</a></div>'
+			        );
+			        wpp_get_mostpopular( $args );
+			        ?>
+                    <div class="button viewmore-short">
+                        <a href="<?php bloginfo('url'); ?>/business-directory/business-directory-sign-up">Add your business to this directory</a>
+                    </div><!-- button -->
+                </div><!--.business-directory-search-box-->
+            </div><!--.business-directory-search-->
+        </div><!--.widget-area-->
+        <div class="clear"></div>
+    </div><!--.template-video-->
 
 	</div><!-- #content -->
 </div><!-- #primary -->
