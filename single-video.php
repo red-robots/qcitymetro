@@ -65,6 +65,15 @@ get_header();?>
 						<?php } endif; ?>
 
                 </div><!-- entry content -->
+                <div class="entry-content mobile-visible">
+                    <h1><?php the_title();?></h1>
+                    <div class="clear"></div>
+					<?php the_content(); ?>
+                    <div class="clear"></div>
+					<?php if ( function_exists( 'sharing_display' ) ) { ?>
+                        <div class="jetpack-social"><?php sharing_display( '', true ); ?></div>
+					<?php } ?>
+                </div><!--.entry-content-->
                 <div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="like"
                      data-size="small" data-show-faces="true" data-share="true"></div>
 
@@ -120,7 +129,7 @@ get_header();?>
 			<?php echo do_shortcode( '[fbcomments url="" width="375" count="off" num="3" countmsg="wonderful comments!"]' ); ?>
         </div><!--.site-content-->
         <div class="widget-area">
-            <div class="entry-content">
+            <div class="entry-content mobile-hidden">
                 <h1><?php the_title();?></h1>
                 <div class="clear"></div>
                 <?php the_content(); ?>

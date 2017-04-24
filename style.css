@@ -1026,6 +1026,12 @@ section#third {
 .template-video {
     position: relative;
 }
+.template-video .mobile-hidden{
+    display: none;
+}
+.template-video .mobile-visible {
+    display: block;
+}
 .template-video .video-holder {
     position: relative;
     padding-bottom: 56.25%;
@@ -2781,6 +2787,13 @@ img#wpstats {
 
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
+
+    .template-video .mobile-hidden{
+        display: block;
+    }
+    .template-video .mobile-visible {
+        display: none;
+    }
     .template-video .site-content{
         width: 65.104166667%;
     }
