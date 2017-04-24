@@ -45,7 +45,7 @@
 			get_bloginfo('template_directory') . '/js/colorbox.js',
 			array('jquery') );
 		wp_enqueue_script('colorbox');
-		
+
 		// Custom Theme scripts...
 		wp_register_script(
 			'custom',

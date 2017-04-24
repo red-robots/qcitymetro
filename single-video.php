@@ -6,7 +6,6 @@
 
 get_header();?>
 
-<?php get_template_part( 'inc/events' ); ?>
 
 <div class="clear"></div>
 
@@ -32,8 +31,7 @@ get_header();?>
 				<header class="archive-header">
 					<div class="border-title">
 						<div class="catname">
-							<?php $category = get_the_category( $id );
-							echo $category[0]->cat_name; ?>
+							Video
 						</div>
 					</div><!-- border title -->
 				</header><!-- .archive-header -->
@@ -43,9 +41,11 @@ get_header();?>
 
 					<?php
 					if ( $video != '' ) : ?>
-                        <div class="video-wrapper">
-                            <?php echo $video;?>
-                        </div><!--.video-wrapper-->
+                        <div class="video-holder">
+                            <div class="video-wrapper">
+                                <?php echo $video;?>
+                            </div><!--.video-wrapper-->
+                        </div>
 					<?php else:
 						if ( $storyImage != '' ) {
 
@@ -79,52 +79,19 @@ get_header();?>
                         Join The Community. Receive updates from Qcitymetro &raquo; &raquo;
                     </a>
                 </div>
+            <div class="clear"></div>
         </div><!--.site-content-->
         <div class="widget-area">
+            <header class="archive-header">
+                <div class="border-title">
+                    <div class="catname">
+				        <?php $category = get_the_category( $id );
+				        echo $category[0]->cat_name; ?>
+                    </div>
+                </div><!-- border title -->
+            </header><!-- .archive-header -->
             <div class="entry-content">
                 <h1><?php the_title();?></h1>
-                <div class="author">
-		            <?php
-		            $chooseAuthor = get_field( 'choose_author' );
-		            $guestAuthor  = get_field( 'author_name' );
-		            if ( $chooseAuthor != '' ) {
-			            $authorID   = $chooseAuthor['ID'];
-			            $authorName = $chooseAuthor['display_name'];
-			            // echo $authorID;
-			            $authorPhoto = get_field( 'custom_picture', 'user_' . $authorID );
-			            $size        = 'thumbnail';
-			            if ( $authorPhoto ) { ?>
-
-                            <div class="top-author-photo">
-					            <?php echo wp_get_attachment_image( $authorPhoto, $size ); ?>
-                            </div>
-                            <div class="byline">
-                                <div class="top-author-name">By <?php echo $authorName; ?></div>
-                                <div class="postdate"><?php echo get_the_date(); ?></div>
-                            </div>
-			            <?php } else { ?>
-                            <div class="byline">
-                                <div class="top-author-name">By <?php echo $authorName; ?></div>
-                                <div class="postdate"><?php echo get_the_date(); ?></div>
-                            </div>
-			            <?php } //  if photo
-
-			            // Else use the Legacy Guest Author Field
-		            } elseif ( $guestAuthor != '' ) {
-
-			            ?>
-                        <div class="byline">
-                            <div class="top-author-name">By <?php echo $guestAuthor; ?></div>
-                            <div class="postdate"><?php echo get_the_date(); ?></div>
-                        </div>
-		            <?php } else { ?>
-                        <div class="byline">
-                            <div class="top-author-name">By <?php echo get_the_author(); ?></div>
-                            <div class="postdate"><?php echo get_the_date(); ?></div>
-                        </div>
-
-		            <?php } ?>
-                </div><!-- author -->
                 <div class="clear"></div>
                 <?php the_content(); ?>
                 <div class="clear"></div>
@@ -171,7 +138,8 @@ get_header();?>
 			get_template_part( 'inc/extra-click' );
 			?>
 
-
+            <div id="goto-comments"></div>
+	        <?php echo do_shortcode( '[fbcomments url="" width="375" count="off" num="3" countmsg="wonderful comments!"]' ); ?>
 		</div><!-- site content -->
             <!--
                         Ad Zone
@@ -181,32 +149,6 @@ get_header();?>
 
                 <?php
 
-                // If is not in Sponsored Content, proceed
-                if ( ! in_category( 30 ) ) :?>
-                    <?php
-                    if ( in_category( '6' ) ) {
-                        get_template_part( 'ads/right-small-health' );
-                    } else {
-                        get_template_part( 'ads/right-small' );
-                    }
-                endif; // if not in sponsored Cat
-                ?>
-
-                <?php
-                // If is not in Health category... Show sponsored content posts
-                if ( ! in_category( 6 ) ): ?>
-                    <div class="about-sponsored">
-                        <!-- <div class="about-sponsored-tab"></div> -->
-                        <!-- single-default.php -->
-                    </div>
-                    <?php
-                    // Moved this 6/13/2016 Glenn changed from "sponsored" to "Offers and invites"
-                    // He didn't want it in the health cat but now he does
-                endif; // end the sponored categoyr post
-
-
-                wp_reset_postdata();
-                wp_reset_query();
                 // Query latest three posts excluding the previously queried posts
                 $wp_query = new WP_Query();
                 $wp_query->query( array(
@@ -279,13 +221,6 @@ get_header();?>
                     wp_reset_query(); ?>
                 </section>
 
-                <?php
-                // if not in health category, show another add below Qcity Curious
-                if ( ! in_category( '6' ) ) {
-
-                    get_template_part( 'ads/single-right-ad-below-curious' );
-
-                } ?>
                 <div class="business-directory-search">
                     <div class="border-title">
                         <h2>Business Directory</h2>
@@ -330,47 +265,8 @@ get_header();?>
                         </div><!-- button -->
                     </div><!--.business-directory-search-box-->
                 </div><!--.business-directory-search-->
-                <?php
-                if ( function_exists( 'wpp_get_mostpopular' ) ) : ?>
-
-                    <!--  <div class="about-sponsored">
-                         <div class="about-sponsored-tab">Most Popular</div>
-                     </div> -->
-
-                    <div class="border-title">
-                        <h2>Most Popular</h2>
-                    </div><!-- border title -->
-
-                    <?php
-                    $args = array(
-                        'wpp_start'        => '<div class="small-post">',
-                        'wpp_end'          => '</div>',
-                        'stats_category'   => 0,
-                        'post_html'        => '<a href="{url}"><div class="small-post-thumb">{thumb_img}</div><div class="small-post-content"><h2>{text_title}</h2></div></a>',
-                        'thumbnail_width'  => 100,
-                        'thumbnail_height' => 100,
-                        'limit'            => - 1,
-                        'range'            => 'weekly',
-                        'freshness'        => 1,
-                        'order_by'         => 'views',
-                        'post_type'        => 'post'
-
-                    );
-                    wpp_get_mostpopular( $args );
-
-                endif;
-                ?>
-
-                <?php get_template_part( 'inc/our-partners' ) ?>
-
-
             </div><!-- widget area -->
 		<div class="clear"></div>
-
-
-		<div id="goto-comments"></div>
-		<?php echo do_shortcode( '[fbcomments url="" width="375" count="off" num="3" countmsg="wonderful comments!"]' ); ?>
-
 
 	</div><!-- #content -->
 </div><!-- #primary -->

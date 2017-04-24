@@ -1026,12 +1026,20 @@ section#third {
 .template-video {
     position: relative;
 }
-.template-video .video-wrapper {
+.template-video .video-holder {
     position: relative;
     padding-bottom: 56.25%;
     z-index: 3;
+    margin-bottom: 24px;
 }
-.template-video .video-wrapper iframe {
+.template-video .video-holder .video-wrapper iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+}
+.template-video .video-holder .video-wrapper iframe {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -2772,6 +2780,12 @@ img#wpstats {
 
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
+    .template-video .site-content{
+        width: 65.104166667%;
+    }
+    .template-video .widget-area{
+        width: 31.041666667%;
+    }
 .fb-like {
 	width: 45%;
 }

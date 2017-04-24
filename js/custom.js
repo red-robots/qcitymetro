@@ -214,35 +214,39 @@ __________________________________________
         heading.html(['<span class="uppercase">', last_word, '</span> ' , first_part].join(''));
     });
 
-    var $video_wrapper = $('.template-video .video-wrapper');
+    var $video_wrapper = $('.template-video .video-holder .video-wrapper');
     if($video_wrapper.length>0){
         var $window = $(window);
-        var anchor = $video_wrapper.offset().top;
+        var $video_holder = $('.template-video .video-holder');
         var $site_nav = $('#site-navigation');
-        var offset_y = 10;
-        var offset_x = 10;
-        if($site_nav.length>0){
-            offset_y = offset_y + $site_nav.height();
+        function video_check(){
+            var anchor = $video_holder.offset().top;
+            var offset_y = 10;
+            var offset_x = 10;
+            if($site_nav.length>0){
+                offset_y = offset_y + $site_nav.height();
+            }
+            if($window.scrollTop()>anchor && window.innerWidth > 600){
+                $video_wrapper.css({
+                    position:'fixed',
+                    top: offset_y + "px",
+                    right: offset_x+"px",
+                    width: '250px',
+                    height: '250px'
+                });
+            } else {
+                $video_wrapper.css({
+                    position:'',
+                    top: '',
+                    right: '',
+                    width: '',
+                    height: ''
+                });
+            }
         }
-        $window.on("scroll",function(){
-           if($window.scrollTop()>anchor && window.innerWidth > 600){
-               $video_wrapper.css({
-                   position:'fixed',
-                   top: offset_y + "px",
-                   right: offset_x+"px",
-                   width: '250px',
-                   paddingBottom: '250px'
-               });
-           } else {
-               $video_wrapper.css({
-                   position:'',
-                   top: '',
-                   right: '',
-                   width: '',
-                   paddingBottom: ''
-               });
-           }
-        });
+        video_check();
+        $window.on("scroll",video_check);
+        $window.on("resize",video_check);
     }
 });// END #####################################    END Document Ready
 
