@@ -1025,6 +1025,7 @@ section#third {
 /* Video Template*/
 .template-video {
     position: relative;
+    background-color: lightgrey;
 }
 .template-video .video-holder {
     position: relative;
