@@ -2787,7 +2787,9 @@ img#wpstats {
 
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
-
+    .template-video .entry-content h1 {
+        font-size: 30px;
+    }
     .template-video .mobile-hidden{
         display: block;
     }
