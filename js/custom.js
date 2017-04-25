@@ -232,7 +232,7 @@ __________________________________________
                     top: offset_y + "px",
                     right: offset_x+"px",
                     width: '250px',
-                    height: '250px'
+                    height: '140px'
                 });
             } else {
                 $video_wrapper.css({
