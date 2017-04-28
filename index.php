@@ -57,19 +57,15 @@ endwhile; endif; wp_reset_query();
 							
 							$posts = $featuredPost; 
 							foreach($posts as $post) :
-							setup_postdata( $post ); 
-							$video = get_field( 'video_single_post' );
+							setup_postdata( $post );
 							
 							?>
 								
-							<?php if( $video != '' ) :
-									echo $video;
-									else:
-								if ( has_post_thumbnail() ) { ?>
+							<?php if ( has_post_thumbnail() ) { ?>
                              <div class="postthumb-full">
                                  <?php the_post_thumbnail('large'); ?>
                              </div><!-- post thumb -->
-                         <?php } endif;?>
+                         <?php }?>
                          <h2><?php the_title(); ?><!-- title --></h2>
                          <div class="author">
                          <?php $guestAuthor = get_field('author_name');
@@ -566,7 +562,6 @@ endwhile; endif; wp_reset_query();
 		                if($posts):
 		                foreach( $posts as $post):
 			                setup_postdata( $post );
-			                $video = get_field( 'video_single_post' );
 
 			                ?>
 
@@ -574,14 +569,11 @@ endwhile; endif; wp_reset_query();
 
 
 				                <?php
-				                if( $video != '' ) :
-					                echo $video;
-				                else:
 					                if ( has_post_thumbnail() ) { ?>
                                         <div class="post-block-image js-titles">
 							                <?php  the_post_thumbnail('thirds'); ?>
                                         </div>
-					                <?php } endif; ?>
+					                <?php }?>
 
                                 <h2><?php the_title(); ?></h2>
                                 <div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
