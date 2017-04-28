@@ -408,7 +408,6 @@ endwhile; endif; wp_reset_query();
 			 $term = get_the_terms($section1->ID, 'category');
 			 $termId = $term[0]->term_id;
 			 $color = get_field( 'category_color', 'category_'.$termId );
-			 $video = get_field( 'video_single_post' ); 
 			 // echo '<pre>';
 			 // print_r($section1);
 			 ?>	
@@ -417,20 +416,12 @@ endwhile; endif; wp_reset_query();
             </div><!-- border title -->
             
             <div class="post-block blocks">
-            
-            
-            
-				<?php 
-				if( $video != '' ) : ?>
-                	<div class="post-block-image video-block js-titles">
-						<?php echo $video; ?>
-                   </div>
-					<?php else:
-				if ( has_post_thumbnail() ) { ?>
+
+                <?php if ( has_post_thumbnail() ) { ?>
                 	<div class="post-block-image js-titles">
                        <?php  the_post_thumbnail('thirds'); ?>
                    </div>
-               <?php } endif; ?>
+               <?php } ?>
                 
             	<h2><?php the_title(); ?></h2>
             	<div class="postdate"><?php echo get_the_date(); ?></div>
@@ -452,7 +443,7 @@ endwhile; endif; wp_reset_query();
 			 $term = get_the_terms($section2->ID, 'category');
 			 $termId = $term[0]->term_id;
 			 $color = get_field( 'category_color', 'category_'.$termId ); 
-			 $video = get_field( 'video_single_post' );
+
 		
 			 ?>	
             <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
@@ -462,15 +453,12 @@ endwhile; endif; wp_reset_query();
             <div class="post-block blocks">
             
             
-				<?php 
-				if( $video != '' ) :
-						echo $video;
-					else:
+				<?php
 				if ( has_post_thumbnail() ) { ?>
                 	<div class="post-block-image js-titles">
                        <?php  the_post_thumbnail('thirds'); ?>
                    </div>
-               <?php } endif; ?>
+               <?php } ?>
                 
             	<h2><?php the_title(); ?></h2>
             	<div class="postdate"><?php echo get_the_date(); ?></div>
@@ -491,8 +479,7 @@ endwhile; endif; wp_reset_query();
 			 setup_postdata( $post ); 
 			 $term = get_the_terms($section3->ID, 'category');
 			 $termId = $term[0]->term_id;
-			 $color = get_field( 'category_color', 'category_'.$termId ); 
-			 $video = get_field( 'video_single_post' );
+			 $color = get_field( 'category_color', 'category_'.$termId );
 			/* echo '<pre>';
 			 print_r($color);*/
 			 ?>	
@@ -503,15 +490,12 @@ endwhile; endif; wp_reset_query();
             <div class="post-block blocks">
             
             
-				<?php 
-				if( $video != '' ) :
-						echo $video;
-					else:
+				<?php
 				if ( has_post_thumbnail() ) { ?>
                 	<div class="post-block-image js-titles">
                        <?php  the_post_thumbnail('thirds'); ?>
                    </div>
-               <?php } endif; ?>
+               <?php } ?>
                 
             	<h2><?php the_title(); ?></h2>
             	<div class="postdate"><?php echo get_the_date(); ?></div>

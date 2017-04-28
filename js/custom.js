@@ -173,12 +173,12 @@ __________________________________________
       });
 
       // check grid size on resize event
-      $window.resize(function() {
+      /*$window.resize(function() {
         var gridSize = getGridSize();
 
         flexslider.vars.minItems = gridSize;
         flexslider.vars.maxItems = gridSize;
-      });
+      });*/
     }());
 
 
@@ -231,8 +231,8 @@ __________________________________________
                     position:'fixed',
                     top: offset_y + "px",
                     right: offset_x+"px",
-                    width: '250px',
-                    height: '140px'
+                    width: '350px',
+                    height: '196px'
                 });
             } else {
                 $video_wrapper.css({
