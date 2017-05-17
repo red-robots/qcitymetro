@@ -22,6 +22,9 @@ $section1 = get_field('section_1_article');
 $section2 = get_field('section_2_article');
 	$section3 = get_field('section_3_article');
 	$section4 = get_field('section_4_article');
+	$section5 = get_field('section_5_article');
+	$section6 = get_field('section_6_article');
+	$section7 = get_field('section_7_article');
 
 endwhile; endif; wp_reset_query();
 // End Homepage Query
@@ -399,9 +402,10 @@ endwhile; endif; wp_reset_query();
         <section id="third" class="third-first ">
         <?php 
             $posts = $section1;
+			if($posts):
             foreach( $posts as $post): 
 			 setup_postdata( $post ); 
-			 $term = get_the_terms($section1->ID, 'category');
+			 $term = get_the_terms($post->ID, 'category');
 			 $termId = $term[0]->term_id;
 			 $color = get_field( 'category_color', 'category_'.$termId );
 			 // echo '<pre>';
@@ -421,22 +425,23 @@ endwhile; endif; wp_reset_query();
                 
             	<h2><?php the_title(); ?></h2>
             	<div class="postdate"><?php echo get_the_date(); ?></div>
-            	<div class="entry-content home-content"><?php the_excerpt(); ?></div>
             	<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
             </div><!-- post block -->
             
             <?php // get more ids
 				   $ids[] = get_the_ID();
 				   endforeach;
-				   wp_reset_postdata(); ?>
+				   wp_reset_postdata();
+			endif; ?>
         </section>
         
         <section id="third" class="third-first ">
         	<?php 
-            $posts = $section2; 
+            $posts = $section2;
+			if($posts): 
             foreach( $posts as $post):
 			 setup_postdata( $post ); 
-			 $term = get_the_terms($section2->ID, 'category');
+			 $term = get_the_terms($post->ID, 'category');
 			 $termId = $term[0]->term_id;
 			 $color = get_field( 'category_color', 'category_'.$termId ); 
 
@@ -458,22 +463,23 @@ endwhile; endif; wp_reset_query();
                 
             	<h2><?php the_title(); ?></h2>
             	<div class="postdate"><?php echo get_the_date(); ?></div>
-            	<div class="entry-content home-content"><?php the_excerpt(); ?></div>
             	<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
             </div><!-- post block -->
             
             <?php // get more ids
 				   $ids[] = get_the_ID();
 				   endforeach;
-				   wp_reset_postdata(); ?>
+				   wp_reset_postdata(); 
+			endif;?>
         </section>
         
         <section id="third" class="third-last">
         	<?php 
             $posts = $section3;
+			if($posts):
             foreach( $posts as $post):
 			 setup_postdata( $post ); 
-			 $term = get_the_terms($section3->ID, 'category');
+			 $term = get_the_terms($post->ID, 'category');
 			 $termId = $term[0]->term_id;
 			 $color = get_field( 'category_color', 'category_'.$termId );
 			/* echo '<pre>';
@@ -495,14 +501,143 @@ endwhile; endif; wp_reset_query();
                 
             	<h2><?php the_title(); ?></h2>
             	<div class="postdate"><?php echo get_the_date(); ?></div>
-            	<div class="entry-content home-content"><?php the_excerpt(); ?></div>
             	<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
             </div><!-- post block -->
             
             <?php // get more ids
 				   $ids[] = get_the_ID();
 				   endforeach;
-				   wp_reset_postdata(); ?>
+				   wp_reset_postdata();
+			endif; ?>
+        </section>
+        
+        <div class="clear"></div>
+
+		<!-- 
+			Sponsors
+
+======================================================== -->      
+        <section id="third" class="third-first ">
+        <?php 
+            $posts = $section5;
+			if($posts):
+				foreach( $posts as $post): 
+					setup_postdata( $post ); 
+					$terms = get_the_terms($post->ID, 'category');
+					if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
+						$termId = $terms[0]->term_id;
+						$color = get_field( 'category_color', 'category_'.$termId ); 
+						$sponsors = get_field('sponsors');?>	
+						<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
+							<h2 style="background-color: <?php echo $color; ?>"><?php 
+								if($sponsors):
+									echo $sponsors[0]->post_title;
+								else:
+									echo $term[0]->name;
+								endif;?>
+							</h2>
+						</div><!-- border title -->
+						
+						<div class="post-block blocks">
+
+							<?php if ( has_post_thumbnail() ) { ?>
+								<div class="post-block-image js-titles">
+								<?php  the_post_thumbnail('thirds'); ?>
+							</div>
+						<?php } ?>
+							
+							<h2><?php the_title(); ?></h2>
+							<div class="postdate"><?php echo get_the_date(); ?></div>
+							<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
+						</div><!-- post block -->
+						
+					<?php endif;
+					$ids[] = get_the_ID();
+				endforeach;
+				wp_reset_postdata(); 
+			endif;?>
+        </section>
+        
+        <section id="third" class="third-first ">
+        	<?php 
+            $posts = $section6; 
+            if($posts):
+				foreach( $posts as $post): 
+					setup_postdata( $post ); 
+					$terms = get_the_terms($post->ID, 'category');
+					if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
+						$termId = $terms[0]->term_id;
+						$color = get_field( 'category_color', 'category_'.$termId ); 
+						$sponsors = get_field('sponsors');?>	
+						<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
+							<h2 style="background-color: <?php echo $color; ?>"><?php 
+								if($sponsors):
+									echo $sponsors[0]->post_title;
+								else:
+									echo $term[0]->name;
+								endif;?>
+							</h2>
+						</div><!-- border title -->
+						
+						<div class="post-block blocks">
+
+							<?php if ( has_post_thumbnail() ) { ?>
+								<div class="post-block-image js-titles">
+								<?php  the_post_thumbnail('thirds'); ?>
+							</div>
+						<?php } ?>
+							
+							<h2><?php the_title(); ?></h2>
+							<div class="postdate"><?php echo get_the_date(); ?></div>
+							<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
+						</div><!-- post block -->
+						
+					<?php endif;
+					$ids[] = get_the_ID();
+				endforeach;
+				wp_reset_postdata(); 
+			endif;?>
+        </section>
+        
+        <section id="third" class="third-last">
+        	<?php 
+            $posts = $section7;
+            if($posts):
+				foreach( $posts as $post): 
+					setup_postdata( $post ); 
+					$terms = get_the_terms($post->ID, 'category');
+					if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
+						$termId = $terms[0]->term_id;
+						$color = get_field( 'category_color', 'category_'.$termId ); 
+						$sponsors = get_field('sponsors');?>	
+						<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
+							<h2 style="background-color: <?php echo $color; ?>"><?php 
+								if($sponsors):
+									echo $sponsors[0]->post_title;
+								else:
+									echo $term[0]->name;
+								endif;?>
+							</h2>
+						</div><!-- border title -->
+						
+						<div class="post-block blocks">
+
+							<?php if ( has_post_thumbnail() ) { ?>
+								<div class="post-block-image js-titles">
+								<?php  the_post_thumbnail('thirds'); ?>
+							</div>
+						<?php } ?>
+							
+							<h2><?php the_title(); ?></h2>
+							<div class="postdate"><?php echo get_the_date(); ?></div>
+							<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
+						</div><!-- post block -->
+						
+					<?php endif;
+					$ids[] = get_the_ID();
+				endforeach;
+				wp_reset_postdata(); 
+			endif;?>
         </section>
         
         <div class="clear"></div>
