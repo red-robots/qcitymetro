@@ -157,12 +157,16 @@ endif;
 				</nav> .nav-single -->
 
 				
-			<?php 
+				<?php 
 
-			endwhile; // end of the loop. 
+				endwhile; // end of the loop. 
 
-			get_template_part('inc/extra-click');
-			?>
+				get_template_part('inc/extra-click');
+				?>
+				<div class="clear"></div>
+				
+				<div id="goto-comments"></div>
+				<?php echo do_shortcode('[fbcomments url="" width="375" count="off" num="3" countmsg="wonderful comments!"]'); ?>
             </div><!-- site content -->
             
 <!-- 
@@ -271,7 +275,50 @@ endif;
 				get_template_part('ads/single-right-ad-below-curious');
 
 			} ?>
-
+				<div class="business-directory-search">
+                    <div class="border-title">
+                        <h2>Business Directory</h2>
+                    </div>
+                    <div class="business-directory-search-box">
+                        <h3>Search Businesses</h3>
+                        <form id="category-select" class="category-select replace"  action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
+                            <?php $args = array(
+                                'show_option_none'  => 'Select category',
+                                'show_count'        => 1,
+                                'orderby'       => 'name',
+                                'hierarchical'      => 1,
+                                'hide_empty'        => 0,
+                                'echo'          => 0,
+                                'value_field' => 'slug',
+                                'taxonomy'           => 'business_category',
+                                'name' => 'business_category'
+                            ); ?>
+                            <?php $select  = wp_dropdown_categories( $args );
+                            ?>
+                            <?php $replace = "<select$1 onchange='return this.form.submit()' class= 'replace' >"; ?>
+                            <?php $select  = preg_replace( '#<select([^>]*)>#', $replace, $select ); ?>
+                            <?php echo $select; ?>
+                            <noscript>
+                                <input type="submit" value="View" />
+                            </noscript>
+                        </form>
+                        <h3>Most Viewed Business Listings</h3>
+	                    <?php
+	                    $args = array(
+		                    'range' => 'weekly',
+		                    'post_type' => 'business_listing',
+		                    'wpp_start' => '',
+		                    'wpp_end' => '',
+                            'limit'=>5,
+		                    'post_html' => '<div class="listing"><a href="{url}">{text_title}</a></div>'
+	                    );
+	                    wpp_get_mostpopular( $args );
+	                    ?>
+                        <div class="button viewmore-short">
+                            <a href="<?php bloginfo('url'); ?>/business-directory/business-directory-sign-up">Add your business to this directory</a>
+                        </div><!-- button -->
+                    </div><!--.business-directory-search-box-->
+                </div><!--.business-directory-search-->
 			<?php
 			    if (function_exists('wpp_get_mostpopular')) : ?>
 			   
@@ -304,10 +351,7 @@ endif;
 			
         </div><!-- widget area -->
 
-        <div class="clear"></div>
-            
-            <div id="goto-comments"></div>
-            <?php echo do_shortcode('[fbcomments url="" width="375" count="off" num="3" countmsg="wonderful comments!"]'); ?>
+        
             
             
 </div><!-- #content -->
@@ -318,7 +362,7 @@ endif;
 			Events
 
 ======================================================== --> 
-<?php get_template_part('inc/events'); ?>
+<?php // get_template_part('inc/events'); ?>
 	
 
 <?php get_footer(); ?>
