@@ -1,6 +1,6 @@
 <?php 
 /*
-* Template Name: Sponsors
+* Template Name: Sponsored Posts
 */
 get_header(); 
 get_template_part('ads/leaderboard-interior');
@@ -25,38 +25,69 @@ get_template_part('ads/leaderboard-interior');
 			<div class="clear"></div>
 			<?php $today = date('Ymd');
 			$args = array(
-				'post_type'=>'sponsor',
+				'post_type'=>'post',
 				'posts_per_page'=>12,
 				'paged'=>$paged,
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'category', // your custom taxonomy
+						'field' => 'slug',
+						'terms' => 'offers-invites'
+					)
+				),
+				'meta_query' => array(
+					'relation' => 'OR',
+					array(
+						'key' => 'post_expire',
+						'value' => $today,
+						'compare' => '>'
+					),
+					array(
+						'key' => 'post_expire',
+						'value' => '',
+						'compare' => '='
+					),
+					array(
+						'key' => 'post_expire',
+						// 'value' => 'false',
+						'compare' => 'NOT EXISTS'
+					),
+				)
 			);
 			$query = new WP_Query($args);
 			if($query->have_posts()):
 				$i = 1;?>
 				<?php while($query->have_posts()):$query->the_post();?>
 					<section id="third" class="<?php if($i%3===0) echo "third-last"; else echo "third-first";?>">
-						<?php $logo = get_field('logo');
-						$description = get_field("description");?>	
-							<div class="solid-border-title" style="border-bottom: 3px solid #7E3518;">
-								<h2 style="background-color: #7E3518;">
-								<?php the_title();?>
+						<?php $terms = get_the_terms($post->ID, 'category');
+						if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
+							$termId = $terms[0]->term_id;
+							$color = get_field( 'category_color', 'category_'.$termId ); 
+							$sponsors = get_field('sponsors');?>	
+							<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
+								<h2 style="background-color: <?php echo $color; ?>"><?php 
+									if($sponsors):
+										echo $sponsors[0]->post_title;
+									else:
+										echo $terms[0]->name;
+									endif;?>
 								</h2>
 							</div><!-- border title -->
 							
 							<div class="post-block blocks">
 
-								<?php if ( $logo ): ?>
+								<?php if ( has_post_thumbnail() ) { ?>
 									<div class="post-block-image js-titles">
-										<img src="<?php echo $logo['sizes']['large']; ?>" alt="<?php $logo['alt'];?>">
-									</div>
-								<?php endif; ?>
+									<?php  the_post_thumbnail('thirds'); ?>
+								</div>
+							<?php } ?>
 								
 								<h2><?php the_title(); ?></h2>
 								<div class="postdate"><?php echo get_the_date(); ?></div>
-								<?php if($description):?>
-                                	<div class="entry-content home-content"><?php echo $description; ?></div>
-								<?php endif;?>
+                                <div class="entry-content home-content"><?php the_excerpt(); ?></div>
 								<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
 							</div><!-- post block -->	
+						<?php endif;?>
 					</section>
 					<?php if($i%3===0):?>
 						<div class="clear"></div>
