@@ -16,7 +16,7 @@ endif;
 ?>
 
 	<div id="primary" class="">
-		<div id="content" role="main" class="wrapper">
+		<div id="content" role="main" class="wrapper template-single-news">
 
 <!-- 
 			Main Content

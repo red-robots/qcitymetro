@@ -1057,6 +1057,10 @@ section#third {
     position: static;
     width: 100%;
 }
+/* = Single News */
+.template-single-news .entry-content p{
+	line-height: 1.6;
+}
 
 /* = Business Listings
 -------------------------------------------------------------- */
@@ -3220,6 +3224,10 @@ Business details
 	.widget-area, .side-advertise {width: 26.041666667%;}
 	.featured-event-featured-single {width: 25px;}
 	/*.featured-event-featured {top: 35%;}*/
+	.template-single-news .site-content {
+		padding-left: 5%;
+		box-sizing: border-box;
+	}
 }
 /* Minimum width of 960 pixels. */
 @media screen and (min-width: 860px) {
