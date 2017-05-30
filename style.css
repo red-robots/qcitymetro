@@ -1059,7 +1059,7 @@ section#third {
 }
 /* = Single News */
 .template-single-news .entry-content p{
-	line-height: 1.6;
+	line-height: 1.8;
 }
 
 /* = Business Listings
@@ -3225,7 +3225,8 @@ Business details
 	.featured-event-featured-single {width: 25px;}
 	/*.featured-event-featured {top: 35%;}*/
 	.template-single-news .site-content {
-		padding-left: 5%;
+		padding-left: 8%;
+		padding-right: 2%;
 		box-sizing: border-box;
 	}
 }

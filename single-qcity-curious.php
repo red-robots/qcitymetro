@@ -3,16 +3,15 @@
  * The Template for displaying all single posts
  *
  */
+if(have_posts()): the_post();
+	$sponsors = get_field('sponsors');
+	if($sponsors):
+		$post = get_post($sponsors[0]->ID);
+		setup_postdata( $post );
+		get_template_part('ads/sponsor-header');
+		wp_reset_postdata();
+	endif;
 
-
-// If is not in Sponsored Content, proceed
-if(!in_category(30)) :
-	if( in_category('6') ) {
-		get_template_part('ads/leaderboard-interior-health');
-	} else {
-		get_template_part('ads/leaderboard-interior');
-	}
-endif;
 ?>
 
 	<div id="primary" class="">
@@ -23,7 +22,7 @@ endif;
 
 ======================================================== --> 			
 			
-			<?php while ( have_posts() ) : the_post(); 
+			<?php 
 			$id = get_the_ID();
 			$terms = get_the_terms($id, 'category');
 			$video = get_field( 'video_single_post' );
@@ -157,9 +156,7 @@ endif;
 				</nav> .nav-single -->
 
 				
-				<?php 
-
-				endwhile; // end of the loop. 
+				<?php  
 
 				get_template_part('inc/extra-click');
 				?>
@@ -174,7 +171,12 @@ endif;
 
 ======================================================== -->        
         <div class="widget-area">
-        	<?php 
+        	<?php if($sponsors):
+				$post = get_post($sponsors[0]->ID);
+				setup_postdata( $post );
+				get_template_part('ads/sponsor');
+				wp_reset_postdata();
+			endif;
         	// If is IN the Sponsored Content... Show sponsored content posts
         	if( in_category(30) ): ?>
         	<div class="about-sponsored">
@@ -357,7 +359,7 @@ endif;
 </div><!-- #content -->
 	</div><!-- #primary -->
     
-    
+    <?php endif;?>
 <!-- 
 			Events
 

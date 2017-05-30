@@ -50,6 +50,27 @@
 		if( $headerScript != '' ) { echo $headerScript; }
 	endif; // end if enabled
 	endwhile; endif; wp_reset_postdata(); wp_reset_query(); ?>
+<?php
+//
+//		Need to query Google AD scripts
+//
+	$wp_query = new WP_Query();
+	$wp_query->query(array(
+	'post_type'=>'sponsor',
+	'posts_per_page' => -1
+));
+	if ($wp_query->have_posts()) :  while ($wp_query->have_posts()) :  $wp_query->the_post();
+	$headerScript = get_field('header_script');
+	$enable = get_field('enable_ad');
+	if( $enable == 'Yes' ) :
+		if( $headerScript != '' ) { echo $headerScript; }
+	endif; // end if enabled
+    $headerScript = get_field('header_script_header');
+	$enable = get_field('enable_ad_header');
+	if( $enable == 'Yes' ) :
+		if( $headerScript != '' ) { echo $headerScript; }
+	endif; // end if enabled
+	endwhile; endif; wp_reset_postdata(); wp_reset_query(); ?>
 
 </head>
 
