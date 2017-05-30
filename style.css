@@ -1061,6 +1061,10 @@ section#third {
 .template-single-news .entry-content p{
 	line-height: 1.8;
 }
+/* sponsored */
+.sponsored-row {
+	margin-top: 24px;
+}
 
 /* = Business Listings
 -------------------------------------------------------------- */
