@@ -442,3 +442,21 @@ function tsm_save_image_field_to_featured_image( $post_id ) {
 
 //adding post format support
 add_theme_support( 'post-formats', array( 'video' ) );
+
+function bella_signup_embed( $atts ) {
+	$header_text = get_field("email_signup_header",21613);
+	$copy = get_field("email_signup_copy",21613);
+	$button_text = get_field("email_signup_button_text",21613);
+	$link = get_the_permalink( 21613);
+	return '<div class="signup-embed">
+		<div class="col-2">
+			<a href="'.$link.'">'.$button_text.'</a>
+		</div>
+		<div class="col-1">
+			<div class="title">'.$header_text.'</div>
+			<div class="copy">'.$copy.'</div>
+		</div>
+		<div class="clear"></div>
+	</div><!--.signup-embed-->';
+}
+add_shortcode( 'signup-embed', 'bella_signup_embed' );
