@@ -26,6 +26,18 @@ get_template_part('ads/leaderboard-interior');
 						'order'=>'ASC',
 						'orderby'=>'menu_order',
 						'paged'=>$paged,
+						'meta_query' => array(
+							'relation' => 'OR',
+							array(
+								'key'=>'display_to_public',
+								'value'=>'yes',
+								'compare'=>"LIKE"
+							),
+							array(
+								'key' => 'display_to_public',
+								'compare' => 'NOT EXISTS'
+							),
+						)
 					);
 					$query = new WP_Query($args);
 					if($query->have_posts()):

@@ -2,6 +2,14 @@
 /*
 * Single page for sponsors
 */
+$display_to_public = get_field("display_to_public");
+if(strcmp($display_to_public,"no")===0){
+	$temp_post = get_post(39809);
+	if($temp_post):
+		wp_redirect( get_the_permalink( 39809) );
+		exit;
+	endif;
+}
 get_header(); 
 get_template_part('ads/sponsor-header');
 ?>
@@ -49,7 +57,6 @@ get_template_part('ads/sponsor-header');
 								),
 								array(
 									'key' => 'post_expire',
-									// 'value' => 'false',
 									'compare' => 'NOT EXISTS'
 								),
 							),
@@ -66,29 +73,17 @@ get_template_part('ads/sponsor-header');
 						$query->the_post();
 						$most_recent_id = get_the_ID();?>
 						<section>
-							<?php $terms = get_the_terms($post->ID, 'category');
-							if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
-								$termId = $terms[0]->term_id;
-								$color = get_field( 'category_color', 'category_'.$termId );?>	
-								<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-									<h2 style="background-color: <?php echo $color; ?>">
-										<?php echo $terms[0]->name;?>
-									</h2>
-								</div><!-- border title -->
+							<div class="post-block blocks">
+								<?php if ( has_post_thumbnail() ) : ?>
+									<div class="post-block-image js-titles">
+									<?php  the_post_thumbnail('thirds'); ?>
+								</div>
+							<?php endif; ?>
 								
-								<div class="post-block blocks">
-
-									<?php if ( has_post_thumbnail() ) { ?>
-										<div class="post-block-image js-titles">
-										<?php  the_post_thumbnail('thirds'); ?>
-									</div>
-								<?php } ?>
-									
-									<h2><?php the_title(); ?></h2>
-									<div class="postdate"><?php echo get_the_date(); ?></div>
-									<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
-								</div><!-- post block -->	
-							<?php endif;?>
+								<h2><?php the_title(); ?></h2>
+								<div class="postdate"><?php echo get_the_date(); ?></div>
+								<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
+							</div><!-- post block -->	
 						</section>
 					<?php wp_reset_postdata();
 					endif;?>
@@ -141,30 +136,19 @@ get_template_part('ads/sponsor-header');
 					if($query->have_posts()):
 						$i = 1;?>
 						<?php while($query->have_posts()):$query->the_post();?>
-							<section id="third" class="<?php if($i%3===0) echo "third-last"; else echo "third-first";?>">
-								<?php $terms = get_the_terms($post->ID, 'category');
-								if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
-									$termId = $terms[0]->term_id;
-									$color = get_field( 'category_color', 'category_'.$termId );?>	
-									<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-										<h2 style="background-color: <?php echo $color; ?>">
-											<?php echo $terms[0]->name;?>
-										</h2>
-									</div><!-- border title -->
-									
-									<div class="post-block blocks">
+							<section id="third" class="<?php if($i%3===0) echo "third-last"; else echo "third-first";?>">								
+								<div class="post-block blocks">
 
-										<?php if ( has_post_thumbnail() ) { ?>
-											<div class="post-block-image js-titles">
-											<?php  the_post_thumbnail('thirds'); ?>
-										</div>
-									<?php } ?>
-										
-										<h2><?php the_title(); ?></h2>
-										<div class="postdate"><?php echo get_the_date(); ?></div>
-										<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
-									</div><!-- post block -->	
-								<?php endif;?>
+									<?php if ( has_post_thumbnail() ): ?>
+										<div class="post-block-image js-titles">
+										<?php  the_post_thumbnail('thirds'); ?>
+									</div>
+								<?php endif; ?>
+									
+									<h2><?php the_title(); ?></h2>
+									<div class="postdate"><?php echo get_the_date(); ?></div>
+									<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
+								</div><!-- post block -->	
 							</section>
 							<?php if($i%3===0):?>
 								<div class="clear"></div>

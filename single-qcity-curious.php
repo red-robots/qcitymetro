@@ -193,66 +193,71 @@ if(have_posts()): the_post();
 				wp_reset_query();
 				
 				
-				// get_post_meta();
-				// Query latest three posts excluding the previously queried posts
-				$wp_query = new WP_Query();
-				$wp_query->query(array(
-					//'category_name' => $category,
-					'post_type' => 'post',
-					'posts_per_page' => '-1', // 4 if sponsored, 5 if no sponsored
-					'cat' => 30, // sponsored
-					// 'meta_query' => array(
-					// 	array(
-					//         'key'		=> 'post_expire',
-					//         'compare'	=> '>=',
-					//         'value'		=> $today,
-					//     )),
-				));
-				if ($wp_query->have_posts()) : ?>
-				<section class="sponsored-posts">
-				<?php  
-				while ($wp_query->have_posts()) : $wp_query->the_post(); 
-					if ( has_post_thumbnail() ) {
-						$smallClass = 'small-post-content';
-					} else {
-						$smallClass = 'small-post-content-full';
-					}
-					$pId = get_the_ID();
-					$term = get_the_terms($pId, 'category');
-	 				$termName = $term[0]->name;
+				$offers_ids = get_field("offers_and_invites",349);
+				if($offers_ids):
+					// get_post_meta();
+					// Query latest three posts excluding the previously queried posts
+					$wp_query = new WP_Query();
+					$wp_query->query(array(
+						//'category_name' => $category,
+						'post_type' => 'post',
+						'posts_per_page' => '-1', // 4 if sponsored, 5 if no sponsored
+						'post__in'=>$offers_ids
+						// 'meta_query' => array(
+						// 	array(
+						//         'key'		=> 'post_expire',
+						//         'compare'	=> '>=',
+						//         'value'		=> $today,
+						//     )),
+					));
+					if ($wp_query->have_posts()) : ?>
+					<section class="sponsored-posts">
+					<?php  
+					while ($wp_query->have_posts()) : $wp_query->the_post(); 
+						if ( has_post_thumbnail() ) {
+							$smallClass = 'small-post-content';
+						} else {
+							$smallClass = 'small-post-content-full';
+						}
+						$pId = get_the_ID();
+						$term = get_the_terms($pId, 'category');
+						$termName = $term[0]->name;
 
-	 				// Finally - added August 25 2016
-	 				// Don't show expired post. 
-	 				// Can't do this in the query becuase there are so many posts without a datefield
-	 				$today = date('Ymd');
-	 				//echo $today;
-	 				$postDate = get_field('post_expire');
-	 				// 
-	 				if( $postDate > $today || $postDate == '' ) :
-	 					echo '<!-- OK | Today:' .$today . ' | Expires:' . $postDate . '-->';
-	 				
-	 				
-        		?>
-        		<div class="small-post">
-	            	<a href="<?php the_permalink(); ?>">
-	            		<div class="small-post-thumb">
-	                    <?php if ( has_post_thumbnail() ) {
-									the_post_thumbnail('thumbnail');
-								} ?>
-	                    </div><!-- small post thumb -->
-	                    <div class="<?php echo $smallClass; ?>">
-	                    	<!-- <h3><?php echo $termName; ?></h3> -->
-	                        <div class="clear"></div>
-	                        <h2><?php the_title(); ?></h2>
-	                    </div><!-- small post content -->
-	            	</a>
-	            </div><!-- smalll post -->
-        	<?php 
+						// Finally - added August 25 2016
+						// Don't show expired post. 
+						// Can't do this in the query becuase there are so many posts without a datefield
+						$today = date('Ymd');
+						//echo $today;
+						$postDate = get_field('post_expire');
+						// 
+						if( $postDate > $today || $postDate == '' ) :
+							echo '<!-- OK | Today:' .$today . ' | Expires:' . $postDate . '-->';
+						
+						
+					?>
+					<div class="small-post">
+						<a href="<?php the_permalink(); ?>">
+							<div class="small-post-thumb">
+							<?php if ( has_post_thumbnail() ) {
+										the_post_thumbnail('thumbnail');
+									} ?>
+							</div><!-- small post thumb -->
+							<div class="<?php echo $smallClass; ?>">
+								<!-- <h3><?php echo $termName; ?></h3> -->
+								<div class="clear"></div>
+								<h2><?php the_title(); ?></h2>
+							</div><!-- small post content -->
+						</a>
+					</div><!-- smalll post -->
+				<?php 
 
-        			endif; // end comparing post expire to today
+						endif; // end comparing post expire to today
 
-        	endwhile; endif; // end sponsored posts category
-        	endif; // end the sponored categoyr post ?>
+				endwhile; endif; // end sponsored posts category
+				endif; // end the sponored categoyr post 
+        		wp_reset_postdata();
+				wp_reset_query();
+			endif;?>
         	</section>
         	<?php 
         	// If is not in Sponsored Content, proceed
