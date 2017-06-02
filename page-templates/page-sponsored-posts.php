@@ -76,7 +76,7 @@ get_template_part('ads/leaderboard-interior');
 
 									<?php if ( has_post_thumbnail() ) { ?>
 										<div class="post-block-image js-titles">
-										<?php  the_post_thumbnail('thirds'); ?>
+										<?php  the_post_thumbnail('full'); ?>
 									</div>
 								<?php } ?>
 									
