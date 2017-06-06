@@ -191,7 +191,7 @@ jQuery(document).ready(function ($) {
 			Related Posts
 
 ======================================================== --> 
- 			<?php  wp_related_posts(); ?>
+ 			<?php // wp_related_posts(); ?>
             <div class="clear"></div>
 
             <?php //comments_template( '', true );
