@@ -462,8 +462,10 @@ function bella_signup_embed( $atts ) {
 add_shortcode( 'signup-embed', 'bella_signup_embed' );
 
 function bella_video_title($title, $id){
-	if(has_post_format( 'video', $id)){
-		$title .= '<i class="fa fa-play-circle-o"></i>';
+	if($id){
+		if(has_post_format( 'video', $id)){
+			$title .= '<i class="fa fa-play-circle-o"></i>';
+		}
 	}
 	return $title;
 }
