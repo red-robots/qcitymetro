@@ -460,3 +460,11 @@ function bella_signup_embed( $atts ) {
 	</div><!--.signup-embed-->';
 }
 add_shortcode( 'signup-embed', 'bella_signup_embed' );
+
+function bella_video_title($title, $id){
+	if(has_post_format( 'video', $id)){
+		$title .= '<i class="fa fa-play-circle-o"></i>';
+	}
+	return $title;
+}
+add_filter( 'the_title', 'bella_video_title', 10, 2 );
