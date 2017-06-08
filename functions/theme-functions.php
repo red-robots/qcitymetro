@@ -470,3 +470,19 @@ function bella_video_title($title, $id){
 	return $title;
 }
 add_filter( 'the_title', 'bella_video_title', 10, 2 );
+
+
+/* from https://code.tutsplus.com/tutorials/guide-to-creating-your-own-wordpress-editor-buttons--wp-30182 */
+add_action( 'init', 'bella_buttons' );
+function bella_buttons() {
+    add_filter( "mce_external_plugins", "bella_add_buttons" );
+    add_filter( 'mce_buttons', 'bella_register_buttons' );
+}
+function bella_add_buttons( $plugin_array ) {
+    $plugin_array['bella'] = get_template_directory_uri() . '/js/bella-tinymce-plugin.js';
+    return $plugin_array;
+}
+function bella_register_buttons( $buttons ) {
+    array_push( $buttons, 'signup' ); // dropcap', 'recentposts
+    return $buttons;
+}
