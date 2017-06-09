@@ -23,7 +23,7 @@ get_template_part('ads/leaderboard-interior');
 					$args = array(
 						'post_type'=>'post',
 						'posts_per_page'=>1,
-						'order'=>'ASC',
+						'order'=>'DESC',
 						'orderby'=>'date',
 						'paged'=>$paged,
 						'tax_query' => array(
@@ -93,7 +93,7 @@ get_template_part('ads/leaderboard-interior');
 					<?php $args = array(
 						'post_type'=>'post',
 						'posts_per_page'=>12,
-						'order'=>'ASC',
+						'order'=>'DESC',
 						'orderby'=>'date',
 						'paged'=>$paged,
 						'tax_query' => array(
