@@ -32,7 +32,7 @@ get_template_part('ads/sponsor-header');
 						'post_type'=>'post',
 						'posts_per_page'=>1,
 						'orderby'=>'date',
-						'order'=>'ASC',
+						'order'=>'DESC',
 						'paged'=>$paged,
 						'tax_query' => array(
 							array(
@@ -93,7 +93,7 @@ get_template_part('ads/sponsor-header');
 						'post_type'=>'post',
 						'posts_per_page'=>12,
 						'orderby'=>'date',
-						'order'=>'ASC',
+						'order'=>'DESC',
 						'paged'=>$paged,
 						'tax_query' => array(
 							array(

@@ -12,7 +12,7 @@
             ed.addButton('signup', {
                 title : 'Signup',
                 cmd : 'signup',
-                image : url + '/readmore-gold.png'
+                image : url + '/q.jpg'
             });
             ed.addCommand('signup', function() {
                 var return_text = '';
