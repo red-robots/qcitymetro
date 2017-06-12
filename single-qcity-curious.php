@@ -37,7 +37,12 @@ if(have_posts()): the_post();
 					<div class="border-title">
 	                    <div class="catname">
 	                    	<?php $category = get_the_category( $id );
-								echo $category[0]->cat_name;?>
+							$sponsors = get_field("sponsors");
+							if($sponsors):
+								echo $sponsors[0]->post_title;
+							else:
+								echo $category[0]->cat_name;
+							endif;?>
 						</div><!-- cat name -->
 	                </div><!-- border title -->
 				</header><!-- .archive-header -->
