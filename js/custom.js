@@ -151,9 +151,9 @@ __________________________________________
                (window.innerWidth < 900) ? 3 : 4;
       }
 
-      $(function() {
-        SyntaxHighlighter.all();
-      });
+      //$(function() {
+        //SyntaxHighlighter.all();
+      //});
 
       $window.load(function() {
         $('.flexslider').flexslider({
@@ -248,5 +248,17 @@ __________________________________________
         $window.on("scroll",video_check);
         $window.on("resize",video_check);
     }
+	
+	(function(){
+		//this is for wp most popular posts compatability since they don't run title through appropriate filters
+		$('.small-post .small-post-content h2').each(function(i,el){
+			var $el = $(el);
+			var regex = new RegExp('<i\\sclass="fa\\sfa-play-circle-o"></i>');
+			if(regex.test($el.text())){
+				$el.text($el.text().replace(regex,""));
+				$el.append($('<i class="fa fa-play-circle-o"></i>'));
+			}
+		});
+	})();
 });// END #####################################    END Document Ready
 

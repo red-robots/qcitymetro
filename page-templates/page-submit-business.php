@@ -62,7 +62,7 @@ get_header(); ?>
 							'return' => $return,
 							
 							'form' => true,
-							'fields' => array(
+							/*'fields' => array(
 								'email',
 								'phone',
                                 'description',
@@ -73,7 +73,7 @@ get_header(); ?>
 								'address',
 								'captcha'
 								
-							),
+							),*/
 							'post_content' => true,
 							'new_post'		=> array(
 								'post_type'		=> 'business_listing',
