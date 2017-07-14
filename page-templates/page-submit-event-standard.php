@@ -32,7 +32,6 @@ $return = get_bloginfo('url').'/submit-no-promotion-event/success-no-promotion-e
 					'form' => true,
 					'fields' => array(
 						'event_date',
-						'end_date',
 						'event_start_time',
 						'event_end_time',
 						// 'event_contact',

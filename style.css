@@ -353,8 +353,12 @@ img.wp-post-image {
 	max-width: 100%;
 	height: auto; /* Make sure images with WordPress-added height and width attributes are scaled correctly */
 }
-.big-story-image, .big-story-image img {
+.big-story-image {
 	width: 100%;
+} 
+.big-story-image img {
+	width: 80%;
+	margin: 0 auto;
 }
 /* Make sure videos and embeds fit their containers */
 embed,

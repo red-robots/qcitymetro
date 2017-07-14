@@ -27,7 +27,6 @@ get_header(); ?>
 					'form' => true,
 					'fields' => array(
 						'event_date',
-						'end_date',
 						'event_start_time',
 						'event_end_time',
 						// 'event_contact',
