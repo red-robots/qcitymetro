@@ -358,6 +358,7 @@ img.wp-post-image {
 } 
 .big-story-image img {
 	width: 80%;
+	display: block;
 	margin: 0 auto;
 }
 /* Make sure videos and embeds fit their containers */
