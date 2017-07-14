@@ -49,6 +49,7 @@
 	if( $enable == 'Yes' ) :
 		if( $headerScript != '' ) { echo $headerScript; }
 	endif; // end if enabled
+    echo "<!--".get_the_title()."-->";
 	endwhile; endif; wp_reset_postdata(); wp_reset_query(); ?>
 <?php
 //
@@ -70,6 +71,7 @@
 	if( $enable == 'Yes' ) :
 		if( $headerScript != '' ) { echo $headerScript; }
 	endif; // end if enabled
+    echo "<!--".get_the_title()."-->";
 	endwhile; endif; wp_reset_postdata(); wp_reset_query(); ?>
 
 </head>
