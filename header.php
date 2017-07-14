@@ -47,9 +47,11 @@
 	$headerScript = get_field('header_script');
 	$enable = get_field('enable_ad');
 	if( $enable == 'Yes' ) :
-		if( $headerScript != '' ) { echo $headerScript; }
+		if( $headerScript != '' ) { 
+            echo $headerScript;
+            echo "<!--".get_the_title()."-->";
+        }
 	endif; // end if enabled
-    echo "<!--".get_the_title()."-->";
 	endwhile; endif; wp_reset_postdata(); wp_reset_query(); ?>
 <?php
 //
@@ -69,9 +71,11 @@
     $headerScript = get_field('header_script_header');
 	$enable = get_field('enable_ad_header');
 	if( $enable == 'Yes' ) :
-		if( $headerScript != '' ) { echo $headerScript; }
+		if( $headerScript != '' ) { 
+            echo $headerScript;
+            echo "<!--".get_the_title()."-->"; 
+        }
 	endif; // end if enabled
-    echo "<!--".get_the_title()."-->";
 	endwhile; endif; wp_reset_postdata(); wp_reset_query(); ?>
 
 </head>
