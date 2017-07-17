@@ -31,7 +31,11 @@
 
 <!-- test -->
 <script src="https://use.fontawesome.com/5001f6a306.js"></script>
-
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
 <script type="text/javascript"async src="https://launch.newsinc.com/js/embed.js" id="_nw2e-js"></script>
 <?php wp_head(); ?>
 <?php
