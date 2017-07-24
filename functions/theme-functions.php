@@ -486,3 +486,10 @@ function bella_register_buttons( $buttons ) {
     array_push( $buttons, 'signup' ); // dropcap', 'recentposts
     return $buttons;
 }
+add_action('init','bella_hide_publish_events');
+function bella_hide_publish_events(){
+	global $post;
+	if(strcmp(get_post_type($post),"event")===0){
+		add_filter( 'publicize_checkbox_default',  '__return_false'  );
+	}
+}
