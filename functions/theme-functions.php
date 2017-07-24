@@ -486,7 +486,7 @@ function bella_register_buttons( $buttons ) {
     array_push( $buttons, 'signup' ); // dropcap', 'recentposts
     return $buttons;
 }
-add_action('init','bella_hide_publish_events');
+add_action('wp','bella_hide_publish_events');
 function bella_hide_publish_events(){
 	global $post;
 	if(strcmp(get_post_type($post),"event")===0){
