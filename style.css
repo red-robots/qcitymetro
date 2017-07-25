@@ -2177,8 +2177,10 @@ body.single .entry-content h1 {
 body.page .entry-content h1.pagetitle {
 	font-size: 24px;	margin-top: 50px;
 }
-body.single .entry-content h2 {
+body.single .entry-content h2, body.single .entry-content h3, body.single .entry-content h4 {
 	color: #7E3518;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 300;
 }
 body.archive .entry-content h2, body.category .entry-content h2, body.archive h2, body.category h2 {
 	color: #332c2c;
