@@ -38,6 +38,10 @@
 </script>
 <script type="text/javascript"async src="https://launch.newsinc.com/js/embed.js" id="_nw2e-js"></script>
 <?php wp_head(); ?>
+<?php $facebook_pixel = get_field("facebook_pixel","option");
+if($facebook_pixel):
+    echo $facebook_pixel;
+endif;?>
 <?php
 //
 //		Need to query Google AD scripts
