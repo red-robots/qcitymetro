@@ -304,6 +304,20 @@ function my_mce_before_init_insert_formats( $init_array ) {
 			'classes' => 'drop-q',
 			'wrapper' => true,
 			
+		),
+		array(  
+			'title' => 'Q Large',  
+			'inline' => 'span',  
+			'classes' => 'drop-q-large',
+			'wrapper' => true,
+			
+		),
+		array(  
+			'title' => 'Q XL',  
+			'inline' => 'span',  
+			'classes' => 'drop-q-xl',
+			'wrapper' => true,
+			
 		)
 	);  
 	// Insert the array, JSON ENCODED, into 'style_formats'
