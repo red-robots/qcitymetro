@@ -183,23 +183,24 @@ if(have_posts()): the_post();
 				wp_reset_postdata();
 			endif;
         	// If is IN the Sponsored Content... Show sponsored content posts
-        	if( in_category(30) ): ?>
-        	<div class="about-sponsored">
-	        	<div class="border-title">
-	            	<h2><?php the_field('sponsored_content_title', 'option'); ?></h2>
-	        	</div><!-- border title -->
-        		<!-- <div class="about-sponsored-tab"><?php the_field('sponsored_content_title', 'option'); ?></div> -->
-        		<?php the_field('sponsored_content_verbiage', 'option'); ?>
-        	</div>
-
-
-        		<?php 
-        		wp_reset_postdata();
-				wp_reset_query();
-				
-				
+			if( in_category(30) ): 
 				$offers_ids = get_field("offers_and_invites",349);
-				if($offers_ids):
+				if($offers_ids):?>
+					<div class="about-sponsored">
+						<div class="border-title">
+							<h2><?php the_field('sponsored_content_title', 'option'); ?></h2>
+						</div><!-- border title -->
+						<!-- <div class="about-sponsored-tab"><?php the_field('sponsored_content_title', 'option'); ?></div> -->
+						<?php the_field('sponsored_content_verbiage', 'option'); ?>
+					</div>
+
+
+					<?php 
+					wp_reset_postdata();
+					wp_reset_query();
+				
+				
+				
 					// get_post_meta();
 					// Query latest three posts excluding the previously queried posts
 					$wp_query = new WP_Query();
