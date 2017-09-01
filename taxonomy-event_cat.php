@@ -87,6 +87,7 @@ if ($wp_query->have_posts()) :*/ ?>
 	 $cost = get_field('cost_of_event');
 	 $venueName = get_field('name_of_venue');
 	 $postId = get_the_ID();
+	 $culture_block = get_field("culture_block");
 	 $terms = wp_get_post_terms( $postId, 'event_category' );
 	 $date = DateTime::createFromFormat('Ymd', get_field('event_date')); 
 	 $eDate = $date->format('Ymd');
@@ -102,7 +103,8 @@ if ($wp_query->have_posts()) :*/ ?>
 		'cost' => $cost,
 		'image' => $image,
 		'terms' => $terms,
-		'venue' => $venueName
+		'venue' => $venueName,
+		'culture'=> $culture_block
 	 );
 	 
 	 $newQuery[] = $mySort;
@@ -215,11 +217,25 @@ usort($newQuery,'cmp');
     
     <?php else: ?>
     
-    <div class="eventlist">
+    <div class="eventlist <?php if(strcmp($value['culture'],"yes")===0) echo "culture";?>">
+		<?php if(strcmp($value['culture'],"yes")===0):?>
+			<div class="culture">
+				<div class="circle">
+					?
+				</div><!--.circle-->
+				<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+				<?php $desc = get_field("culture_block_rollover",54);
+				if($desc):?>
+					<div class="rollover">
+						<?php echo $desc;?>	
+					</div><!--.rollover-->
+				<?php endif;?>
+			</div><!--.culture-->
+			<div class="clear"></div>
+		<?php endif;?>
     	<div class="featured-event-content-details">
         	<a href="<?php echo $value['permalink']; ?>">DETAILS</a>
-        </div><!-- featured event content -->
-        <div class="featured-event-content-details-text">DETAILS</div><!-- featured event content -->
+        	<div class="featured-event-content-details-text">DETAILS</div><!-- featured event content -->
         	<h2><?php echo $value['title']; ?></h2>
           <div class="el-date"><?php echo $daynum; ?></div>
           <div class="el-deets">Venue</div>
@@ -228,6 +244,7 @@ usort($newQuery,'cmp');
             <div class="fe-location"><?php echo $value['location']; ?></div>
             <div class="el-deets">Time</div>
             <div class="fe-start"><?php echo $value['time']; ?></div>
+        </div><!-- featured event content -->
      </div><!-- event list -->
     
     <?php endif; ?>

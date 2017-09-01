@@ -135,6 +135,9 @@ get_header(); ?>
                 <div class="event-content blocks">
               		<?php echo $details; ?>
 					<?php the_content(); ?>
+					<?php if(strcmp(get_field("culture_block"),"yes")===0):?>
+						<img src="<?php echo get_template_directory_uri()."/images/culture-blocks.jpg";?>" alt="Culture Blocks">
+ 					<?php endif;?>
 				</div>
 
 
