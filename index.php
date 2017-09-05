@@ -407,12 +407,13 @@ endwhile; endif; wp_reset_query();
 			 setup_postdata( $post ); 
 			 $term = get_the_terms($post->ID, 'category');
 			 $termId = $term[0]->term_id;
-			 $color = get_field( 'category_color', 'category_'.$termId );
+			 $term_name = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->name : get_post_type($post->ID);
+			 $color = get_field( 'category_color', 'category_'.$termId ) ? get_field( 'category_color', 'category_'.$termId ) : 'black';
 			 // echo '<pre>';
 			 // print_r($section1);
 			 ?>	
             <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term[0]->name; ?></h2>
+                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term_name; ?></h2>
             </div><!-- border title -->
             
             <div class="post-block blocks">
@@ -442,13 +443,14 @@ endwhile; endif; wp_reset_query();
             foreach( $posts as $post):
 			 setup_postdata( $post ); 
 			 $term = get_the_terms($post->ID, 'category');
-			 $termId = $term[0]->term_id;
-			 $color = get_field( 'category_color', 'category_'.$termId ); 
+			 $termId = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->term_id : '';
+			 $term_name = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->name : get_post_type($post->ID);
+			 $color = get_field( 'category_color', 'category_'.$termId ) ? get_field( 'category_color', 'category_'.$termId ) : 'black';
 
 		
 			 ?>	
             <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term[0]->name; ?></h2>
+                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term_name; ?></h2>
             </div><!-- border title -->
             
             <div class="post-block blocks">
@@ -481,12 +483,13 @@ endwhile; endif; wp_reset_query();
 			 setup_postdata( $post ); 
 			 $term = get_the_terms($post->ID, 'category');
 			 $termId = $term[0]->term_id;
-			 $color = get_field( 'category_color', 'category_'.$termId );
+			 $term_name = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->name : get_post_type($post->ID);
+			 $color = get_field( 'category_color', 'category_'.$termId ) ? get_field( 'category_color', 'category_'.$termId ) : 'black';
 			/* echo '<pre>';
 			 print_r($color);*/
 			 ?>	
             <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term[0]->name; ?></h2>
+                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term_name; ?></h2>
             </div><!-- border title -->
             
             <div class="post-block blocks">

@@ -860,7 +860,8 @@ select.eventtype {
 	display: inline-block;
 	margin: 0 0 0 15px;
 	font-family: 'Oswald', sans-serif;
-    font-weight: 300;
+	font-weight: 300;
+	text-transform: capitalize;
 }
 .border-title h2.single-event , .border-title h1.single-event {
 	text-transform: none;
