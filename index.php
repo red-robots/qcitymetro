@@ -406,7 +406,7 @@ endwhile; endif; wp_reset_query();
             foreach( $posts as $post): 
 			 setup_postdata( $post ); 
 			 $term = get_the_terms($post->ID, 'category');
-			 $termId = $term[0]->term_id;
+			 $termId = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->term_id : '';
 			 $term_name = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->name : get_post_type($post->ID);
 			 $color = get_field( 'category_color', 'category_'.$termId ) ? get_field( 'category_color', 'category_'.$termId ) : 'black';
 			 // echo '<pre>';
@@ -482,7 +482,7 @@ endwhile; endif; wp_reset_query();
             foreach( $posts as $post):
 			 setup_postdata( $post ); 
 			 $term = get_the_terms($post->ID, 'category');
-			 $termId = $term[0]->term_id;
+			 $termId = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->term_id : '';
 			 $term_name = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->name : get_post_type($post->ID);
 			 $color = get_field( 'category_color', 'category_'.$termId ) ? get_field( 'category_color', 'category_'.$termId ) : 'black';
 			/* echo '<pre>';
