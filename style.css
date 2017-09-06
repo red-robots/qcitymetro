@@ -1688,11 +1688,12 @@ nav.footermenu a {
 
 }
 .featured-event-image {
-	width: 20%;
-	float:left;
-	position: relative;
+	position: absolute;
 	line-height: 0;
-    margin-right: 2%;
+	display: inline-block;
+	height: 100%;
+	top: 0;
+	left: 0;
 }
 .featured-event-image img {width: 100%;}
 .featured-event-featured {
@@ -1736,8 +1737,8 @@ nav.footermenu a {
 }
 .featured-event-content {
 	width: 50%;
-	float:left;
-	margin: 0 0 0 0px;
+	display: inline-block;
+	margin: 0 0 0 30px;
 }
 .featured-event-content h2, .eventlist h2 {
 	color: #863011 !important;
@@ -1749,12 +1750,18 @@ nav.footermenu a {
 	font-family: 'Raleway', sans-serif;
 	margin-bottom: 20px;
 }
-.eventlist .culture {
+.culture-text {
+	padding: 8px 10px;
+	background-color: #eee;
+	font-size: 12px;
+	margin: 40px 0 10px 0;
+}
+.featured-event .culture, .eventlist .culture {
 	position: relative;
 	float: left;
 	cursor: pointer;
 }
-.eventlist .culture .circle {
+.featured-event .culture .circle, .eventlist .culture .circle {
 	display: none;
 	width: 6px;
 	height: 6px;
@@ -1767,7 +1774,7 @@ nav.footermenu a {
 	float: left;
 	margin: 10px 5px 0 0;
 }
-.eventlist .culture .rollover{
+.featured-event .culture .rollover, .eventlist .culture .rollover{
 	display: none;
 	position: absolute;
 	top: 100%;
@@ -1779,10 +1786,10 @@ nav.footermenu a {
 	border: 1px solid black;
 	z-index: 2;
 }
-.eventlist .culture:hover .rollover{
+.featured-event .culture:hover .rollover, .eventlist .culture:hover .rollover{
 	display: block;
 }
-.eventlist .culture img {
+.featured-event .culture img, .eventlist .culture img {
 	width: 150px;
 	margin: 5px 0 10px 0;
 	display: block;
@@ -2891,20 +2898,20 @@ img#wpstats {
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
 
-	.eventlist .culture .circle {
+	.featured-event .culture .circle, .eventlist .culture .circle {
 		display: block;
 	}
-	.eventlist .culture {
+	.featured-event .culture, .eventlist .culture {
 		position: relative;
 		float: right;
 	}
-	.eventlist .culture .rollover{
+	.featured-event .culture .rollover, .eventlist .culture .rollover{
 		bottom: auto;
 		left: auto;
 		top: 0;
 		right: 105%;
 	}
-	.eventlist .culture img {
+	.featured-event .culture img, .eventlist .culture img {
 		width: 200px;
 		display: block;
 		float: left;

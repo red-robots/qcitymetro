@@ -162,11 +162,13 @@ function cmp($a, $b) {
    
    if ( $a['date'] == $b['date'] ) {
       // Dates are same so compare names within the date.
-      if ( $a['terms']['0']->slug['0'] < $b['terms']['0']->slug['0'] )
-         $result = -1;
-      else
-         if ( $a['terms']['0']->slug['0'] > $b['terms']['0']->slug['0'] )
-            $result = 1;
+      if(!empty($a['terms'])&&!empty($b['terms'])){
+        if ( $a['terms']['0']->slug['0'] < $b['terms']['0']->slug['0'] )
+            $result = -1;
+        else
+            if ( $a['terms']['0']->slug['0'] > $b['terms']['0']->slug['0'] )
+                $result = 1;
+      }
    }
    else {
       // Dates differ so just compare on date.
@@ -186,7 +188,7 @@ $prevDay = '';
 
 	foreach ($newQuery as $value) : 
 	// get the term
-	$currentTerm = $value['terms']['0']->slug;
+	$currentTerm = !empty($value['terms']) ? $value['terms']['0']->slug : '';
 	// set the date
 	$getDate = $value['date'];
 	$newD = DateTime::createFromFormat('Ymd', $getDate);
@@ -206,10 +208,25 @@ $prevDay = '';
 	?>
     
     <div class="featured-event">
-    	
+        <?php if(strcmp($value['culture'],"yes")===0):?>
+            <div class="culture">
+                <div class="circle">
+                    ?
+                </div><!--.circle-->
+                <a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+				    <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+                </a>
+                <?php $desc = get_field("culture_block_rollover",54);
+                if($desc):?>
+                    <div class="rollover">
+                        <?php echo $desc;?>	
+                    </div><!--.rollover-->
+                <?php endif;?>
+            </div><!--.culture-->
+            <div class="clear"></div>
+        <?php endif;?>
       <div class="featured-event-content-details">
       	<a href="<?php echo $value['permalink']; ?>">DETAILS</a>
-      </div><!-- featured event content -->
 
       <div class="featured-event-content-details-text">DETAILS ></div><!-- featured event content -->
       
@@ -239,6 +256,7 @@ $prevDay = '';
         <div class="daynum">
           <?php echo $daynum; ?>
         </div>
+      </div><!-- featured event content -->
 
      </div><!-- featured event -->
     
@@ -250,8 +268,10 @@ $prevDay = '';
 				<div class="circle">
 					?
 				</div><!--.circle-->
-				<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
-				<?php $desc = get_field("culture_block_rollover",54);
+				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+				    <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+                </a>
+                <?php $desc = get_field("culture_block_rollover",54);
 				if($desc):?>
 					<div class="rollover">
 						<?php echo $desc;?>	

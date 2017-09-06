@@ -127,16 +127,18 @@ function cmp($a, $b) {
  
    if ( $a['date'] == $b['date'] ) {
       // Dates are same so compare names within the date.
-      $aname = strtolower($a['terms']['0']->slug['0']);
-      $bname = strtolower($b['terms']['0']->slug['0']);
-      $arank = (isset($rank[$aname])) ? $rank[$aname] : 0;
-      $brank = (isset($rank[$bname])) ? $rank[$bname] : 0;
-      if ( $arank < $brank )
-         $result = -1;
-      else
-         if ( $arank > $brank )
+      if(!empty($a['terms'])&&!empty($b['terms'])){
+		$aname = strtolower($a['terms']['0']->slug['0']);
+		$bname = strtolower($b['terms']['0']->slug['0']);
+		$arank = (isset($rank[$aname])) ? $rank[$aname] : 0;
+		$brank = (isset($rank[$bname])) ? $rank[$bname] : 0;
+		if ( $arank < $brank )
+			$result = -1;
+		else
+			if ( $arank > $brank )
 
-            $result = 1;
+				$result = 1;
+	  }
    }
    else {
       // Dates differ so just compare on date.
@@ -157,7 +159,7 @@ usort($newQuery,'cmp');
 	$prevMonth = '';
 	foreach ($newQuery as $value) : 
 	
-	$currentTerm = $value['terms']['0']->slug;
+	$currentTerm = !empty($value['terms']) ? $value['terms']['0']->slug : '';
 	// set the month
 	$newEd = $value['date'];
 	$eD = DateTime::createFromFormat('Ymd', $newEd);
@@ -186,9 +188,25 @@ usort($newQuery,'cmp');
 	?>
     
     <div class="featured-event">
+		<?php if(strcmp($value['culture'],"yes")===0):?>
+			<div class="culture">
+				<div class="circle">
+					?
+				</div><!--.circle-->
+				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+					<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+				</a>
+				<?php $desc = get_field("culture_block_rollover",54);
+				if($desc):?>
+					<div class="rollover">
+						<?php echo $desc;?>	
+					</div><!--.rollover-->
+				<?php endif;?>
+			</div><!--.culture-->
+			<div class="clear"></div>
+		<?php endif;?>
     	<div class="featured-event-content-details">
         	<a href="<?php echo $value['permalink']; ?>">DETAILS</a>
-        </div><!-- featured event content -->
         <div class="featured-event-content-details-text">DETAILS</div><!-- featured event content -->
     
        <div class="featured-event-content">
@@ -212,6 +230,7 @@ usort($newQuery,'cmp');
                     <img src="<?php echo $image; ?>" />
             <?php } ?>
         </div><!-- featured event image -->
+        </div><!-- featured event content -->
         
      </div><!-- featured event -->
     
@@ -223,7 +242,9 @@ usort($newQuery,'cmp');
 				<div class="circle">
 					?
 				</div><!--.circle-->
-				<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+					<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+				</a>
 				<?php $desc = get_field("culture_block_rollover",54);
 				if($desc):?>
 					<div class="rollover">

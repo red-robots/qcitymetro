@@ -136,7 +136,10 @@ get_header(); ?>
               		<?php echo $details; ?>
 					<?php the_content(); ?>
 					<?php if(strcmp(get_field("culture_block"),"yes")===0):?>
-						<img src="<?php echo get_template_directory_uri()."/images/culture-blocks.jpg";?>" alt="Culture Blocks">
+						<div class="culture-text">This is a Culture Blocks event, sponsored by <a href="https://www.artsandscience.org/" target="_blank">Arts &amp; Science Council</a>. Culture for All!</div><!--.culture-text-->
+						<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+							<img src="<?php echo get_template_directory_uri()."/images/culture-blocks.jpg";?>" alt="Culture Blocks">
+ 						</a>
  					<?php endif;?>
 				</div>
 
