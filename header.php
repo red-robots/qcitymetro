@@ -42,6 +42,12 @@
 if($facebook_pixel):
     echo $facebook_pixel;
 endif;?>
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
 <?php
 //
 //		Need to query Google AD scripts
