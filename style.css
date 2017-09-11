@@ -1696,6 +1696,12 @@ nav.footermenu a {
 	height: 100%;
 }
 .featured-event-image img {width: 100%;max-height: 100%;}
+.featured-event-image-business {
+	width: 20%;
+	line-height: 0;
+	margin-right: 2%;
+}
+.featured-event-image-business img {width: 100%;max-height: 100%;}
 .featured-event-featured {
 	width: 10px;
 	height: 100%;

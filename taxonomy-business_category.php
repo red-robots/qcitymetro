@@ -61,7 +61,7 @@ get_header(); ?>
                                 <a href="<?php the_permalink(); ?>">DETAILS</a>
                             </div><!-- featured event content -->
 
-                            <div class="featured-event-image">
+                            <div class="featured-event-image-business">
 								<?php if ( $image != '' ) { ?>
                                     <img src="<?php echo $thumb; ?>"/>
 								<?php } ?>
