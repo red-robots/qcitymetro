@@ -1700,6 +1700,7 @@ nav.footermenu a {
 	width: 20%;
 	line-height: 0;
 	margin-right: 2%;
+	float: right;
 }
 .featured-event-image-business img {width: 100%;max-height: 100%;}
 .featured-event-featured {
