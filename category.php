@@ -86,7 +86,7 @@ $today = date('Ymd');
 	$wp_query = new WP_Query(
 		array(
 			'post_type'=>'post',
-			'posts_per_page' => $numPosts + count( $posts_to_exclude ),
+			'posts_per_page' => $numPosts,
 			'paged' => $paged,
 			//'post__not_in' => $ids,
 			'tax_query' => array(
