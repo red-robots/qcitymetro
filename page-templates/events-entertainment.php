@@ -256,6 +256,7 @@ $prevDay = '';
         <div class="daynum">
           <?php echo $daynum; ?>
         </div>
+        <div class="clear"></div>
       </div><!-- featured event content -->
 
      </div><!-- featured event -->
@@ -295,6 +296,7 @@ $prevDay = '';
           <div class="daynum">
               <?php echo $daynum; ?>
           </div>
+            <div class="clear"></div>
         </div><!-- featured event content -->
 
      </div><!-- event list -->

@@ -79,6 +79,7 @@ get_header(); ?>
 										<div class="fe-desc"><?php echo $description; ?></div>
 									<?php } ?>
 								</div><!-- featured event content -->
+        						<div class="clear"></div>
                             </div><!-- featured event content -->
 
                         </div><!-- featured event -->

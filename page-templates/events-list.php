@@ -193,7 +193,7 @@ echo '</pre>';*/
                     <img src="<?php echo $image; ?>" />
             <?php } ?>
         </div><!-- featured event image -->
-        
+        <div class="clear"></div>
         </div><!-- featured event content -->
      </div><!-- featured event -->
     
@@ -228,6 +228,7 @@ echo '</pre>';*/
             <div class="fe-location"><?php echo $value['location']; ?></div>
             <div class="el-deets">Time</div>
             <div class="fe-start"><?php echo $value['time']; ?></div>
+        <div class="clear"></div>
         </div><!-- featured event content -->
      </div><!-- event list -->
     
