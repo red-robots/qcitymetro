@@ -59,26 +59,26 @@ get_header(); ?>
 
                             <div class="featured-event-content-details">
                                 <a href="<?php the_permalink(); ?>">DETAILS</a>
-                            </div><!-- featured event content -->
 
-                            <div class="featured-event-image-business">
-								<?php if ( $image != '' ) { ?>
-                                    <img src="<?php echo $thumb; ?>"/>
-								<?php } ?>
-                            </div><!-- featured event image -->
-                            <div class="featured-event-content">
-                                <h2><?php the_title(); ?></h2>
-								<?php if ( $trimmedAdd != '' ) { ?>
-                                    <div class="fe-location">
-										<?php echo $trimmedAdd; ?>
-                                    </div>
-								<?php } ?>
-								<?php if ( $phone != '' ) { ?>
-                                    <div class="fe-start"><?php echo $phone; ?></div>
-								<?php } ?>
-								<?php if ( $description != '' ) { ?>
-                                    <div class="fe-desc"><?php echo $description; ?></div>
-								<?php } ?>
+								<div class="featured-event-image-business">
+									<?php if ( $image != '' ) { ?>
+										<img src="<?php echo $thumb; ?>"/>
+									<?php } ?>
+								</div><!-- featured event image -->
+								<div class="featured-event-content">
+									<h2><?php the_title(); ?></h2>
+									<?php if ( $trimmedAdd != '' ) { ?>
+										<div class="fe-location">
+											<?php echo $trimmedAdd; ?>
+										</div>
+									<?php } ?>
+									<?php if ( $phone != '' ) { ?>
+										<div class="fe-start"><?php echo $phone; ?></div>
+									<?php } ?>
+									<?php if ( $description != '' ) { ?>
+										<div class="fe-desc"><?php echo $description; ?></div>
+									<?php } ?>
+								</div><!-- featured event content -->
                             </div><!-- featured event content -->
 
                         </div><!-- featured event -->

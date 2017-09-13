@@ -56,9 +56,7 @@ get_header(); ?>
 					<?php while ( $wp_query->have_posts() ) : ?>
 						<?php $wp_query->the_post();
 
-						$image             = get_field( 'business_thumbnail' );
-						$size              = 'thumbnail';
-						$thumb             = $image['sizes'][ $size ];
+	
 						$location          = get_field( 'address' );
 						$email             = get_field( 'email' );
 						$phone             = get_field( 'phone' );
@@ -79,16 +77,6 @@ get_header(); ?>
 
 
                         <div class="featured-event">
-
-                            <div class="featured-event-content-details">
-                                <a href="<?php the_permalink(); ?>">DETAILS</a>
-                            </div><!-- featured event content -->
-
-                            <div class="featured-event-image">
-								<?php if ( $image != '' ) { ?>
-                                    <img src="<?php echo $thumb; ?>"/>
-								<?php } ?>
-                            </div><!-- featured event image -->
                             <div class="featured-event-content">
                                 <h2><?php the_title(); ?></h2>
 								<?php if ( $trimmedAdd != '' ) { ?>
