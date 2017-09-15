@@ -4,7 +4,7 @@
 */
 $display_to_public = get_field("display_to_public");
 if(strcmp($display_to_public,"no")===0):
-	wp_redirect( bloginfo('url'));
+	wp_redirect( get_bloginfo('url'));
 	exit;
 endif;
 get_header(); 
