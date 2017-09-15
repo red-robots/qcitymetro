@@ -49,8 +49,34 @@
                     </header><!-- .archive-header -->
 
                     <div class="entry-content">
-
-
+						<?php $column = get_field("column");
+						if($column):?>
+							<div class="column-section">
+								<div class="col-1">
+									<?php $chooseAuthor = get_field( 'choose_author' );
+									$size        = 'thumbnail';
+									$authorPhoto = null;
+									if ( $chooseAuthor != '' ):
+										$authorID   = $chooseAuthor['ID'];
+										$authorPhoto = get_field( 'custom_picture', 'user_' . $authorID );
+									else:
+										$authorPhoto = get_field('custom_picture','user_'.get_the_author_meta('ID'));
+									endif;
+									if ( $authorPhoto ):
+										echo wp_get_attachment_image( $authorPhoto, $size );
+									endif; //  if photo ?>
+								</div><!--.col-1-->
+								<?php $post = get_post($column);
+								setup_postdata($post);?>
+								<div class="col-2">
+									<h2><?php the_title();?></h2>
+									<div class="copy">
+										<?php the_content();?>
+									</div><!--.copy-->
+								</div><!--.col-2-->
+							</div><!--.column-section-->
+							<?php wp_reset_postdata();
+						endif;?>
                         <h1 class="posttitle"><?php the_title(); ?></h1>
 
 						<?php if ( has_excerpt() ) : ?>

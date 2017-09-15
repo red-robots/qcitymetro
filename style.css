@@ -792,6 +792,63 @@ select.eventtype {
 .gform_wrapper form {
 	overflow-x: visible !important;
 }
+/* column section */
+
+.column-section {
+	width: 100%;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-align-content: center;
+	align-content: center;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	border-bottom: 1px solid grey;
+	margin-bottom: 24px;
+}
+.column-section .col-1 {
+	width: 80%;
+	max-width: 150px;
+	min-width: 80px;
+	margin-bottom: 10px;
+}
+.column-section .col-1 img {
+	width: 100%;
+	display: block;
+}
+.column-section .col-2 {
+	-webkit-box-flex: 1 1 auto;
+	-moz-box-flex: 1 1 auto;
+	-webkit-flex: 1 1 auto;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	width: 100%;
+}
+.entry-content .column-section .col-2 h2 {
+	color: grey;
+	font-size: 24px;
+	text-transform: uppercase;
+	font-family: 'Droid Serif', serif;
+	margin-bottom: 5px;
+}
+#primary .entry-content .column-section .col-2 .copy {
+	color: grey;
+	font-size: 12px;
+}
+#primary .entry-content .column-section .col-2 .copy p {
+	color: grey;
+	font-size: 16px;
+}
+
+
+
+
 /* Page structure */
 .site {
 	padding: 0px;
@@ -2904,7 +2961,21 @@ img#wpstats {
 
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
-
+	.column-section {
+		-webkit-align-content: center;
+		align-content: center;
+		-webkit-align-items: center;
+		align-items: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+		-webkit-flex-direction: row;
+		flex-direction: row;
+	}
+	.column-section .col-1 {
+		width: 20%;
+		margin-right: 24px;
+		margin-bottom: 0;
+	}
 	.featured-event .culture .circle, .eventlist .culture .circle {
 		display: block;
 	}

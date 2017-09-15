@@ -4,14 +4,10 @@
 */
 $display_to_public = get_field("display_to_public");
 if(strcmp($display_to_public,"no")===0):
-	$temp_post = get_post(39809);
-	if($temp_post):
-		wp_redirect( get_the_permalink( 39809) );
-		exit;
-	endif;
+	wp_redirect( bloginfo('url'));
+	exit;
 endif;
 get_header(); 
-get_template_part('ads/sponsor-header');
 ?>
 	<section id="primary" class="">
 		<div id="content" role="main" class="wrapper">
@@ -34,13 +30,6 @@ get_template_part('ads/sponsor-header');
 						'orderby'=>'date',
 						'order'=>'DESC',
 						'paged'=>$paged,
-						'tax_query' => array(
-							array(
-								'taxonomy' => 'category', // your custom taxonomy
-								'field' => 'slug',
-								'terms' => 'offers-invites'
-							)
-						),
 						'meta_query' => array(
 							'relation' => 'AND',
 							array(
@@ -61,9 +50,9 @@ get_template_part('ads/sponsor-header');
 								),
 							),
 							array(
-								'key'=>'sponsors',
-								'value'=>'"'.get_the_ID().'"',
-								'compare'=>"LIKE"
+								'key'=>'column',
+								'value'=>get_the_ID(),
+								'compare'=>"="
 							)
 						)
 					);
@@ -95,13 +84,6 @@ get_template_part('ads/sponsor-header');
 						'orderby'=>'date',
 						'order'=>'DESC',
 						'paged'=>$paged,
-						'tax_query' => array(
-							array(
-								'taxonomy' => 'category', // your custom taxonomy
-								'field' => 'slug',
-								'terms' => 'offers-invites'
-							)
-						),
 						'meta_query' => array(
 							'relation' => 'AND',
 							array(
@@ -123,9 +105,9 @@ get_template_part('ads/sponsor-header');
 								),
 							),
 							array(
-								'key'=>'sponsors',
-								'value'=>'"'.get_the_ID().'"',
-								'compare'=>"LIKE"
+								'key'=>'column',
+								'value'=>get_the_ID(),
+								'compare'=>"="
 							)
 						)
 					);
@@ -160,9 +142,6 @@ get_template_part('ads/sponsor-header');
 					endif;?>
 				</div><!--.sponsored-row-->
 			</div><!--.site-content-->
-			<div class="widget-area">
-				<?php get_template_part( 'ads/sponsor' );?>
-			</div><!--.widget-area-->
 		</div><!-- #content -->
 	</section><!-- #primary -->
 <?php get_footer(); ?>

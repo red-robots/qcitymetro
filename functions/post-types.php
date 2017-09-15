@@ -172,35 +172,66 @@ function js_custom_init()
   register_post_type('ad',$args); // name used in query
   
   $labels = array(
-	'name' => _x('Sponsors', 'post type general name'),
-    'singular_name' => _x('Sponsor', 'post type singular name'),
-    'add_new' => _x('Add New', 'Sponsor'),
-    'add_new_item' => __('Add New Sponsor'),
-    'edit_item' => __('Edit Sponsor'),
-    'new_item' => __('New Sponsor'),
-    'view_item' => __('View Sponsors'),
-    'search_items' => __('Search Sponsors'),
-    'not_found' =>  __('No Sponsors found'),
-    'not_found_in_trash' => __('No Sponsors found in Trash'), 
-    'parent_item_colon' => '',
-    'menu_name' => 'Sponsors'
-  );
-  $args = array(
-	'labels' => $labels,
-    'public' => true,
-    'publicly_queryable' => true,
-    'show_ui' => true, 
-    'show_in_menu' => true, 
-    'query_var' => true,
-    'rewrite' => true,
-    'capability_type' => 'post',
-    'has_archive' => false, 
-    'hierarchical' => false, // 'false' acts like posts 'true' acts like pages
-    'menu_position' => 20,
-    'supports' => array('title','editor','custom-fields','thumbnail'),
-	
-  ); 
-  register_post_type('sponsor',$args); // name used in query
+    'name' => _x('Sponsors', 'post type general name'),
+      'singular_name' => _x('Sponsor', 'post type singular name'),
+      'add_new' => _x('Add New', 'Sponsor'),
+      'add_new_item' => __('Add New Sponsor'),
+      'edit_item' => __('Edit Sponsor'),
+      'new_item' => __('New Sponsor'),
+      'view_item' => __('View Sponsors'),
+      'search_items' => __('Search Sponsors'),
+      'not_found' =>  __('No Sponsors found'),
+      'not_found_in_trash' => __('No Sponsors found in Trash'), 
+      'parent_item_colon' => '',
+      'menu_name' => 'Sponsors'
+    );
+    $args = array(
+    'labels' => $labels,
+      'public' => true,
+      'publicly_queryable' => true,
+      'show_ui' => true, 
+      'show_in_menu' => true, 
+      'query_var' => true,
+      'rewrite' => true,
+      'capability_type' => 'post',
+      'has_archive' => false, 
+      'hierarchical' => false, // 'false' acts like posts 'true' acts like pages
+      'menu_position' => 20,
+      'supports' => array('title','editor','custom-fields','thumbnail'),
+    
+    ); 
+    register_post_type('sponsor',$args); // name used in query
+
+    $labels = array(
+      'name' => _x('Columns', 'post type general name'),
+        'singular_name' => _x('Column', 'post type singular name'),
+        'add_new' => _x('Add New', 'Column'),
+        'add_new_item' => __('Add New Column'),
+        'edit_item' => __('Edit Column'),
+        'new_item' => __('New Column'),
+        'view_item' => __('View Column'),
+        'search_items' => __('Search Columns'),
+        'not_found' =>  __('No Columns found'),
+        'not_found_in_trash' => __('No Columns found in Trash'), 
+        'parent_item_colon' => '',
+        'menu_name' => 'Column'
+      );
+      $args = array(
+      'labels' => $labels,
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true, 
+        'show_in_menu' => true, 
+        'query_var' => true,
+        'rewrite' => true,
+        'capability_type' => 'post',
+        'has_archive' => false, 
+        'hierarchical' => false, // 'false' acts like posts 'true' acts like pages
+        'menu_position' => 20,
+        'supports' => array('title','editor','custom-fields','thumbnail'),
+      
+      ); 
+      register_post_type('column',$args); // name used in query
   // Add more between here
   
   // and here
