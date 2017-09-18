@@ -13,7 +13,7 @@
 		            			<?php echo wp_get_attachment_image( $logo, $size ); ?>
 		            		</a>
 	            		</div>
-	            	<?php endwhile; endif; ?>
+	            	<?php endwhile; wp_reset_postdata();endif; ?>
 
 	            	<?php 
 	            	$i=0;
@@ -36,7 +36,7 @@
 		            		</a>
 		            		</div>
 	            		</div>
-	            	<?php endwhile; endif; ?>
+	            	<?php endwhile; wp_reset_postdata();endif; ?>
 
 	            	<?php if(have_rows('third_tier_sponsors', 'option')) : while(have_rows('third_tier_sponsors', 'option')) : the_row(); 
 	            		$link = get_sub_field('sponsor_link', 'option');
@@ -48,7 +48,7 @@
 		            			<?php echo wp_get_attachment_image( $logo, $size ); ?>
 		            		</a>
 	            		</div>
-	            	<?php endwhile; endif; ?>
+	            	<?php endwhile; wp_reset_postdata();endif; ?>
 	            	<div class="clear"></div>
 
 	            	<div class="bar"></div>
