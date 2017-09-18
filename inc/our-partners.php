@@ -3,9 +3,10 @@
             	<h2>Our Partners</h2>
         	</div><!-- border title -->
 
-			<?php if(have_rows('top_tier_sponsors', 'option')) : while(have_rows('top_tier_sponsors', 'option')) : the_row(); 
-	            		$link = get_sub_field('link');
-	            		$logo = get_sub_field('logo');
+					<?php $rows = get_field("top_tier_sponsors","option");
+					if($rows) : foreach($rows as $row) : 
+	            		$link = $row['link'];
+	            		$logo = $row['logo'];
 	            		$size = 'large';
 	            	?>
 	            		<div class="spon-tier-one">
@@ -13,13 +14,14 @@
 		            			<?php echo wp_get_attachment_image( $logo, $size ); ?>
 		            		</a>
 	            		</div>
-	            	<?php endwhile; endif; ?>
+					<?php endforeach; endif; ?>
 
 	            	<?php 
-	            	$i=0;
-	            	if(have_rows('second_tier_sponsors', 'option')) : while(have_rows('second_tier_sponsors', 'option')) : the_row(); $i++;
-	            		$link = get_sub_field('sponsor_link');
-	            		$logo = get_sub_field('sponsor_logo');
+					$i=0;
+					$rows = get_field("second_tier_sponsors","option");
+	            	if($rows) : foreach($rows as $row) : $i++;
+	            		$link = $row['sponsor_link'];
+	            		$logo = $row['sponsor_logo'];
 	            		$size = 'large';
 
 	            		if($i == 2) {
@@ -36,11 +38,12 @@
 		            		</a>
 		            		</div>
 	            		</div>
-	            	<?php endwhile; endif; ?>
+	            	<?php endforeach; endif; ?>
 
-	            	<?php if(have_rows('third_tier_sponsors', 'option')) : while(have_rows('third_tier_sponsors', 'option')) : the_row(); 
-	            		$link = get_sub_field('sponsor_link');
-	            		$logo = get_sub_field('sponsor_logo');
+					<?php $rows = have_rows('third_tier_sponsors', 'option');
+					if($rows) : foreach($rows as $row) :  
+	            		$link = $row['sponsor_link'];
+	            		$logo = $row['sponsor_logo'];
 	            		$size = 'large';
 	            	?>
 	            		<div class="spon-tier-three">
@@ -48,7 +51,7 @@
 		            			<?php echo wp_get_attachment_image( $logo, $size ); ?>
 		            		</a>
 	            		</div>
-	            	<?php endwhile; endif; ?>
+	            	<?php endforeach; endif; ?>
 	            	<div class="clear"></div>
 
 	            	<div class="bar"></div>
