@@ -95,47 +95,19 @@ endwhile; endif; wp_reset_query();
 							    	their ID's first so we don't repeat oursleves. 
 								*/
 								// section 1
-							   $posts = $section1; 
-							   foreach($posts as $post) :
-									setup_postdata( $post ); 
-									$ids[] = get_the_ID();
+							   foreach($section1 as $post) : 
+									$ids[] = $post->ID;
 								endforeach;
-								wp_reset_postdata();
 								
 								// section 2
-								$posts = $section2; 
-								foreach($posts as $post) :
-									setup_postdata( $post ); 
-									$ids[] = get_the_ID();
+							   foreach($section2 as $post) : 
+									$ids[] = $post->ID;
 								endforeach;
-								wp_reset_postdata();
 								
 								// section 3
-								$posts = $section3; 
-								foreach($posts as $post) :
-									setup_postdata( $post ); 
-									$ids[] = get_the_ID();
-								endforeach;
-								wp_reset_postdata(); wp_reset_query();
-								// Finally get all "Sponsored" category posts
-								$myposts = get_posts(array(
-									'posts_per_page'   => -1, // get all posts.
-									'cat' => 30,
-									/*'tax_query'     => array(
-										array(
-											'taxonomy'  => 'category',
-											'field'     => 'term_id',
-											'terms'     => 30,
-										),
-									),*/
-									'fields'        => 'ids', // Only get post IDs
-								));
-								// now loop through them
-								foreach( $myposts as $mypost ) :
-								   //$ids[] = get_the_ID();
-								endforeach;
-							   wp_reset_postdata();
-							   
+								foreach($section3 as $post) : 
+									 $ids[] = $post->ID;
+								 endforeach;							   
 							   ?>
                         </section>
                     </div><!-- site content -->
@@ -144,20 +116,13 @@ endwhile; endif; wp_reset_query();
 			News & Buzz Small Sections
 
 ======================================================== -->
-                    <?php
-						// echo '<pre>';
-						// print_r($ids);
-						// echo '</pre>';
-					?>
                     
                     <div class="inner-area homebars">
                         <section>
                         <?php 
-							wp_reset_query();
 							// Query latest three posts excluding the previously queried posts
 							$wp_query = new WP_Query();
 							$wp_query->query(array(
-								//'category_name' => $category,
 								'post_type' => 'post',
 								'posts_per_page' => 1, // 4 if sponsored, 5 if no sponsored
 								'category__not_in' => 30,
@@ -185,11 +150,6 @@ endwhile; endif; wp_reset_query();
 							    )
 							));
 							if ($wp_query->have_posts()) : while ($wp_query->have_posts()) : $wp_query->the_post(); 
-
-							// if ( in_array( get_the_ID(), $ids ) ) {
-					  //           continue;
-					  //       }
-
 
 							if ( has_post_thumbnail() ) {
 								$smallClass = 'small-post-content';
@@ -221,105 +181,68 @@ endwhile; endif; wp_reset_query();
 							<?php 
 							// get more ids
 							   $ids[] = get_the_ID();
-							endwhile; endif; // end query 3 latest
+							endwhile; wp_reset_postdata(); endif; // end query 3 latest
 							
-							// $wp_query = new WP_Query();
-							// $wp_query->query(array(
-							// 	'category_name' => $category,
-							// 	'post_type' => 'post',
-							// 	'posts_per_page' => '1',
-							// 	//'post__not_in' => $ids,
-							// 	'category_name' => 'sponsored'
-							// ));
-							// if ($wp_query->have_posts()) : while ($wp_query->have_posts()) : $wp_query->the_post(); 
+							
 
-						// Post Type Order Plugin installed, so get that outta here
-										remove_all_filters('posts_orderby');
+							// Post Type Order Plugin installed, so get that outta here
+							remove_all_filters('posts_orderby');
 
-										// put Sponsored content choices in here.
-										$pickedids = array();
-										$pickedids[] = $sponsoredPost[0]->ID;
-										$pickedids[] = $sponsoredPost[1]->ID;
-										$pickedids[] = $sponsoredPost[2]->ID;
-										$myIDs = implode(', ', $pickedids);
-										//echo $myIDs;
-										if( $sponsoredPost ) :
-											
-											$nodate = '';
-											$posts_array = get_posts(array(
-												'numberposts' => 1, // posts_per_page doesn't work here either.
-												'post_type' => 'post',
-												'include' => $myIDs, // for some reason, post__in doesn't work here.
-												'orderby' => 'rand',
-												// Special Query for Expired Posts
-												'meta_query' => array(
-													'relation' => 'OR',
-											         array(
-											            'key' => 'post_expire',
-											            'value' => NULL,
-											            'compare' => '='
-											        ),
-											        array(
-											            'key' => 'post_expire',
-											            // 'value' => 'NOT EXISTS'
-											            'compare' => 'NOT EXISTS'
-											        ),
-											        array(
-											            'key' => 'post_expire',
-											            'value' => $today,
-											            'compare' => '>'
-											        )
-											    )
-												
-											));
+							// put Sponsored content choices in here.
+							if( $sponsoredPost && count($sponsoredPost)===3) :
+							
+								$posts_array = new WP_Query(array(
+									'posts_per_page' => 1, // posts_per_page doesn't work here either.
+									'post_type' => 'post',
+									'post__in' => array( $sponsoredPost[0]->ID, $sponsoredPost[1]->ID, $sponsoredPost[2]->ID ), // for some reason, post__in doesn't work here.
+									'orderby' => 'rand',
+									// Special Query for Expired Posts
+									'meta_query' => array(
+										'relation' => 'OR',
+											array(
+											'key' => 'post_expire',
+											'value' => NULL,
+											'compare' => '='
+										),
+										array(
+											'key' => 'post_expire',
+											'compare' => 'NOT EXISTS'
+										),
+										array(
+											'key' => 'post_expire',
+											'value' => $today,
+											'compare' => '>'
+										)
+									)
+									
+								));
 
-											$numSponsPost = 0;
 
-											// echo '<pre>';
-											// print_r($posts_array);
-											// echo '</pre>';
+								if($posts_array->have_posts()): $post_array->the_post();
+									
+									// Finally - added August 25 2016
+									// Don't show expired post. 
+									// Can't do this in the query becuase there are so many posts without a datefield
+									
+									//echo $today;
+									$postDate = get_field('post_expire');
+									// 
+									//if( $postDate > $today || $postDate == '' ) :
+										echo '<!-- OK | Today:' .$today . ' | Expires:' . $postDate . '-->';
+										get_template_part('cat/sponsored-post');
 
-											foreach( $posts_array as $post ) : $numSponsPost++;
-												//global $post;
-												setup_postdata( $post ); 
-												//echo $post->ID .'<br>';
-
-												// Finally - added August 25 2016
-								 				// Don't show expired post. 
-								 				// Can't do this in the query becuase there are so many posts without a datefield
-								 				
-								 				//echo $today;
-								 				$postDate = get_field('post_expire');
-								 				// 
-								 				//if( $postDate > $today || $postDate == '' ) :
-								 					echo '<!-- OK | Today:' .$today . ' | Expires:' . $postDate . '-->';
-													get_template_part('cat/sponsored-post');
-
-												//endif; // end comparing post expire to today
-												// get more ids
-							   					$ids[] = get_the_ID();
-												wp_reset_postdata();
-												// after 1 get out.
-												if( $numSponsPost == 1 ) {break;}
-											endforeach;
-
-										endif;
-
-							?>
-                          
-                            
-                          <!-- 1-18-16 -->
-                          
-                          <?php 
-							// get more ids
-							   $ids[] = get_the_ID();
-							//endwhile; endif;  //end for each category ?>
+									//endif; // end comparing post expire to today
+									// get more ids
+									$ids[] = get_the_ID();
+									wp_reset_postdata();
+									endif;
+							endif;
+							?>                    
                             
                             <?php 
 							// Query latest three posts excluding the previously queried posts
 							$wp_query = new WP_Query();
 							$wp_query->query(array(
-								'category_name' => $category,
 								'post_type' => 'post',
 								'posts_per_page' => '3', // 4 if sponsored, 5 if no sponsored
 								'category__not_in' => 30,
@@ -376,7 +299,7 @@ endwhile; endif; wp_reset_query();
 							<?php 
 							// get more ids
 							   $ids[] = get_the_ID();
-							endwhile; endif; // end query 3 latest ?>
+							endwhile; wp_reset_postdata(); endif; // end query 3 latest ?>
                             
                         </section>
                     </div><!-- widget area -->
@@ -399,250 +322,95 @@ endwhile; endif; wp_reset_query();
 			News Categories People Entertainment and Health
 
 ======================================================== -->      
-        <section id="third" class="third-first ">
+        
         <?php 
-            $posts = $section1;
-			if($posts):
-            foreach( $posts as $post): 
-			 setup_postdata( $post ); 
-			 $term = get_the_terms($post->ID, 'category');
-			 $termId = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->term_id : '';
-			 $term_name = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->name : get_post_type($post->ID);
-			 $color = get_field( 'category_color', 'category_'.$termId ) ? get_field( 'category_color', 'category_'.$termId ) : 'black';
-			 // echo '<pre>';
-			 // print_r($section1);
-			 ?>	
-            <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term_name; ?></h2>
-            </div><!-- border title -->
-            
-            <div class="post-block blocks">
-
-                <?php if ( has_post_thumbnail() ) { ?>
-                	<div class="post-block-image js-titles">
-                       <?php  the_post_thumbnail('thirds'); ?>
-                   </div>
-               <?php } ?>
-                
-            	<h2><?php the_title(); ?></h2>
-            	<div class="postdate"><?php echo get_the_date(); ?></div>
-            	<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
-            </div><!-- post block -->
-            
-            <?php // get more ids
-				   $ids[] = get_the_ID();
-				   endforeach;
-				   wp_reset_postdata();
-			endif; ?>
-        </section>
-        
-        <section id="third" class="third-first ">
-        	<?php 
-            $posts = $section2;
+            $posts = [];
+			$posts[] = $section1 ? $section1[0] : null;
+            $posts[] = $section2 ? $section2[0] : null;
+			$posts[] = $section3 ? $section3[0] : null;
 			if($posts): 
-            foreach( $posts as $post):
-			 setup_postdata( $post ); 
-			 $term = get_the_terms($post->ID, 'category');
-			 $termId = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->term_id : '';
-			 $term_name = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->name : get_post_type($post->ID);
-			 $color = get_field( 'category_color', 'category_'.$termId ) ? get_field( 'category_color', 'category_'.$termId ) : 'black';
+				$i = 0;
+				foreach($posts as $post): 
+					$i++; ?>
+					<section id="third" class="<?php if($i!==3): echo 'third-first'; else: echo 'third-last'; endif;?>">
+						<?php $term = get_the_terms($post->ID, 'category');
+						$termId = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->term_id : '';
+						$term_name = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->name : get_post_type($post->ID);
+						$color = get_field( 'category_color', 'category_'.$termId ) ? get_field( 'category_color', 'category_'.$termId ) : 'black';
+					
+						?>	
+						<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
+							<h2 style="background-color: <?php echo $color; ?>"><?php echo $term_name; ?></h2>
+						</div><!-- border title -->
+						
+						<div class="post-block blocks">
 
-		
-			 ?>	
-            <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term_name; ?></h2>
-            </div><!-- border title -->
-            
-            <div class="post-block blocks">
-            
-            
-				<?php
-				if ( has_post_thumbnail() ) { ?>
-                	<div class="post-block-image js-titles">
-                       <?php  the_post_thumbnail('thirds'); ?>
-                   </div>
-               <?php } ?>
-                
-            	<h2><?php the_title(); ?></h2>
-            	<div class="postdate"><?php echo get_the_date(); ?></div>
-            	<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
-            </div><!-- post block -->
-            
-            <?php // get more ids
-				   $ids[] = get_the_ID();
-				   endforeach;
-				   wp_reset_postdata(); 
-			endif;?>
-        </section>
-        
-        <section id="third" class="third-last">
-        	<?php 
-            $posts = $section3;
-			if($posts):
-            foreach( $posts as $post):
-			 setup_postdata( $post ); 
-			 $term = get_the_terms($post->ID, 'category');
-			 $termId = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->term_id : '';
-			 $term_name = !is_wp_error($term) && !empty($term) && $term !== false ? $term[0]->name : get_post_type($post->ID);
-			 $color = get_field( 'category_color', 'category_'.$termId ) ? get_field( 'category_color', 'category_'.$termId ) : 'black';
-			/* echo '<pre>';
-			 print_r($color);*/
-			 ?>	
-            <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-                <h2 style="background-color: <?php echo $color; ?>"><?php echo $term_name; ?></h2>
-            </div><!-- border title -->
-            
-            <div class="post-block blocks">
-            
-            
-				<?php
-				if ( has_post_thumbnail() ) { ?>
-                	<div class="post-block-image js-titles">
-                       <?php  the_post_thumbnail('thirds'); ?>
-                   </div>
-               <?php } ?>
-                
-            	<h2><?php the_title(); ?></h2>
-            	<div class="postdate"><?php echo get_the_date(); ?></div>
-            	<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
-            </div><!-- post block -->
-            
-            <?php // get more ids
-				   $ids[] = get_the_ID();
-				   endforeach;
-				   wp_reset_postdata();
+							<?php if ( has_post_thumbnail($post->ID) ) { ?>
+								<div class="post-block-image js-titles">
+								<?php echo get_the_post_thumbnail($post->ID,'thirds'); ?>
+							</div>
+						<?php } ?>
+							
+							<h2><?php echo get_the_title($post->ID); ?></h2>
+							<div class="postdate"><?php echo get_the_date('',$post->ID); ?></div>
+							<div class="q-readmore"><a href="<?php the_permalink($post->ID); ?>">Read more</a></div>
+						</div><!-- post block -->
+						
+						<?php // get more ids
+						$ids[] = $post->ID;?>
+					</section>
+				<?php endforeach;
 			endif; ?>
-        </section>
         
         <div class="clear"></div>
 
 		<!-- 
 			Sponsors
 
-======================================================== -->      
-        <section id="third" class="third-first ">
+======================================================== -->    
         <?php 
-            $posts = $section5;
-			if($posts):
-				foreach( $posts as $post): 
-					setup_postdata( $post ); 
-					$terms = get_the_terms($post->ID, 'category');
-					if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
-						$termId = $terms[0]->term_id;
-						$color = get_field( 'category_color', 'category_'.$termId ); 
-						$sponsors = get_field('sponsors');?>	
-						<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-							<h2 style="background-color: <?php echo $color; ?>"><?php 
-								if($sponsors):
-									echo $sponsors[0]->post_title;
-								else:
-									echo $term[0]->name;
-								endif;?>
-							</h2>
-						</div><!-- border title -->
-						
-						<div class="post-block blocks">
-
-							<?php if ( has_post_thumbnail() ) { ?>
-								<div class="post-block-image js-titles">
-								<?php  the_post_thumbnail('thirds'); ?>
-							</div>
-						<?php } ?>
+			$posts = [];
+			$posts[] = $section5 ? $section5[0] : null;
+            $posts[] = $section6 ? $section6[0] : null;
+            $posts[] = $section7 ? $section7[0] : null;
+			if($posts): 
+				$i = 0;
+				foreach($posts as $post): 
+					$i++;?>
+				  	<section id="third" class="<?php if($i!==3): echo 'third-first'; else: echo 'third-last'; endif;?>">
+						<?php $terms = get_the_terms($post->ID, 'category');
+						if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
+							$termId = $terms[0]->term_id;
+							$color = get_field( 'category_color', 'category_'.$termId ); 
+							$sponsors = get_field('sponsors',$post->ID);?>	
+							<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
+								<h2 style="background-color: <?php echo $color; ?>"><?php 
+									if($sponsors):
+										echo $sponsors[0]->post_title;
+									else:
+										echo $term[0]->name;
+									endif;?>
+								</h2>
+							</div><!-- border title -->
 							
-							<h2><?php the_title(); ?></h2>
-							<div class="postdate"><?php echo get_the_date(); ?></div>
-							<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
-						</div><!-- post block -->
-						
-					<?php endif;
-					$ids[] = get_the_ID();
-				endforeach;
-				wp_reset_postdata(); 
-			endif;?>
-        </section>
-        
-        <section id="third" class="third-first ">
-        	<?php 
-            $posts = $section6; 
-            if($posts):
-				foreach( $posts as $post): 
-					setup_postdata( $post ); 
-					$terms = get_the_terms($post->ID, 'category');
-					if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
-						$termId = $terms[0]->term_id;
-						$color = get_field( 'category_color', 'category_'.$termId ); 
-						$sponsors = get_field('sponsors');?>	
-						<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-							<h2 style="background-color: <?php echo $color; ?>"><?php 
-								if($sponsors):
-									echo $sponsors[0]->post_title;
-								else:
-									echo $term[0]->name;
-								endif;?>
-							</h2>
-						</div><!-- border title -->
-						
-						<div class="post-block blocks">
+							<div class="post-block blocks">
 
-							<?php if ( has_post_thumbnail() ) { ?>
-								<div class="post-block-image js-titles">
-								<?php  the_post_thumbnail('thirds'); ?>
-							</div>
-						<?php } ?>
+								<?php if ( has_post_thumbnail($post->ID) ) { ?>
+									<div class="post-block-image js-titles">
+									<?php echo get_the_post_thumbnail($post->ID,'thirds'); ?>
+								</div>
+							<?php } ?>
+								
+								<h2><?php echo get_the_title($post->ID); ?></h2>
+								<div class="postdate"><?php echo get_the_date('',$post->ID); ?></div>
+								<div class="q-readmore"><a href="<?php the_permalink($post->ID); ?>">Read more</a></div>
+							</div><!-- post block -->
 							
-							<h2><?php the_title(); ?></h2>
-							<div class="postdate"><?php echo get_the_date(); ?></div>
-							<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
-						</div><!-- post block -->
-						
-					<?php endif;
-					$ids[] = get_the_ID();
-				endforeach;
-				wp_reset_postdata(); 
+						<?php $ids[] = $post->ID; 
+						endif;?>
+					</section>
+				<?php endforeach;
 			endif;?>
-        </section>
-        
-        <section id="third" class="third-last">
-        	<?php 
-            $posts = $section7;
-            if($posts):
-				foreach( $posts as $post): 
-					setup_postdata( $post ); 
-					$terms = get_the_terms($post->ID, 'category');
-					if(!is_wp_error( $terms )&& !empty($terms) && is_array($terms)):
-						$termId = $terms[0]->term_id;
-						$color = get_field( 'category_color', 'category_'.$termId ); 
-						$sponsors = get_field('sponsors');?>	
-						<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-							<h2 style="background-color: <?php echo $color; ?>"><?php 
-								if($sponsors):
-									echo $sponsors[0]->post_title;
-								else:
-									echo $term[0]->name;
-								endif;?>
-							</h2>
-						</div><!-- border title -->
-						
-						<div class="post-block blocks">
-
-							<?php if ( has_post_thumbnail() ) { ?>
-								<div class="post-block-image js-titles">
-								<?php  the_post_thumbnail('thirds'); ?>
-							</div>
-						<?php } ?>
-							
-							<h2><?php the_title(); ?></h2>
-							<div class="postdate"><?php echo get_the_date(); ?></div>
-							<div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
-						</div><!-- post block -->
-						
-					<?php endif;
-					$ids[] = get_the_ID();
-				endforeach;
-				wp_reset_postdata(); 
-			endif;?>
-        </section>
-        
         <div class="clear"></div>
 
         <div class="site-content">
@@ -696,31 +464,21 @@ endwhile; endif; wp_reset_query();
                 <div class="col-2">
                     <section class="business-featured-post">
 		                <?php
-		                $posts = $section4;
-		                if($posts):
-		                foreach( $posts as $post):
-			                setup_postdata( $post );
-
-			                ?>
-
+						$post = $section4 ? $section4[0]: null;
+		                if($post):?>
                             <div class="post-block blocks">
-
-
-				                <?php
-					                if ( has_post_thumbnail() ) { ?>
+				                <?php if ( has_post_thumbnail($post->ID) ) { ?>
                                         <div class="post-block-image js-titles">
-							                <?php  the_post_thumbnail('thirds'); ?>
+							                <?php echo get_the_post_thumbnail($post->ID,'thirds'); ?>
                                         </div>
 					                <?php }?>
 
-                                <h2><?php the_title(); ?></h2>
-                                <div class="q-readmore"><a href="<?php the_permalink(); ?>">Read more</a></div>
+                                <h2><?php echo get_the_title($post->ID); ?></h2>
+                                <div class="q-readmore"><a href="<?php the_permalink($post->ID); ?>">Read more</a></div>
                             </div><!-- post block -->
 
 			                <?php // get more ids
-			                $ids[] = get_the_ID();
-		                endforeach;
-		                wp_reset_postdata();
+			                $ids[] = $post->ID;
 		                endif;?>
                     </section>
                 </div><!--.col-2-->
@@ -748,22 +506,7 @@ endwhile; endif; wp_reset_query();
 	                <?php get_template_part('inc/our-partners') ?>
 
             	</section>
-                    
-                    <!-- VIDEO GALLERIES -->
-                    <?php 
-
-                    // This previously showed a auto play video... annoying.
-
-
-						// $post = get_post(349); 
-						//  setup_postdata( $post ); 
-						//  $video = get_field('video'); 
-						//  echo $video; 
-						//  wp_reset_postdata();
-						 ?>
-                        
-                
-                
+ 
                 <!-- PHOTO GALLERIES -->
                 <section class="gallery-area-home-right">
                 	
@@ -794,8 +537,6 @@ endwhile; endif; wp_reset_query();
 	        	} else {
 	        		$iClass = '';
 	        	}
-				/*echo '<pre>';
-				print_r($main_field);*/
 				?>
 			 
 			 <div class="<?php echo  $iClass; ?>">
@@ -822,7 +563,7 @@ endwhile; endif; wp_reset_query();
 	             </div><!-- gallery thumb -->
             </div><!-- inner area -->
 
-            <?php endwhile; endif; ?>
+            <?php endwhile; wp_reset_postdata(); endif; ?>
             <div class="clear"></div>
             
                 <div class="viewmore button"><a href="<?php bloginfo('url'); ?>/media-gallery">VIEW MORE GALLERIES</a></div>

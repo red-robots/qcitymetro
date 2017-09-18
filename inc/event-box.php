@@ -39,7 +39,7 @@ $startDate = DateTime::createFromFormat('Ymd', get_field('event_date'));
         </div><!-- evnent box link -->
     </div><!-- event box event -->
     
-<?php endwhile; endif; wp_reset_query(); wp_reset_postdata(); ?>
+<?php endwhile; wp_reset_query(); wp_reset_postdata(); endif;  ?>
     
     <div class="event-box-button"><a href="<?php bloginfo('url'); ?>/events-entertainment">More Events</a></div><!-- event box button -->
     <div class="event-box-button"><a href="<?php bloginfo('url'); ?>/submit-an-event">Submit an Event</a></div><!-- event box button -->
