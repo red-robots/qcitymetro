@@ -94,7 +94,7 @@ if(have_posts()): the_post();
 					// echo $authorID;
 					$authorPhoto = get_field('custom_picture', 'user_' . $authorID );
 					$size = 'thumbnail';
-					if($authorPhoto) { ?>
+					if($authorPhoto && ! $column) { ?>
 
 						<div class="top-author-photo">
 							<?php echo wp_get_attachment_image( $authorPhoto, $size ); ?>
