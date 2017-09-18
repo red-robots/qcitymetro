@@ -793,7 +793,11 @@ select.eventtype {
 	overflow-x: visible !important;
 }
 /* column section */
-
+.column-description {
+	padding-top: 10px;
+	border-top: 1px solid grey;
+	margin-top: 24px;
+}
 .column-section {
 	width: 100%;
 	display: -webkit-box;

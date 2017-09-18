@@ -159,6 +159,12 @@
 							<?php } endif; ?>
 
 						<?php the_content(); ?>
+						<?php $column_description = get_field("column_description");
+						if($column_description):?>
+							<div class="column-description">
+								<?php echo $column_description;?>
+							</div><!--.column-description-->
+						<?php endif;?>
                     </div><!-- entry content -->
 
                           <!--  <div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="true"></div> -->

@@ -90,7 +90,12 @@ get_header();?>
 
 							</div>
 						<?php } endif; ?>
-
+						<?php $column_description = get_field("column_description");
+						if($column_description):?>
+							<div class="column-description">
+								<?php echo $column_description;?>
+							</div><!--.column-description-->
+						<?php endif;?>
                 </div><!-- entry content -->
                 <div class="entry-content mobile-visible">
                     <h1><?php the_title();?></h1>
