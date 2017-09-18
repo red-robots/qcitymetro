@@ -4,8 +4,8 @@
         	</div><!-- border title -->
 
 			<?php if(have_rows('top_tier_sponsors', 'option')) : while(have_rows('top_tier_sponsors', 'option')) : the_row(); 
-	            		$link = get_sub_field('link', 'option');
-	            		$logo = get_sub_field('logo', 'option');
+	            		$link = get_sub_field('link');
+	            		$logo = get_sub_field('logo');
 	            		$size = 'large';
 	            	?>
 	            		<div class="spon-tier-one">
@@ -13,13 +13,13 @@
 		            			<?php echo wp_get_attachment_image( $logo, $size ); ?>
 		            		</a>
 	            		</div>
-	            	<?php endwhile; wp_reset_postdata();endif; ?>
+	            	<?php endwhile; endif; ?>
 
 	            	<?php 
 	            	$i=0;
 	            	if(have_rows('second_tier_sponsors', 'option')) : while(have_rows('second_tier_sponsors', 'option')) : the_row(); $i++;
-	            		$link = get_sub_field('sponsor_link', 'option');
-	            		$logo = get_sub_field('sponsor_logo', 'option');
+	            		$link = get_sub_field('sponsor_link');
+	            		$logo = get_sub_field('sponsor_logo');
 	            		$size = 'large';
 
 	            		if($i == 2) {
@@ -36,11 +36,11 @@
 		            		</a>
 		            		</div>
 	            		</div>
-	            	<?php endwhile; wp_reset_postdata();endif; ?>
+	            	<?php endwhile; endif; ?>
 
 	            	<?php if(have_rows('third_tier_sponsors', 'option')) : while(have_rows('third_tier_sponsors', 'option')) : the_row(); 
-	            		$link = get_sub_field('sponsor_link', 'option');
-	            		$logo = get_sub_field('sponsor_logo', 'option');
+	            		$link = get_sub_field('sponsor_link');
+	            		$logo = get_sub_field('sponsor_logo');
 	            		$size = 'large';
 	            	?>
 	            		<div class="spon-tier-three">
@@ -48,7 +48,7 @@
 		            			<?php echo wp_get_attachment_image( $logo, $size ); ?>
 		            		</a>
 	            		</div>
-	            	<?php endwhile; wp_reset_postdata();endif; ?>
+	            	<?php endwhile; endif; ?>
 	            	<div class="clear"></div>
 
 	            	<div class="bar"></div>
