@@ -288,7 +288,6 @@ add_filter('mce_buttons_2', 'acc_custom_styles');
 function my_mce_before_init_insert_formats( $init_array ) {  
  
 // Define the style_formats array
- 
 	$style_formats = array(  
 		// Each array child is a format with it's own settings
 		array(  
@@ -322,7 +321,6 @@ function my_mce_before_init_insert_formats( $init_array ) {
 	);  
 	// Insert the array, JSON ENCODED, into 'style_formats'
 	$init_array['style_formats'] = json_encode( $style_formats );  
-	
 	return $init_array;  
   
 } 
@@ -493,11 +491,12 @@ function bella_buttons() {
     add_filter( 'mce_buttons', 'bella_register_buttons' );
 }
 function bella_add_buttons( $plugin_array ) {
-    $plugin_array['bella'] = get_template_directory_uri() . '/js/bella-tinymce-plugin.js';
+    $plugin_array['bella'] = get_template_directory_uri() . '/js/bella-tinymce-plugin.js.php';
     return $plugin_array;
 }
 function bella_register_buttons( $buttons ) {
     array_push( $buttons, 'signup' ); // dropcap', 'recentposts
+    array_push( $buttons, 'bella_slider' ); 
     return $buttons;
 }
 add_action('admin_head','bella_hide_publish_events');
