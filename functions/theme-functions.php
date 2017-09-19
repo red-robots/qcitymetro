@@ -340,7 +340,7 @@ add_action( 'init', 'my_theme_add_editor_styles' );
 ---------------------------------------*/
 add_filter('relevanssi_admin_search_ok', 'rlv_acf_related_search');
 function rlv_acf_related_search($search_ok) {
-    if (DOING_AJAX) $search_ok = false;
+    if (defined("DOING_AJAX")) $search_ok = false;
     return $search_ok;
 }
 /*-------------------------------------
