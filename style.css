@@ -1161,7 +1161,69 @@ section#third {
 	font-weight: 700;
 	font-size: 16px;
 }
+/* SEARCH */
+.search-list {
+	text-align: center;
+}
+.search-list a {
+	color: #813F27;
+}
 
+.search-border-title {
+	border-bottom: 2px solid #813F27;
+	border-top: 1px solid #D1BA00;
+	width: 100%;
+	position: relative;
+	height: 1px;
+	float: left;
+	margin: 30px auto 40px auto;
+	text-align: center;
+}
+.search-border-title h2 {
+	width: auto;
+	display: inline-block;
+	background-color: #fff;
+	padding: 5px;
+	margin: -13px 0 0 0;
+	color: #813F27;
+	font-size: 24px;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+.site-content .search-widget-area {
+	margin-top: 0;
+}
+.featured-tags, .featured-cat {
+	display: block;
+}
+.featured-tags {
+}
+.featured-cat {
+}
+.entry-content .featured-tags h3, .entry-content .featured-cat h3 {
+	text-transform: uppercase;
+	line-height: 1;
+	margin: 0;
+}
+.featured-cat-link, .featured-tags-link {
+	display: inline;
+}
+.featured-cat-link a, .featured-tags-link a{
+	color: #813F27;
+	font-size: 16px;
+	font-family: 'Oswald', sans-serif;
+}
+.search-content-link {
+	position: relative;
+}
+.search-content-link a.search-link{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-indent: -9999px;
+}
 /* = Business Listings
 -------------------------------------------------------------- */
 .page-template-church-listings .entry-content p,.page-template-business-listings .entry-content p, .single-business_listing .entry-content p {
@@ -2964,6 +3026,14 @@ img#wpstats {
 
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
+	.featured-tags {
+		width: 60%;
+		float: right;
+	}
+	.featured-cat {
+		float: left;
+		width: 30%;
+	}
 	.column-section {
 		-webkit-align-content: center;
 		align-content: center;
