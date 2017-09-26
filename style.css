@@ -1168,6 +1168,9 @@ section#third {
 .search-list a {
 	color: #813F27;
 }
+.search-list a:hover {
+	color: rgba(129,63,39,0.6);
+}
 
 .search-border-title {
 	border-bottom: 2px solid #813F27;
@@ -1213,6 +1216,9 @@ section#third {
 	font-size: 16px;
 	font-family: 'Oswald', sans-serif;
 }
+.featured-cat-link a:hover, .featured-tags-link a:hover{
+	color: rgba(129,63,39,0.6);
+}
 .search-content-link {
 	position: relative;
 }
@@ -1223,6 +1229,12 @@ section#third {
 	width: 100%;
 	height: 100%;
 	text-indent: -9999px;
+}
+.search-content-link:hover {
+	color: rgba(0,0,0,0.6);
+}
+body.archive .site-content .entry-content .search-content-link:hover h2 {
+	color: rgba(0,0,0,0.6);
 }
 /* = Business Listings
 -------------------------------------------------------------- */
