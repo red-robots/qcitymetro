@@ -491,12 +491,11 @@ function bella_buttons() {
     add_filter( 'mce_buttons', 'bella_register_buttons' );
 }
 function bella_add_buttons( $plugin_array ) {
-    $plugin_array['bella'] = get_template_directory_uri() . '/js/bella-tinymce-plugin.js.php';
+    $plugin_array['bella'] = get_template_directory_uri() . '/js/bella-tinymce-plugin.js';
     return $plugin_array;
 }
 function bella_register_buttons( $buttons ) {
     array_push( $buttons, 'signup' ); // dropcap', 'recentposts
-    array_push( $buttons, 'bella_slider' ); 
     return $buttons;
 }
 add_action('admin_head','bella_hide_publish_events');

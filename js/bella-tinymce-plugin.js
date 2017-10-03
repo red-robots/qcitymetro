@@ -1,11 +1,3 @@
-<?php 
-require_once('../../../../wp-load.php');
-require_once('../../../../wp-admin/includes/admin.php');
-do_action('admin_init');
-
-if ( ! is_user_logged_in() )
-    die('You must be logged in to access this script.');
-?>
 (function() {
     tinymce.create('tinymce.plugins.bella', {
         /**
@@ -17,27 +9,6 @@ if ( ! is_user_logged_in() )
          * @param {string} url Absolute URL to where the plugin is located.
          */
         init : function(ed, url) {
-            ed.addButton('bella_slider', {
-                type: 'listbox',
-                text: 'Select a slider',
-                icon: false,
-                onselect: function(e) {}, 
-                values: [
-                    <?php $query = new WP_Query(array(
-                        'post_type'=>'ris_gallery',
-                        'posts_per_page'=>-1,
-                    ));
-                    if($query->have_posts()): 
-                        while($query->have_posts()):$query->the_post();
-                            $title = get_the_title();
-                            $id = get_the_ID();
-                            echo "{text: '{$title}', onclick : function() {
-                                tinymce.execCommand('mceInsertContent', 0, '[URIS id={$id}]');
-                            }},";
-                        endwhile;
-                    endif;?>
-                ]
-            });
             ed.addButton('signup', {
                 title : 'Signup',
                 cmd : 'signup',
