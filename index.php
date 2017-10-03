@@ -10,13 +10,9 @@ get_header();
 // Get "today" for all the queries against the post expriator
 $today = date('Ymd');
 // First Query Homepage to get some featured Posts
-$wp_query = new WP_Query();
-	$wp_query->query(array(
-	'post_type'=>'page',
-	'pagename' => 'homepage'
-));
-if ($wp_query->have_posts()) :  while ($wp_query->have_posts()) :  $wp_query->the_post();
-$sponsoredPost = get_field('sponsored_content', 349);
+$post = get_post(349);
+setup_postdata($post);
+$sponsoredPost = get_field('sponsored_content');
 $featuredPost = get_field('featured_post');
 $section1 = get_field('section_1_article');
 $section2 = get_field('section_2_article');
@@ -26,7 +22,7 @@ $section2 = get_field('section_2_article');
 	$section6 = get_field('section_6_article');
 	$section7 = get_field('section_7_article');
 
-endwhile; endif; wp_reset_query();
+wp_reset_query();
 // End Homepage Query
 ?>
 <!-- Used to only show popout newsletter on homepage -->
