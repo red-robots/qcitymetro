@@ -327,10 +327,10 @@ function my_mce_before_init_insert_formats( $init_array ) {
 // Attach callback to 'tiny_mce_before_init' 
 add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' ); 
 // Add styles to WYSIWYG in your theme's editor-style.css file
-function my_theme_add_editor_styles() {
-    add_editor_style( 'editor-style.css' );
-}
-add_action( 'init', 'my_theme_add_editor_styles' );
+//function my_theme_add_editor_styles() {
+//    add_editor_style( 'editor-style.css' );
+//}
+//add_action( 'init', 'my_theme_add_editor_styles' );
 
 
 /*-------------------------------------

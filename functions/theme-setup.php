@@ -3,7 +3,7 @@
 function twentytwelve_setup() {
 
 // This theme styles the visual editor with editor-style.css to match the theme style.
-	add_editor_style();
+	//add_editor_style();
 
 	// Adds RSS feed links to <head> for posts and comments.
 	add_theme_support( 'automatic-feed-links' );
