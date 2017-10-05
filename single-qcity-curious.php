@@ -386,7 +386,7 @@ if(have_posts()): the_post();
     					'thumbnail_height' => 100,
     					'limit' => -1,
     					'range' => 'weekly',
-    					'freshness' => 1,
+    					'freshness' => 4,
     					'order_by' => 'views',
     					'post_type' => 'post'
 

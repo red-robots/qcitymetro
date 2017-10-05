@@ -405,7 +405,7 @@
 						'post_html'        => '<a href="{url}"><div class="small-post-thumb">{thumb_img}</div><div class="small-post-content"><h2>{text_title}</h2></div></a>',
 						'thumbnail_width'  => 100,
 						'thumbnail_height' => 100,
-						'limit'            => - 1,
+						'limit'            => 4,
 						'range'            => 'weekly',
 						'freshness'        => 1,
 						'order_by'         => 'views',
