@@ -158,6 +158,52 @@ if(have_posts()): the_post();
 							</div><!--.column-description-->
 						<?php endif;
 					endif;?>
+					<div class="author-bottom">
+						<?php
+						$chooseAuthor = get_field('choose_author');
+						$guestAuthor = get_field('author_name');
+						if($chooseAuthor != '') {
+							$authorID = $chooseAuthor['ID'];
+							$authorName = $chooseAuthor['display_name'];
+							// echo $authorID;
+							$authorPhoto = get_field('custom_picture', 'user_' . $authorID );
+							$description = get_the_author_meta('description', $authorID );
+							$size = 'thumbnail';
+							if($authorPhoto && ! $column) { ?>
+
+								<div class="top-author-photo">
+									<?php echo wp_get_attachment_image( $authorPhoto, $size ); ?>
+								</div>
+								<div class="byline">
+									<div class="top-author-name">By <?php echo $authorName; ?></div>
+									<div class="postdate"><?php echo get_the_date(); ?></div>
+									<div class="description"><?php echo $description;?></div><!--.description-->
+								</div>
+							<?php } else { ?>
+								<div class="byline">
+									<div class="top-author-name">By <?php echo $authorName; ?></div>
+									<div class="postdate"><?php echo get_the_date(); ?></div>
+									<div class="description"><?php echo $description;?></div><!--.description-->
+								</div>
+							<?php } //  if photo
+						
+							// Else use the Legacy Guest Author Field
+						} elseif( $guestAuthor != '' ) { 
+
+							?>
+							<div class="byline">
+								<div class="top-author-name">By <?php echo $guestAuthor; ?></div>
+								<div class="postdate"><?php echo get_the_date(); ?></div>
+							</div>
+						<?php } else { ?>
+							<div class="byline">
+								<div class="top-author-name">By <?php echo get_the_author();  ?></div>
+								<div class="postdate"><?php echo get_the_date(); ?></div>
+							</div>
+							
+						<?php } ?>
+						</div><!-- author-bottom -->
+						<div class="clear"></div>
                 </div><!-- entry content -->
                 
                 <div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
@@ -215,7 +261,24 @@ if(have_posts()): the_post();
         	<?php if($sponsors):
 				$post = get_post($sponsors[0]->ID);
 				setup_postdata( $post );
-				get_template_part('ads/sponsor');
+				$logo = get_field("logo");
+				$description = get_field("description");
+				$link = get_field("sponsorship_policy_link",39809);
+				$link_text = get_field("sponsorship_policy_text",39809);?>
+					<div class="sponsor-sidebar">
+						<?php if($logo):?>
+							<img src="<?php echo $logo['sizes']['large'];?>" alt="<?php echo $logo['alt'];?>">
+						<?php endif;
+						if($description):?>
+							<div class="description">
+								<?php echo $description;?>
+							</div><!--.description-->
+						<?php endif;
+						if($link && $link_text):?>
+							<a href="<?php echo $link;?>"><?php echo $link_text;?></a>
+						<?php endif;?>
+					</div><!--.sponsor-sidebar-->
+				<?php get_template_part('ads/sponsor');
 				wp_reset_postdata();
 			endif;
         	// If is IN the Sponsored Content... Show sponsored content posts
@@ -384,7 +447,7 @@ if(have_posts()): the_post();
 					    'post_html' => '<a href="{url}"><div class="small-post-thumb">{thumb_img}</div><div class="small-post-content"><h2>{text_title}</h2></div></a>',
 					    'thumbnail_width' => 100,
     					'thumbnail_height' => 100,
-    					'limit' => -1,
+    					'limit' => 5,
     					'range' => 'weekly',
     					'freshness' => 4,
     					'order_by' => 'views',

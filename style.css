@@ -357,9 +357,9 @@ img.wp-post-image {
 	width: 100%;
 } 
 .big-story-image img {
-	width: 80%;
+	width: 100%;
 	display: block;
-	margin: 0 auto;
+	margin: 0;
 }
 /* Make sure videos and embeds fit their containers */
 embed,
@@ -1160,6 +1160,23 @@ section#third {
 	border-radius: 5px;
 	font-weight: 700;
 	font-size: 16px;
+}
+/* sponsored posts */
+.sponsor-sidebar {
+	padding: 10px;
+	background-color: #EDEDED;
+	margin: 0 0 20px 0;
+}
+.sponsor-sidebar img {
+	width: 100%;
+	display: block;
+}
+.sponsor-sidebar .description {
+	margin: 20px 0 0 0;
+}
+.sponsor-sidebar >a {
+	margin: 20px 0 0 0;
+	display: block;
 }
 /* SEARCH */
 .search-list {
@@ -2638,6 +2655,26 @@ footer.entry-meta {
 	width: 96%;
 	color: #fff;
 }
+.author-bottom {
+	margin: 24px 0;
+}
+.author-bottom .top-author-photo{
+	width: 150px;
+	height: auto;
+	margin: 0 auto 10px auto;
+	display: block;
+	float: none;
+}
+.author-bottom .byline{
+	float: none;
+	display: block;
+	width: 100%;
+	margin: 0;	
+}
+.author-bottom .top-author-name {
+	float: none;
+	display: block;
+}
 .author {
 	font-family: 'Oswald', sans-serif;
 	font-size: 13px;
@@ -3035,9 +3072,15 @@ img#wpstats {
 	border-bottom: 1px solid #efefef;
 	margin: 40px 0 20px 0;
 }
-
+@media screen and (min-width: 450px){
+	.author-bottom .top-author-photo{
+		float: left;
+		margin: 0 10px 10px 0;
+	}
+}
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
+	
 	.featured-tags {
 		width: 60%;
 		float: right;
@@ -3505,6 +3548,13 @@ Business details
 
 /* Minimum width of 960 pixels. */
 @media screen and (min-width: 810px) {
+	.big-story-image img {
+		width: 100%;
+		display: block;
+		margin: 0;
+		box-sizing: border-box;
+		padding: 0 calc(26.041666667% - 300px) 0 8%;
+	}
 	.home-nav {left:10px;top: 8px}
 	.main-navigation li { font-size: 14px; margin: 0 7px 0 7px; }
 	.entry-content h1.posttitle { font-size: 36px;}
