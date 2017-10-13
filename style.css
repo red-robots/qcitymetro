@@ -1177,6 +1177,7 @@ section#third {
 }
 .sponsor-sidebar .description {
 	margin: 20px 0 0 0;
+	line-height: 1.6;
 }
 .sponsor-sidebar >a {
 	margin: 20px 0 0 0;
