@@ -1169,6 +1169,7 @@ section#third {
 }
 .sponsor-sidebar h2{
 	margin: 0 0 10px 0;
+	text-align: center;
 }
 .sponsor-sidebar img {
 	width: 100%;
@@ -2662,7 +2663,7 @@ footer.entry-meta {
 	margin: 24px 0;
 }
 .author-bottom .top-author-photo{
-	width: 100px;
+	width: 60px;
 	height: auto;
 	margin: 0 auto 10px auto;
 	display: block;
