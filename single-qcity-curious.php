@@ -176,14 +176,17 @@ if(have_posts()): the_post();
 								</div>
 								<div class="byline">
 									<div class="top-author-name">By <?php echo $authorName; ?></div>
-									<div class="description"><?php echo $description;?></div><!--.description-->
-									<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+									<div class="description"><?php echo $description;?>
+										<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+									</div><!--.description-->
 								</div>
 							<?php } else { ?>
 								<div class="byline">
 									<div class="top-author-name">By <?php echo $authorName; ?></div>
-									<div class="description"><?php echo $description;?></div><!--.description-->
-									<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+									<div class="description"><?php echo $description;?>
+										<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+									</div><!--.description-->
+									
 								</div>
 							<?php } //  if photo
 						

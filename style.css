@@ -2677,6 +2677,8 @@ footer.entry-meta {
 }
 .author-bottom .email {
 	font-size: 20px;
+	display: inline;
+	margin: 0 0 0 5px;
 }
 .author-bottom .top-author-name {
 	float: none;
