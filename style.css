@@ -1167,6 +1167,9 @@ section#third {
 	background-color: #EDEDED;
 	margin: 0 0 20px 0;
 }
+.sponsor-sidebar h2{
+	margin: 0 0 10px 0;
+}
 .sponsor-sidebar img {
 	width: 100%;
 	display: block;
@@ -2659,7 +2662,7 @@ footer.entry-meta {
 	margin: 24px 0;
 }
 .author-bottom .top-author-photo{
-	width: 150px;
+	width: 100px;
 	height: auto;
 	margin: 0 auto 10px auto;
 	display: block;
@@ -2670,6 +2673,9 @@ footer.entry-meta {
 	display: block;
 	width: 100%;
 	margin: 0;	
+}
+.author-bottom .email {
+	font-size: 20px;
 }
 .author-bottom .top-author-name {
 	float: none;
