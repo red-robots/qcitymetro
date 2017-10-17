@@ -281,7 +281,7 @@ if(have_posts()): the_post();
 							</div><!--.description-->
 						<?php endif;
 						if($link && $link_text):?>
-							<a href="<?php echo $link;?>"><?php echo $link_text;?></a>
+							<a href="<?php echo $link;?>" target="_blank"><?php echo $link_text;?></a>
 						<?php endif;?>
 						</div><!--.sponsor-sidebar-wrapper-->
 					</div><!--.sponsor-sidebar-->
