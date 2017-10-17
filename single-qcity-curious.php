@@ -175,15 +175,17 @@ if(have_posts()): the_post();
 									<?php echo wp_get_attachment_image( $authorPhoto, $size ); ?>
 								</div>
 								<div class="byline">
-									<div class="top-author-name">By <?php echo $authorName; ?></div>
+									<div class="top-author-name">Created By <?php echo $authorName; ?>
+										<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+									</div>
 									<div class="description"><?php echo $description;?></div><!--.description-->
-									<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
 								</div>
 							<?php } else { ?>
 								<div class="byline">
-									<div class="top-author-name">By <?php echo $authorName; ?></div>
+									<div class="top-author-name">Created By <?php echo $authorName; ?>
+										<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+									</div>
 									<div class="description"><?php echo $description;?></div><!--.description-->
-									<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
 								</div>
 							<?php } //  if photo
 						
@@ -192,13 +194,15 @@ if(have_posts()): the_post();
 
 							?>
 							<div class="byline">
-								<div class="top-author-name">By <?php echo $guestAuthor; ?></div>
-								<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+								<div class="top-author-name">Created By <?php echo $guestAuthor; ?>
+									<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+								</div>
 							</div>
 						<?php } else { ?>
 							<div class="byline">
-								<div class="top-author-name">By <?php echo get_the_author();  ?></div>
-								<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+								<div class="top-author-name">Created By <?php echo get_the_author();  ?>
+									<div class="email"><a href="mailto:editor@qcitymetro.com"><i class="fa fa-envelope"></i></a></div><!--.email-->
+								</div>
 							</div>
 							
 						<?php } ?>
@@ -266,7 +270,7 @@ if(have_posts()): the_post();
 				$link = get_field("sponsorship_policy_link",39809);
 				$link_text = get_field("sponsorship_policy_text",39809);?>
 					<div class="sponsor-sidebar">
-						<h2 class="alternate-title">Produced For:</h2>
+						<h2>Produced For:</h2>
 						<?php if($logo):?>
 							<img src="<?php echo $logo['sizes']['large'];?>" alt="<?php echo $logo['alt'];?>">
 						<?php endif;
