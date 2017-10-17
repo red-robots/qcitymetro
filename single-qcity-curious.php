@@ -270,6 +270,7 @@ if(have_posts()): the_post();
 				$link = get_field("sponsorship_policy_link",39809);
 				$link_text = get_field("sponsorship_policy_text",39809);?>
 					<div class="sponsor-sidebar">
+						<div class="sponsor-sidebar-wrapper">
 						<h2>Produced For:</h2>
 						<?php if($logo):?>
 							<img src="<?php echo $logo['sizes']['large'];?>" alt="<?php echo $logo['alt'];?>">
@@ -282,6 +283,7 @@ if(have_posts()): the_post();
 						if($link && $link_text):?>
 							<a href="<?php echo $link;?>"><?php echo $link_text;?></a>
 						<?php endif;?>
+						</div><!--.sponsor-sidebar-wrapper-->
 					</div><!--.sponsor-sidebar-->
 				<?php get_template_part('ads/sponsor');
 				wp_reset_postdata();

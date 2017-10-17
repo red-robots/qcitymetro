@@ -1163,9 +1163,12 @@ section#third {
 }
 /* sponsored posts */
 .sponsor-sidebar {
+	margin: 0 0 20px 0;
+}
+.sponsor-sidebar .sponsor-sidebar-wrapper {
 	padding: 10px;
 	background-color: #EDEDED;
-	margin: 0 0 20px 0;
+	box-sizing: border-box;
 }
 .sponsor-sidebar h2{
 	margin: 0 0 10px 0;
@@ -3097,7 +3100,9 @@ img#wpstats {
 }
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
-	
+	.sponsor-sidebar .sponsor-sidebar-wrapper {
+		max-width: 300px;
+	}
 	.featured-tags {
 		width: 60%;
 		float: right;
