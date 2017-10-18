@@ -267,14 +267,21 @@ if(have_posts()): the_post();
 				setup_postdata( $post );
 				$logo = get_field("logo");
 				$description = get_field("description");
+				$logo_link = get_field("logo_hyperlink");
 				$link = get_field("sponsorship_policy_link",39809);
 				$link_text = get_field("sponsorship_policy_text",39809);?>
 					<div class="sponsor-sidebar">
 						<div class="sponsor-sidebar-wrapper">
 						<h2>Produced For:</h2>
 						<?php if($logo):?>
-							<img src="<?php echo $logo['sizes']['large'];?>" alt="<?php echo $logo['alt'];?>">
-						<?php endif;
+							<?php if($logo_link):?>
+								<a href="<?php echo $logo_link;?>">
+							<?php endif;?>
+								<img src="<?php echo $logo['sizes']['large'];?>" alt="<?php echo $logo['alt'];?>">
+							<?php if($logo_link):?>
+								</a>
+							<?php endif;
+						endif;
 						if($description):?>
 							<div class="description">
 								<?php echo $description;?>
