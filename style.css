@@ -355,11 +355,12 @@ img.wp-post-image {
 }
 .big-story-image {
 	width: 100%;
+	font-family: 'Droid Serif', serif;
 } 
 .big-story-image img {
 	width: 100%;
 	display: block;
-	margin: 0;
+	margin: 0 0 10px 0;
 }
 /* Make sure videos and embeds fit their containers */
 embed,
