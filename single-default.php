@@ -23,140 +23,136 @@
     <div id="primary" class="">
         <div id="content" role="main" class="wrapper template-single-news">
 
-            <!--
-						Main Content
-
-			======================================================== -->
-            <div class="site-content">
-				<?php while ( have_posts() ) : the_post();
-					$id         = get_the_ID();
-					$terms      = get_the_terms( $id, 'category' );
-					$video      = get_field( 'video_single_post' );
-					$storyImage = get_field( 'story_image' );
-					$title      = $storyImage['title'];
-					$alt        = $storyImage['alt'];
-					$size       = 'large';
-					$thumb      = $storyImage['sizes'][ $size ];
-					?>
-
-                    <header class="archive-header">
-                        <div class="border-title">
-                            <div class="catname">
-								<?php $category = get_the_category( $id );
-								echo $category[0]->cat_name; ?>
-                            </div>
-                        </div><!-- border title -->
-                    </header><!-- .archive-header -->
-
-                    <div class="entry-content">
-						<?php $column = get_field("column");
-						if($column):?>
-							<div class="column-section">
-								<div class="col-1">
-									<?php $chooseAuthor = get_field( 'choose_author' );
-									$size        = 'thumbnail';
-									$authorPhoto = null;
-									if ( $chooseAuthor != '' ):
-										$authorID   = $chooseAuthor['ID'];
-										$authorPhoto = get_field( 'custom_picture', 'user_' . $authorID );
-									else:
-										$authorPhoto = get_field('custom_picture','user_'.get_the_author_meta('ID'));
-									endif;
-									if ( $authorPhoto ):
-										echo wp_get_attachment_image( $authorPhoto, $size );
-									endif; //  if photo ?>
-								</div><!--.col-1-->
-								<?php $post = get_post($column);
-								setup_postdata($post);?>
-								<div class="col-2">
-									<h2><?php the_title();?></h2>
-									<div class="copy">
-										<?php the_content();?>
-									</div><!--.copy-->
-								</div><!--.col-2-->
-							</div><!--.column-section-->
-							<?php wp_reset_postdata();
-						endif;?>
-                        <h1 class="posttitle"><?php the_title(); ?></h1>
-
-						<?php if ( has_excerpt() ) : ?>
-                            <div class="single-excerpt"><?php the_excerpt(); ?></div>
-						<?php endif; ?>
-
-						<?php if ( function_exists( 'sharing_display' ) ) { ?>
-                            <div class="jetpack-social"><?php sharing_display( '', true ); ?></div>
-						<?php } ?>
-						<?php
-						// if ( class_exists( 'Jetpack_Likes' ) ) {
-						//     $custom_likes = new Jetpack_Likes;
-						//     echo $custom_likes->post_likes( '' );
-						// } ?>
-
-                        <div class="clear"></div>
-
-                        <div class="author">
-							<?php
-							$chooseAuthor = get_field( 'choose_author' );
-							$guestAuthor  = get_field( 'author_name' );
-							if ( $chooseAuthor != '' ) {
-								$authorID   = $chooseAuthor['ID'];
-								$authorName = $chooseAuthor['display_name'];
-								// echo $authorID;
-								$authorPhoto = get_field( 'custom_picture', 'user_' . $authorID );
+			<?php while ( have_posts() ) : the_post();
+				$id         = get_the_ID();
+				$terms      = get_the_terms( $id, 'category' );
+				$video      = get_field( 'video_single_post' );
+				$storyImage = get_field( 'story_image' );
+				$title      = $storyImage['title'];
+				$alt        = $storyImage['alt'];
+				$size       = 'large';
+				$thumb      = $storyImage['sizes'][ $size ];
+				?>
+				<header class="archive-header">
+					<div class="border-title">
+						<div class="catname">
+							<?php $category = get_the_category( $id );
+							echo $category[0]->cat_name; ?>
+						</div>
+					</div><!-- border title -->
+				</header><!-- .archive-header -->
+                <div class="entry-content single">
+					<?php $column = get_field("column");
+					if($column):?>
+						<div class="column-section">
+							<div class="col-1">
+								<?php $chooseAuthor = get_field( 'choose_author' );
 								$size        = 'thumbnail';
-								if ( $authorPhoto && !$column) { ?>
+								$authorPhoto = null;
+								if ( $chooseAuthor != '' ):
+									$authorID   = $chooseAuthor['ID'];
+									$authorPhoto = get_field( 'custom_picture', 'user_' . $authorID );
+								else:
+									$authorPhoto = get_field('custom_picture','user_'.get_the_author_meta('ID'));
+								endif;
+								if ( $authorPhoto ):
+									echo wp_get_attachment_image( $authorPhoto, $size );
+								endif; //  if photo ?>
+							</div><!--.col-1-->
+							<?php $post = get_post($column);
+							setup_postdata($post);?>
+							<div class="col-2">
+								<h2><?php the_title();?></h2>
+								<div class="copy">
+									<?php the_content();?>
+								</div><!--.copy-->
+							</div><!--.col-2-->
+						</div><!--.column-section-->
+						<?php wp_reset_postdata();
+					endif;?>
+					<h1 class="posttitle"><?php the_title(); ?></h1>
 
-                                    <div class="top-author-photo">
-										<?php echo wp_get_attachment_image( $authorPhoto, $size ); ?>
-                                    </div>
-                                    <div class="byline">
-                                        <div class="top-author-name">By <?php echo $authorName; ?></div>
-                                        <div class="postdate"><?php echo get_the_date(); ?></div>
-                                    </div>
-								<?php } else { ?>
-                                    <div class="byline">
-                                        <div class="top-author-name">By <?php echo $authorName; ?></div>
-                                        <div class="postdate"><?php echo get_the_date(); ?></div>
-                                    </div>
-								<?php } //  if photo
+					<?php if ( has_excerpt() ) : ?>
+						<div class="single-excerpt"><?php the_excerpt(); ?></div>
+					<?php endif; ?>
 
-								// Else use the Legacy Guest Author Field
-							} elseif ( $guestAuthor != '' ) {
+					<?php if ( function_exists( 'sharing_display' ) ) { ?>
+						<div class="jetpack-social"><?php sharing_display( '', true ); ?></div>
+					<?php } ?>
+					<?php
+					// if ( class_exists( 'Jetpack_Likes' ) ) {
+					//     $custom_likes = new Jetpack_Likes;
+					//     echo $custom_likes->post_likes( '' );
+					// } ?>
 
-								?>
-                                <div class="byline">
-                                    <div class="top-author-name">By <?php echo $guestAuthor; ?></div>
-                                    <div class="postdate"><?php echo get_the_date(); ?></div>
-                                </div>
-							<?php } else { ?>
-                                <div class="byline">
-                                    <div class="top-author-name">By <?php echo get_the_author(); ?></div>
-                                    <div class="postdate"><?php echo get_the_date(); ?></div>
-                                </div>
+				</div><!-- entry-content -->
+				<div class="clear"></div>
 
-							<?php } ?>
-                        </div><!-- author -->
-                        <div class="clear"></div>
+				<div class="author single">
+					<?php
+					$chooseAuthor = get_field( 'choose_author' );
+					$guestAuthor  = get_field( 'author_name' );
+					if ( $chooseAuthor != '' ) {
+						$authorID   = $chooseAuthor['ID'];
+						$authorName = $chooseAuthor['display_name'];
+						// echo $authorID;
+						$authorPhoto = get_field( 'custom_picture', 'user_' . $authorID );
+						$size        = 'thumbnail';
+						if ( $authorPhoto && !$column) { ?>
 
-						<?php
-						if ( $video != '' ) :
-							echo $video;
-						else:
-							if ( $storyImage != '' ) {
+							<div class="top-author-photo">
+								<?php echo wp_get_attachment_image( $authorPhoto, $size ); ?>
+							</div>
+							<div class="byline">
+								<div class="top-author-name">By <?php echo $authorName; ?></div>
+								<div class="postdate"><?php echo get_the_date(); ?></div>
+							</div>
+						<?php } else { ?>
+							<div class="byline">
+								<div class="top-author-name">By <?php echo $authorName; ?></div>
+								<div class="postdate"><?php echo get_the_date(); ?></div>
+							</div>
+						<?php } //  if photo
 
-								/*echo '<pre>';
-								print_r($storyImage);
-								echo '</pre>';*/
+						// Else use the Legacy Guest Author Field
+					} elseif ( $guestAuthor != '' ) {
 
-								?>
-                                <div class="f_image">
-                                    <img src="<?php echo $thumb; ?>" alt="<?php echo $alt; ?>"
-                                         title="<?php echo $title; ?>"/>
+						?>
+						<div class="byline">
+							<div class="top-author-name">By <?php echo $guestAuthor; ?></div>
+							<div class="postdate"><?php echo get_the_date(); ?></div>
+						</div>
+					<?php } else { ?>
+						<div class="byline">
+							<div class="top-author-name">By <?php echo get_the_author(); ?></div>
+							<div class="postdate"><?php echo get_the_date(); ?></div>
+						</div>
 
-									<?php echo $storyImage['caption'] ?>
+					<?php } ?>
+				</div><!-- author -->
+				<div class="clear"></div>
 
-                                </div>
-							<?php } endif; ?>
+				<?php
+				if ( $video != '' ) :
+					echo $video;
+				else:
+					if ( $storyImage != '' ): ?>
+						<div class="big-story-image">
+							<img src="<?php echo $thumb; ?>" alt="<?php echo $alt; ?>"
+									title="<?php echo $title; ?>"/>
+
+							<?php echo $storyImage['caption'] ?>
+
+						</div>
+					<?php endif;
+				endif; ?>
+				<!--
+							Main Content
+
+				======================================================== -->
+				<div class="site-content">
+					<div class="entry-content">
+						
 
 						<?php the_content(); ?>
 						<?php if($column):
@@ -167,61 +163,34 @@
 								</div><!--.column-description-->
 							<?php endif;
 						endif;?>
-                    </div><!-- entry content -->
+					</div><!-- entry content -->
 
-                          <!--  <div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="true"></div> -->
-
-
-                    <div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="like"
-                         data-size="small" data-show-faces="true" data-share="true"></div>
-
-                    <div class="clear"></div>
+						<!--  <div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="true"></div> -->
 
 
-                    <div class="goto-comments">
-                        <a href="#goto-comments">COMMENTS</a>
-                    </div>
+					<div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="like"
+						data-size="small" data-show-faces="true" data-share="true"></div>
 
-                    <div class="goto-comments">
-                        <a href="<?php bloginfo( 'url' ); ?>/email-signup">
-                            Join The Community. Receive updates from Qcitymetro &raquo; &raquo;
-                        </a>
-                    </div>
-
-                    <!--<div class="footer-meta">
-                	Categorized: <?php the_category( ', ' ); ?>
-                </div> footer meta -->
-
-                    <!-- Your like button code -->
+					<div class="clear"></div>
 
 
-					<?php
-					// Author info, pic, link to Author posts.
-					// Removed 9/2016
-					//get_template_part('inc/author-info')
-					?>
+					<div class="goto-comments">
+						<a href="#goto-comments">COMMENTS</a>
+					</div>
 
+					<div class="goto-comments">
+						<a href="<?php bloginfo( 'url' ); ?>/email-signup">
+							Join The Community. Receive updates from Qcitymetro &raquo; &raquo;
+						</a>
+					</div>
 
-                    <!-- <nav class="nav-single">
-					<h3 class="assistive-text"><?php _e( 'Post navigation', 'twentytwelve' ); ?></h3>
-					<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '', 'Previous post link', 'twentytwelve' ) . '</span> previous' ); ?></span>
-					<span class="nav-next"><?php next_post_link( '%link', 'next <span class="meta-nav">' . _x( '', 'Next post link', 'twentytwelve' ) . '</span>' ); ?></span>
-				</nav>.nav-single -->
+					<?php	get_template_part( 'inc/extra-click' );?>
+					<div class="clear"></div>
+					<div id="goto-comments"></div>
+					<?php echo do_shortcode( '[fbcomments url="" width="375" count="off" num="3" countmsg="wonderful comments!"]' ); ?>
+				</div><!-- site content -->
 
-					<?php //get_template_part('inc/author-comments') ?>
-
-
-					<?php
-
-				endwhile; // end of the loop.
-
-				get_template_part( 'inc/extra-click' );
-				?>
-				<div class="clear"></div>
-				<div id="goto-comments"></div>
-				<?php echo do_shortcode( '[fbcomments url="" width="375" count="off" num="3" countmsg="wonderful comments!"]' ); ?>
-            </div><!-- site content -->
-
+			<?php endwhile; // end of the loop.?>
             <!--
 						Ad Zone
 

@@ -158,6 +158,38 @@ if(have_posts()): the_post();
 							</div><!--.column-description-->
 						<?php endif;
 					endif;?>
+					<?php if($sponsors):
+						$post = get_post($sponsors[0]->ID);
+						setup_postdata( $post );
+						$logo = get_field("logo");
+						$description = get_field("description");
+						$logo_link = get_field("logo_hyperlink");
+						$link = get_field("sponsorship_policy_link",39809);
+						$link_text = get_field("sponsorship_policy_text",39809);?>
+							<div class="sponsor-sidebar mobile">
+								<div class="sponsor-sidebar-wrapper">
+								<h2>Produced For:</h2>
+								<?php if($logo):?>
+									<?php if($logo_link):?>
+										<a href="<?php echo $logo_link;?>">
+									<?php endif;?>
+										<img src="<?php echo $logo['sizes']['large'];?>" alt="<?php echo $logo['alt'];?>">
+									<?php if($logo_link):?>
+										</a>
+									<?php endif;
+								endif;
+								if($description):?>
+									<div class="description">
+										<?php echo $description;?>
+									</div><!--.description-->
+								<?php endif;
+								if($link && $link_text):?>
+									<a href="<?php echo $link;?>" target="_blank"><?php echo $link_text;?></a>
+								<?php endif;?>
+								</div><!--.sponsor-sidebar-wrapper-->
+							</div><!--.sponsor-sidebar-->
+						<?php wp_reset_postdata();
+					endif;?>
 					<div class="author-bottom">
 						<?php
 						$chooseAuthor = get_field('choose_author');
