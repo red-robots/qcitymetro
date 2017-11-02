@@ -134,13 +134,14 @@
 
 				<div class="big-story-image">
 					<?php
-					if ( $storyImage != '' ): ?>
-							<img src="<?php echo $thumb; ?>" alt="<?php echo $alt; ?>"
-									title="<?php echo $title; ?>"/>
-							<p><?php echo $storyImage['caption'] ?></p>
-					<?php endif;
 					if ( $video != '' ) :
 						echo $video;
+					else:
+						if ( $storyImage != '' ): ?>
+								<img src="<?php echo $thumb; ?>" alt="<?php echo $alt; ?>"
+										title="<?php echo $title; ?>"/>
+								<?php echo $storyImage['caption'] ?>
+						<?php endif;
 					endif; ?>
 				</div>
 				<!--
