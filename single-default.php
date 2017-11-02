@@ -132,20 +132,17 @@
 				</div><!-- author -->
 				<div class="clear"></div>
 
-				<?php
-				if ( $video != '' ) :
-					echo $video;
-				else:
+				<div class="big-story-image">
+					<?php
 					if ( $storyImage != '' ): ?>
-						<div class="big-story-image">
 							<img src="<?php echo $thumb; ?>" alt="<?php echo $alt; ?>"
 									title="<?php echo $title; ?>"/>
-
-							<?php echo $storyImage['caption'] ?>
-
-						</div>
+							<p><?php echo $storyImage['caption'] ?></p>
 					<?php endif;
-				endif; ?>
+					if ( $video != '' ) :
+						echo $video;
+					endif; ?>
+				</div>
 				<!--
 							Main Content
 

@@ -361,7 +361,9 @@ img.wp-post-image {
 .big-story-image img {
 	width: 100%;
 	display: block;
-	margin: 0 0 10px 0;
+}
+.big-story-image p {
+	margin: 10px 0;
 }
 /* Make sure videos and embeds fit their containers */
 embed,
