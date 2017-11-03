@@ -140,7 +140,7 @@
 						if ( $storyImage != '' ): ?>
 								<img src="<?php echo $thumb; ?>" alt="<?php echo $alt; ?>"
 										title="<?php echo $title; ?>"/>
-								<?php echo $storyImage['caption'] ?>
+								<p><?php echo $storyImage['caption'] ?></p>
 						<?php endif;
 					endif; ?>
 				</div>
