@@ -501,7 +501,7 @@ function bella_register_buttons( $buttons ) {
 add_action('admin_head','bella_hide_publish_events');
 function bella_hide_publish_events(){
 	global $post;
-	if(strcmp(get_post_type($post),"event")===0){
+	if(strcmp(get_post_type($post),"event")===0||strcmp(get_post_type($post),"business_listing")===0){
 		add_filter( 'publicize_checkbox_default',  '__return_false'  );
 	}
 }
