@@ -1325,6 +1325,7 @@ body.archive .site-content .entry-content .search-content-link:hover h2 {
 }
 .business-listings-coupons .coupon {
 	box-sizing: border-box;
+	margin: 10px 0 0 0;
 }
 .business-directory-search {
     float: left;
@@ -3583,6 +3584,7 @@ Business details
 @media screen and (min-width: 720px) {
 	.business-listings-coupons .coupon {
 		padding: 1%;
+		margin: 0;
 		float: left;
 		width: calc(1/3*100%);
 	}
