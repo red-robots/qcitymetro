@@ -102,11 +102,15 @@ $featured_post = get_field('featured_post');
                 </div><!--.col-2-->
             </div><!--.business-listings-wrapper-->
             <div class="business-listings-coupons">
-				<?php for($i=0;$i<9;$i++):?>
-					<div class="coupon">
-						<?php echo do_shortcode('[broadstreet zone="63936"]');?>
-					</div><!--.coupon-->
-				<?php endfor;?>
+				<div class="coupon">
+					<?php echo do_shortcode('[broadstreet zone="63936"]');?>
+				</div><!--.coupon-->
+				<div class="coupon">
+					<?php echo do_shortcode('[broadstreet zone="64007"]');?>
+				</div><!--.coupon-->
+				<div class="coupon">
+					<?php echo do_shortcode('[broadstreet zone="64008"]');?>
+				</div><!--.coupon-->
             </div><!--.business-listings-coupons-->
 			</div><!-- site content -->
             
