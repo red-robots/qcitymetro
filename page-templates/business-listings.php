@@ -104,7 +104,7 @@ $featured_post = get_field('featured_post');
             <div class="business-listings-coupons">
 				<?php for($i=0;$i<9;$i++):?>
 					<div class="coupon">
-						<?php echo do_shortcode('[broadstreet zone=“63936”]');?>
+						<?php echo do_shortcode('[broadstreet zone="63936"]');?>
 					</div><!--.coupon-->
 				<?php endfor;?>
             </div><!--.business-listings-coupons-->
