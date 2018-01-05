@@ -299,21 +299,21 @@ function my_mce_before_init_insert_formats( $init_array ) {
 		),
 		array(  
 			'title' => 'Q',  
-			'inline' => 'span',  
+			'block' => 'span',  
 			'classes' => 'drop-q',
 			'wrapper' => true,
 			
 		),
 		array(  
 			'title' => 'Q Large',  
-			'inline' => 'span',  
+			'block' => 'span',  
 			'classes' => 'drop-q-large',
 			'wrapper' => true,
 			
 		),
 		array(  
 			'title' => 'Q XL',  
-			'inline' => 'span',  
+			'block' => 'span',  
 			'classes' => 'drop-q-xl',
 			'wrapper' => true,
 			
