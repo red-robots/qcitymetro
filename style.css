@@ -853,9 +853,143 @@ select.eventtype {
 	color: grey;
 	font-size: 16px;
 }
-
-
-
+/*==============JOB BOARD PAGE ===============*/
+.jobs-banner{
+	padding: 30px;
+	text-align: center;
+	color: white;
+	background-size: cover;
+	background-position: center;
+}
+.jobs-banner >.row-1 {
+	font-size: 20px;
+}
+.jobs-banner >.row-2 {
+	margin: 30px 0 0 0;
+}
+.jobs-banner >.row-2 a {
+	margin: 10px 5px 0 5px;
+	color: #803F26;
+	background-color: white;
+	padding: 10px 20px;
+	text-transform: uppercase;
+	font-size: 20px;
+	display: inline-block;
+}
+.jobs-banner >.row-3 {
+	margin: 30px 0 0 0;
+}
+.jobs-banner >.row-3 form >.row-1 {
+	display: table;
+	margin: 0 auto;
+}
+.jobs-banner >.row-3 form >.row-1 input {
+	background-color: white;
+	color: black;
+	float: left;
+	font-size: 18px;
+	width: calc(100% - 32px);
+	box-sizing: border-box;
+}
+.jobs-banner >.row-3 form >.row-1 button {
+	box-sizing: border-box;
+	background-color: black;
+	color: white;
+	width: 32px;
+	font-size: 18px;
+	border: 1px solid white;
+	float: left;
+}
+.jobs-banner >.row-3 form >.row-2 {
+	margin: 20px 0 0 0;
+}
+.jobs-banner >.row-3 form >.row-3 {
+	margin: 10px 0 0 0;
+}
+.jobs-banner >.row-3 form >.row-2, .jobs-banner >.row-3 form >.row-3 {
+	
+}
+.jobs-banner >.row-3 form >.row-2 ul, .jobs-banner >.row-3 form >.row-3 ul {
+}
+.jobs-banner >.row-3 form >.row-2 ul li, .jobs-banner >.row-3 form >.row-3 ul li {
+	list-style-type: none;
+	font-size: 18px;
+	margin: 5px 0 0 0;
+}
+.jobs-banner >.row-3 form >.row-2 ul li input, .jobs-banner >.row-3 form >.row-3 ul li input {
+	border: 1px solid white;
+	background: none;
+	box-shadow: none;
+	text-shadow: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	vertical-align: middle;
+	margin: 0 5px 0 0;
+}
+.jobs-banner >.row-3 form >.row-2 ul li input:checked, .jobs-banner >.row-3 form >.row-3 ul li input:checked {
+	border: 6px solid white;
+}
+.jobs-banner >.row-3 form >.row-2 ul li label, .jobs-banner >.row-3 form >.row-3 ul li label {
+	font-size: 18px;
+	vertical-align: middle;
+}
+/* =============JOB BOARD ====================*/
+.job-board .alternate h2 {
+	font-size: 25px;
+}
+.job-board {
+}
+.job-board .jobs {
+}
+.job-board .jobs .job {
+	border-top: 1px solid #999;
+}
+.job-board .jobs .job:last-child {
+	margin: 0;
+}
+.job-board .jobs .job .image {
+}
+.job-board .jobs .job .image img{
+	width: 100%;
+	display: block;
+	max-width: 100%;
+}
+.job-board .jobs .job .copy {
+	margin: 20px 0 0 0;
+}
+.job-board .jobs .job .copy h2 {
+	color: black;
+	font-size: 20px;
+}
+.job-board .jobs .job .excerpt {
+	margin: 10px 0 0 0;
+	font-size: 16px;
+}
+.job-board .jobs .job .data{
+	margin: 20px 0 0 0;
+	font-family: 'Oswald', sans-serif;
+	color: #999;
+}
+.job-board .jobs .job .data .date{
+}
+.job-board .jobs .job .data .views{
+	margin: 10px 0 0 0;
+}
+.job-board .jobs .job .button {
+	margin: 20px 0 0 0;
+}
+.job-board .jobs .job .button a{
+	background-color: #803F26;
+	border: none;
+	color: white;
+	text-transform: uppercase;
+	font-size: 20px;
+	padding: 10px 20px;
+}
 
 /* Page structure */
 .site {
@@ -3131,6 +3265,126 @@ img#wpstats {
 }
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
+
+	/*==============JOB BOARD PAGE ===============*/
+	.jobs-banner{
+		padding: 5%;
+	}
+	.jobs-banner >.row-1 {
+		font-size: 35px;
+		width: 80%;
+		margin: 0 auto;
+	}
+	.jobs-banner >.row-2 {
+		margin: 40px auto 0 auto;
+		width: 80%;
+	}
+	.jobs-banner >.row-2 a {
+		margin: 0 10px;
+		font-size: 25px;
+	}
+	.jobs-banner >.row-3 {
+		margin: 30px auto 0 auto;
+		width: 80%;
+	}
+	.jobs-banner >.row-3 form >.row-1 {
+		display: table;
+		margin: 0 auto;
+		max-width: 500px;
+		width: 50%;
+	}
+	.jobs-banner >.row-3 form >.row-1 input {
+		background-color: white;
+		color: black;
+		float: left;
+		font-size: 18px;
+		width: calc(100% - 32px);
+		box-sizing: border-box;
+	}
+	.jobs-banner >.row-3 form >.row-1 button {
+		box-sizing: border-box;
+		background-color: black;
+		color: white;
+		width: 32px;
+		font-size: 18px;
+		border: 1px solid white;
+		float: left;
+	}
+	.jobs-banner >.row-3 form >.row-2 {
+		margin: 10px 0 0 0;
+	}
+	.jobs-banner >.row-3 form >.row-3 {
+		margin: 0;
+	}
+	.jobs-banner >.row-3 form >.row-2, .jobs-banner >.row-3 form >.row-3 {
+		
+	}
+	.jobs-banner >.row-3 form >.row-2 ul, .jobs-banner >.row-3 form >.row-3 ul {
+	}
+	.jobs-banner >.row-3 form >.row-2 ul li, .jobs-banner >.row-3 form >.row-3 ul li {
+		list-style-type: none;
+		font-size: 18px;
+		margin: 10px 10px 0 10px;
+		display: inline-block;
+	}
+	.jobs-banner >.row-3 form >.row-2 ul li input, .jobs-banner >.row-3 form >.row-3 ul li input {
+	}
+	.jobs-banner >.row-3 form >.row-2 ul li label, .jobs-banner >.row-3 form >.row-3 ul li label {
+		font-size: 18px;
+	}
+
+	/* =============JOB BOARD ====================*/
+	.job-board .alternate h2 {
+		font-size: 35px;
+	}
+	.job-board {
+	}
+	.job-board .jobs {
+	}
+	.job-board .jobs .job {
+		padding: 20px 0;
+	}
+	.job-board .jobs .job:last-child {
+		margin: 0;
+	}
+	.job-board .jobs .job .image {
+		width: 200px;
+		margin: 0 20px 0 0;
+		float: left;
+	}
+	.job-board .jobs .job .image img{
+		width: 100%;
+		display: block;
+	}
+	.job-board .jobs .job .copy {
+		margin: 0;
+		width: calc(100% - 220px);
+		float: left;
+	}
+	.job-board .jobs .job .copy h2 {
+
+	}
+	.job-board .jobs .job .excerpt {
+	}
+	.job-board .jobs .job .data{
+		margin: 20px 20px 0 0;
+		width: 100px;
+		float: left;
+	}
+	.job-board .jobs .job .data .postdate{
+	}
+	.job-board .jobs .job .data .views{
+	}
+	.job-board .jobs .job .button {
+		width: 150px;
+		margin: 20px 0 0 0;
+		float: left;
+	}
+	.job-board .jobs .job .button a{
+	}
+
+
+
 	.entry-content.single .jetpack-social .social-float {
 		left: -6%;
 	}
@@ -3685,6 +3939,72 @@ Business details
 	.button a {font-size: 14px;}
 	.entry-content.single .jetpack-social .social-float {
 		left: -4%;
+	}
+
+	/* =============JOB BOARD ====================*/
+	.job-board {
+	}
+	.job-board .jobs {
+	}
+	.job-board .jobs .clear {
+		display: none;
+	}
+	.job-board .jobs .job {
+		padding: 20px 0;
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-align-content: center;
+		align-content: center;
+		-webkit-align-items: stretch;
+		align-items: stretch;
+		-webkit-justify-content: space-between;
+		justify-content: space-between;
+	}
+	.job-board .jobs .job:after {
+		display: none;
+	}
+	.job-board .jobs .job:last-child {
+		margin: 0;
+	}
+	.job-board .jobs .job .image {
+		width: 15%;
+		float: none;
+		margin: 0 20px 0 0;
+		max-width: 100%;
+	}
+	.job-board .jobs .job .image img{
+		width: 100%;
+		display: block;
+	}
+	.job-board .jobs .job .copy {
+		margin: 0 10% 0 0;
+		width: 30%;
+		float: none;
+	}
+	.job-board .jobs .job .copy h2 {
+
+	}
+	.job-board .jobs .job .excerpt {
+	}
+	.job-board .jobs .job .data{
+		margin: 0 20px 0 auto;
+		width: calc(20% - 20px);
+		float: none;
+	}
+	.job-board .jobs .job .data .postdate{
+	}
+	.job-board .jobs .job .data .views{
+	}
+	.job-board .jobs .job .button {
+		width: auto;
+		margin: 0;
+		float: none;
+	}
+	.job-board .jobs .job .button a{
+		float: none;
 	}
 }
 @media screen and (min-width: 1340px) {

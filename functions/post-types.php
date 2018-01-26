@@ -232,6 +232,37 @@ function js_custom_init()
       
       ); 
       register_post_type('column',$args); // name used in query
+
+  $labels = array(
+    'name' => _x('Jobs', 'post type general name'),
+      'singular_name' => _x('Job', 'post type singular name'),
+      'add_new' => _x('Add New', 'Job'),
+      'add_new_item' => __('Add New Job'),
+      'edit_item' => __('Edit Job'),
+      'new_item' => __('New Job'),
+      'view_item' => __('View Job'),
+      'search_items' => __('Search Jobs'),
+      'not_found' =>  __('No Jobs found'),
+      'not_found_in_trash' => __('No Jobs found in Trash'), 
+      'parent_item_colon' => '',
+      'menu_name' => 'Jobs'
+    );
+    $args = array(
+    'labels' => $labels,
+      'public' => true,
+      'publicly_queryable' => true,
+      'show_ui' => true, 
+      'show_in_menu' => true, 
+      'query_var' => true,
+      'rewrite' => true,
+      'capability_type' => 'post',
+      'has_archive' => false, 
+      'hierarchical' => false, // 'false' acts like posts 'true' acts like pages
+      'menu_position' => 20,
+      'supports' => array('title','editor','excerpt','custom-fields','thumbnail'),
+    
+    ); 
+    register_post_type('job',$args); // name used in query
   // Add more between here
   
   // and here
@@ -317,6 +348,30 @@ function build_taxonomies() {
 	'show_admin_column' => true,
 	'public' => true,
 	'rewrite' => array( 'slug' => 'size' ),
+	'_builtin' => true
+	) );
+
+	register_taxonomy( 'job_cat', 'job',
+	 array( 
+	'hierarchical' => true, // true = acts like categories false = acts like tags
+	'label' => 'Category', 
+	'query_var' => true, 
+	'rewrite' => true ,
+	'show_admin_column' => true,
+	'public' => true,
+	'rewrite' => array( 'slug' => 'job-category' ),
+	'_builtin' => true
+	) );
+
+	register_taxonomy( 'level', 'job',
+	 array( 
+	'hierarchical' => true, // true = acts like categories false = acts like tags
+	'label' => 'Level', 
+	'query_var' => true, 
+	'rewrite' => true ,
+	'show_admin_column' => true,
+	'public' => true,
+	'rewrite' => array( 'slug' => 'level' ),
 	'_builtin' => true
 	) );
 	
