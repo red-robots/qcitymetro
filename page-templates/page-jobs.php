@@ -7,7 +7,8 @@ get_header();
 	<div id="primary" class="">
 		<?php $banner_image = get_field("banner_image");
 		$banner_copy = get_field("banner_copy");?>
-		<div class="jobs-banner" <?php if($banner_image) echo 'style="background-image: url('.$banner_image['url'].');"';?>>
+		<div class="jobs-banner">
+			<?php if($banner_image) echo '<div class="background" style="background-image: url('.$banner_image['url'].');"></div>';?>
 			<?php if($banner_copy):?>
 				<div class="row-1">
 					<?php echo $banner_copy;?>
@@ -30,7 +31,7 @@ get_header();
 						<?php $terms = get_terms(array('taxonomy'=>'job_cat','hide_empty'=>true));
 						if(!is_wp_error($terms)&&is_array($terms)&&!empty($terms)):?>
 							<ul>
-								<li>categories:</li>
+								<li>Popular categories:</li>
 								<?php foreach($terms as $term):?>
 									<li>
 										<input type="radio" name="category" id="<?php echo $term->slug;?>" value="<?php echo $term->slug;?>"><label for="<?php echo $term->slug;?>"><?php echo $term->name;?></label>
@@ -145,7 +146,30 @@ get_header();
 				<?php endif;?>
 			</div><!--.site-content-->
 			<div class="widget-area">
-	        	<?php get_template_part('ads/home-business-directory'); ?>
+				<?php get_template_part('inc/job-board-partners') ?>
+				<div class="job-sidebar">
+					<a href="<?php get_the_permalink();?>">Post a Job</a>
+					<?php $copy = get_field("post_job_copy");
+					if($copy):?>
+						<div class="copy">
+							<?php echo $copy;?>
+						</div><!--.copy-->
+					<?php endif;?>
+				</div>
+				<div class="brew-sidebar">
+					<div class="border-title">
+						<h2>Morning Brew</h2>
+					</div><!-- border title -->
+					<div class="brew-wrapper">
+						<?php $copy = get_field("morning_brew_copy");
+						if($copy):?>
+							<div class="copy">
+								<?php echo $copy;?>
+							</div><!--.copy-->
+						<?php endif;?>
+						<a href="<?php get_the_permalink();?>">Signup</a>
+					</div><!--.wrapper-->
+				</div><!--.brew-sidebar-->
 			</div><!--.widget-area-->
 		</div><!-- #content -->
 	</div><!-- #primary -->

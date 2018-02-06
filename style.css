@@ -858,8 +858,28 @@ select.eventtype {
 	padding: 30px;
 	text-align: center;
 	color: white;
+	position: relative;
+}
+.jobs-banner:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.7);
+}
+.jobs-banner .background{
 	background-size: cover;
 	background-position: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -2;
+	width: 100%;
+	height: 100%;
 }
 .jobs-banner >.row-1 {
 	font-size: 20px;
@@ -937,6 +957,39 @@ select.eventtype {
 	font-size: 18px;
 	vertical-align: middle;
 }
+/* =========== Job board sidebar =============*/
+.job-sidebar {
+	margin: 50px 0;
+}
+.job-sidebar, .brew-sidebar {
+	text-align: center;
+}
+.job-sidebar, .brew-sidebar .brew-wrapper {
+	padding: 10px;
+} 
+.job-sidebar .copy, .brew-sidebar .copy {
+	text-align: left;
+	font-family: 'Raleway', sans-serif;
+}
+.job-sidebar h3 {
+	font-size: 25px;
+	margin: 20px 0;
+}
+.job-sidebar a {
+	margin: 0 0 20px 0;
+} 
+.brew-sidebar a {
+	margin: 20px 0 0 0;
+}
+.job-sidebar a, .brew-sidebar a {
+	color: white;
+	background-color: #803F26;
+	padding: 20px 40px;
+	text-transform: uppercase;
+	font-size: 25px;
+	display: inline-block;
+	text-align: center;
+}
 /* =============JOB BOARD ====================*/
 .job-board .alternate h2 {
 	font-size: 25px;
@@ -994,7 +1047,6 @@ select.eventtype {
 /* Page structure */
 .site {
 	padding: 0px;
-	background-color: #fff;
 }
 .site-content, .column-left, .column-right {
 	margin: 24px 0 0;
