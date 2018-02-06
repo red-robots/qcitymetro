@@ -15,8 +15,8 @@ get_header();
 				</div><!--.row-1-->
 			<?php endif;?>
 			<div class="row-2">
-				<a href="<?php get_the_permalink();?>">Post a Job</a>
-				<a href="<?php get_the_permalink();?>">Find a Job</a>
+				<a href="<?php echo get_permalink();?>">Post a Job</a>
+				<a href="<?php echo get_permalink();?>">Find a Job</a>
 			</div><!--.row-1-->
 			<div class="row-3">
 				<form action="<?php the_permalink();?>" method="GET">
@@ -28,8 +28,8 @@ get_header();
 						<div class="clear"></div>
 					</div><!--.row-1-->
 					<div class="row-2">
-						<?php $terms = get_terms(array('taxonomy'=>'job_cat','hide_empty'=>true));
-						if(!is_wp_error($terms)&&is_array($terms)&&!empty($terms)):?>
+						<?php $terms = get_field("categories_to_show");
+						if(is_array($terms)&&!empty($terms)):?>
 							<ul>
 								<li>Popular categories:</li>
 								<?php foreach($terms as $term):?>
@@ -148,7 +148,7 @@ get_header();
 			<div class="widget-area">
 				<?php get_template_part('inc/job-board-partners') ?>
 				<div class="job-sidebar">
-					<a href="<?php get_the_permalink();?>">Post a Job</a>
+					<a href="<?php echo get_permalink();?>">Post a Job</a>
 					<?php $copy = get_field("post_job_copy");
 					if($copy):?>
 						<div class="copy">
@@ -167,7 +167,7 @@ get_header();
 								<?php echo $copy;?>
 							</div><!--.copy-->
 						<?php endif;?>
-						<a href="<?php get_the_permalink();?>">Signup</a>
+						<a href="<?php echo get_permalink(21613);?>">Signup</a>
 					</div><!--.wrapper-->
 				</div><!--.brew-sidebar-->
 			</div><!--.widget-area-->
