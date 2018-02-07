@@ -958,11 +958,17 @@ select.eventtype {
 	vertical-align: middle;
 }
 /* =========== Job board sidebar =============*/
+.job-views {
+	text-align: center;
+	font-size: 18px;
+	padding: 0 10px;
+}
 .job-sidebar {
 	margin: 50px 0;
 }
 .job-sidebar, .brew-sidebar {
 	text-align: center;
+	font-size: 18px;
 }
 .job-sidebar, .brew-sidebar .brew-wrapper {
 	padding: 10px;
@@ -3318,6 +3324,9 @@ img#wpstats {
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
 
+	.job-sidebar h3 {
+		font-size: 35px;
+	}
 	/*==============JOB BOARD PAGE ===============*/
 	.jobs-banner{
 		padding: 5%;

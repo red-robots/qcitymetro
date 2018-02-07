@@ -154,6 +154,11 @@ get_header();
 			</div><!--.site-content-->
 			<div class="widget-area">
 				<?php get_template_part('inc/job-board-partners') ?>
+				<?php if (function_exists('wpp_get_views')):?>
+					<div class="job-views">
+						Total Montly Job Board Views:&nbsp;<?php echo wpp_get_views( get_the_ID() );?>
+					</div><!--.views-->
+				<?php endif;?>
 				<div class="job-sidebar">
 					<a href="<?php echo get_permalink();?>">Post a Job</a>
 					<?php $copy = get_field("post_job_copy");
