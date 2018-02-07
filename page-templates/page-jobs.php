@@ -34,20 +34,20 @@ get_header();
 								<li>Popular categories:</li>
 								<?php foreach($terms as $term):?>
 									<li>
-										<input type="radio" name="category" id="<?php echo $term->slug;?>" value="<?php echo $term->slug;?>"><label for="<?php echo $term->slug;?>"><?php echo $term->name;?></label>
+										<input type="radio" name="category" id="<?php echo $term->slug;?>" value="<?php echo $term->term_id;?>"><label for="<?php echo $term->slug;?>"><?php echo $term->name;?></label>
 									</li>
 								<?php endforeach;?>
 							</ul>
 						<?php endif;?>
 					</div><!--.row-2-->
 					<div class="row-3">
-						<?php $terms = get_terms(array('taxonomy'=>'level','hide_empty'=>true));
+						<?php $terms = get_terms(array('taxonomy'=>'level','hide_empty'=>false));
 						if(!is_wp_error($terms)&&is_array($terms)&&!empty($terms)):?>
 							<ul>
 								<li>level:</li>
 								<?php foreach($terms as $term):?>
 									<li>
-										<input type="radio" name="level" id="<?php echo $term->slug;?>" value="<?php echo $term->slug;?>"><label for="<?php echo $term->slug;?>"><?php echo $term->name;?></label>
+										<input type="radio" name="level" id="<?php echo $term->slug;?>" value="<?php echo $term->term_id;?>"><label for="<?php echo $term->slug;?>"><?php echo $term->name;?></label>
 									</li>
 								<?php endforeach;?>
 							</ul>
@@ -73,8 +73,9 @@ get_header();
 					'orderby'=>'date',
 					'paged'=>$paged
 				);
-				$tax = array('relation'=>'OR');
-				if(isset($_GET['search'])):
+				$meta = array('relation'=>'OR');
+				if(isset($_GET['search'])&&!empty($_GET['search'])):
+					echo "HERE";
 					$prepare_string = "SELECT ID FROM $wpdb->posts WHERE post_title LIKE '%%%s%%' AND post_type = 'job' ";
 					$prepare_string .= "UNION SELECT object_id FROM $wpdb->term_relationships as r INNER JOIN $wpdb->terms as t ON t.term_id = r.term_taxonomy_id WHERE t.name LIKE '%%%s%%'";
 					$prepare_args[] = $_GET['search'];
@@ -91,22 +92,22 @@ get_header();
 					endif;
 					$args['post__in']= $in;
 				endif;
-				if(isset($_GET['category'])):
-					$tax[] = array(
-						'taxonomy'=>'job_cat',
-						'field'=>'slug',
-						'terms'=>$_GET['category']
+				if(isset($_GET['category'])&&!empty($_GET['category'])):
+					$meta[] = array(
+						'key'     => 'category',
+						'value'   => '"'.$_GET['category'].'"',
+						'compare' => 'LIKE'
 					);
 				endif;
-				if(isset($_GET['level'])):
-					$tax[] = array(
-						'taxonomy'=>'level',
-						'field'=>'slug',
-						'terms'=>$_GET['level']
+				if(isset($_GET['level'])&&!empty($_GET['level'])):
+					$meta[] = array(
+						'key'=>'job_level',
+						'value'   => '"'.$_GET['level'].'"',
+						'compare' => 'LIKE'
 					);
 				endif;
-				if(count($tax)>1):
-					$args['tax_query'] = $tax;
+				if(count($meta)>1):
+					$args['meta_query'] = $meta;
 				endif;
 				$query = new WP_Query($args);
 				if($query->have_posts()):?>
@@ -120,8 +121,14 @@ get_header();
 									</div><!--.image-->
 								<?php endif; ?>
 								<div class="copy">
-									<h2><?php the_title(); ?></h2>
-									<div class="excerpt"><?php the_excerpt(); ?></div><!--.excerpt-->
+									<?php $job_title = get_field("job_title");
+									$job_description_short = get_field("job_description_short");
+									if($job_title):?>
+										<h2><?php echo $job_title;?></h2>
+									<?php endif;
+									if($job_description_short):?>
+										<div class="excerpt"><?php echo $job_description_short; ?></div><!--.excerpt-->
+									<?php endif;?>
 								</div><!-- copy -->	
 								<div class="clear"></div>
 								<?php if (function_exists('wpp_get_views')):?>

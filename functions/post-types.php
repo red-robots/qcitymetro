@@ -357,7 +357,7 @@ function build_taxonomies() {
 	'label' => 'Category', 
 	'query_var' => true, 
 	'rewrite' => true ,
-	'show_admin_column' => true,
+	'show_admin_column' => false,
 	'public' => true,
 	'rewrite' => array( 'slug' => 'job-category' ),
 	'_builtin' => true
@@ -369,7 +369,7 @@ function build_taxonomies() {
 	'label' => 'Level', 
 	'query_var' => true, 
 	'rewrite' => true ,
-	'show_admin_column' => true,
+	'show_admin_column' => false,
 	'public' => true,
 	'rewrite' => array( 'slug' => 'level' ),
 	'_builtin' => true
