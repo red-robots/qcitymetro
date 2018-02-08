@@ -505,3 +505,11 @@ function bella_hide_publish_events(){
 		add_filter( 'publicize_checkbox_default',  '__return_false'  );
 	}
 }
+function bella_acf_prepare_field( $field ) {
+	if(is_page('post-a-job')){
+		$field['label'] = "Job Title - Company Name";
+		$field['instructions'] = "Please enter the job title followed by a dash and the company name";    
+	}
+	return $field;   
+}
+add_filter('acf/prepare_field/name=_post_title', 'bella_acf_prepare_field');

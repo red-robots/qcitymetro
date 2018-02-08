@@ -996,6 +996,65 @@ select.eventtype {
 	display: inline-block;
 	text-align: center;
 }
+.nav-single h3.show {
+	color: black;
+	font-family: 'Oswald', sans-serif;
+	font-size: 20px;
+	margin: 0 0 10px 0;
+}
+/* ===========SINGLE JOB=========================*/
+.single-job {
+}
+.single-job .job-company-row {
+	margin: 0 0 24px 0;
+
+}
+.single-job .job-company-row .image img {
+	display: block;
+	width: 100%;
+	margin: 0 0 20px 0;
+}
+.single-job .job-company-row .data {
+
+}
+.single-job .job-company-row .data header {
+}
+.single-job .job-company-row .data header h2 {
+	color: black;
+	font-family: "Droid Serif", serif;
+	font-size: 25px;
+	line-height: 1.2;
+	font-weight: 500;
+}
+.single-job .job-company-row .data .date {
+	font-size: 18px;
+	color: #803F26;
+	font-weight: 300;
+	font-family: 'Oswald', sans-serif;
+}
+.single-job .job-company-row .data .views {
+	font-size: 18px;
+	font-weight: 300;
+	font-family: 'Oswald', sans-serif;
+}
+.single-job .site-content .copy {
+	margin: 0 0 24px 0;
+}
+.single-job .application.email {
+
+}
+.single-job .application.button {
+	
+}
+.single-job .application.button a.button {
+	background-color: #803F26;
+	border: none;
+	color: white;
+	text-transform: uppercase;
+	font-size: 20px;
+	display: inline-block;
+	padding: 10px 20px;
+}
 /* =============JOB BOARD ====================*/
 .job-board .alternate h2 {
 	font-size: 25px;
@@ -3393,7 +3452,36 @@ img#wpstats {
 	.jobs-banner >.row-3 form >.row-2 ul li label, .jobs-banner >.row-3 form >.row-3 ul li label {
 		font-size: 18px;
 	}
+	/* ===========SINGLE JOB=========================*/
+	.single-job {
 
+	}
+	.single-job .job-company-row {
+
+	}
+	.single-job .job-company-row .image {
+		width: 15%;
+		max-width: 200px;
+		margin: 0 20px 0 0;
+		float: left;
+	}
+	.single-job .job-company-row .image img {
+		margin: 0;
+	}
+	.single-job .job-company-row .data {
+
+		margin: 0;
+		width: calc(85% - 20px);
+		float: left;
+	}
+	.single-job .job-company-row .data header {
+	}
+	.single-job .job-company-row .data header h2 {
+	}
+	.single-job .job-company-row .data .date {
+	}
+	.single-job .job-company-row .data .views {
+	}
 	/* =============JOB BOARD ====================*/
 	.job-board .alternate h2 {
 		font-size: 35px;
@@ -4001,7 +4089,32 @@ Business details
 	.entry-content.single .jetpack-social .social-float {
 		left: -4%;
 	}
+	/* ===========SINGLE JOB=========================*/
+	.single-job {
+	}
+	.single-job .job-company-row {
+		margin: 0 0 60px 0;
 
+	}
+	.single-job .job-company-row .image {
+	}
+	.single-job .job-company-row .data {
+	}
+	.single-job .job-company-row .data header {
+	}
+	.single-job .job-company-row .data header h2 {
+		font-size: 30px;
+	}
+	.single-job .job-company-row .data .date {
+		font-size: 22px;
+	}
+	.single-job .job-company-row .data .views {
+		font-size: 22px;
+	}
+	.single-job .site-content .copy {
+		margin: 0 0 60px 0;
+
+	}
 	/* =============JOB BOARD ====================*/
 	.job-board {
 	}

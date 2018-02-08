@@ -143,7 +143,7 @@ get_header();
 									<a href="<?php the_permalink();?>">View</a>
 								</div><!--.button-->
 								<div class="clear"></div>
-							</div>
+							</div><!--.job-->
 						<?php endwhile;?>
 					</section><!--.jobs-->
 					<?php pagi_posts_nav_modified($query); ?>
