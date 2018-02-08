@@ -5,8 +5,8 @@
  */
 get_header();?>
     <div id="primary" class="single-job">
-		<?php $banner_image = get_field("banner_image",43595);
-		$banner_copy = get_field("banner_copy",43595);?>
+		<?php $banner_image = get_field("banner_image",46657);
+		$banner_copy = get_field("banner_copy",46657);?>
 		<div class="jobs-banner">
 			<?php if($banner_image) echo '<div class="background" style="background-image: url('.$banner_image['url'].');"></div>';?>
 			<?php if($banner_copy):?>
@@ -16,10 +16,10 @@ get_header();?>
 			<?php endif;?>
 			<div class="row-2">
 				<a href="<?php echo get_permalink();?>">Post a Job</a>
-				<a href="<?php echo get_permalink(43595);?>">Find a Job</a>
+				<a href="<?php echo get_permalink(46657);?>">Find a Job</a>
 			</div><!--.row-1-->
 			<div class="row-3">
-				<form action="<?php echo get_permalink(43595);?>" method="GET">
+				<form action="<?php echo get_permalink(46657);?>" method="GET">
 					<div class="row-1">
 						<input type="text" name="search" placeholder="Search">
 						<button type="submit">
@@ -28,7 +28,7 @@ get_header();?>
 						<div class="clear"></div>
 					</div><!--.row-1-->
 					<div class="row-2">
-						<?php $terms = get_field("categories_to_show",43595);
+						<?php $terms = get_field("categories_to_show",46657);
 						if(is_array($terms)&&!empty($terms)):?>
 							<ul>
 								<li>Popular categories:</li>
@@ -171,7 +171,7 @@ get_header();?>
 						<h2>Morning Brew</h2>
 					</div><!-- border title -->
 					<div class="brew-wrapper">
-						<?php $copy = get_field("morning_brew_copy",43595);
+						<?php $copy = get_field("morning_brew_copy",46657);
 						if($copy):?>
 							<div class="copy">
 								<?php echo $copy;?>

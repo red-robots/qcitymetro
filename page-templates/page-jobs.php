@@ -19,7 +19,7 @@ get_header();
 				<a href="<?php echo get_permalink();?>">Find a Job</a>
 			</div><!--.row-1-->
 			<div class="row-3">
-				<form action="<?php the_permalink();?>" method="GET">
+				<form action="<?php echo get_permalink();?>" method="GET">
 					<div class="row-1">
 						<input type="text" name="search" placeholder="Search">
 						<button type="submit">
