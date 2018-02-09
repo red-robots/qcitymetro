@@ -886,6 +886,19 @@ select.eventtype {
 .jobs-banner >.row-1 {
 	font-size: 20px;
 }
+.jobs-banner .statistics {
+	margin: 24px 0 0 0;
+}
+.jobs-banner .statistics ul {
+	margin: 0;
+	padding: 0;
+}
+.jobs-banner .statistics li {
+	display: block;
+	font-size: 18px;
+	list-style-type: none;
+	margin: 10px 0 0 0;
+}
 .jobs-banner >.row-2 {
 	margin: 30px 0 0 0;
 }
@@ -3396,6 +3409,13 @@ img#wpstats {
 		font-size: 35px;
 		width: 80%;
 		margin: 0 auto;
+	}
+	.jobs-banner .statistics {
+		margin: 55px auto 0 auto;
+		width: 70%;
+	}
+	.jobs-banner .statistics li {
+		font-size: 25px;
 	}
 	.jobs-banner >.row-2 {
 		margin: 40px auto 0 auto;
