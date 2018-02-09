@@ -1,4 +1,4 @@
-<div class="border-title">
+<div class="border-title no-top-margin">
             	<h2>Used By</h2>
         	</div><!-- border title -->
 

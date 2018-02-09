@@ -449,7 +449,9 @@ div.mce-toolbar-grp>div,
 #comment-nav-above {
 	margin: 48px 0;
 }
-
+.no-top-margin {
+	margin-top: 0 !important;
+}
 /* Author profiles */
 .top-author-photo {
 	width: 80px;
