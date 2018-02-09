@@ -143,8 +143,8 @@ $stop = $enddate->format('Ymd');
 		'cost' => $cost,
 		'image' => $image,
 		'terms' => $terms,
-    'venue' => $venueName,
-    'culture'=> $culture_block
+        'venue' => $venueName,
+        'culture'=> $culture_block
 	 );
 	 
 	 // put in new array
@@ -180,135 +180,88 @@ function cmp($a, $b) {
    return $result;
 }
 
+if(isset($newQuery)):
+    // sort the Query
+    usort($newQuery,'cmp');
 
-// sort the Query
-usort($newQuery,'cmp');
+    $prevDay = '';
 
-$prevDay = '';
+        foreach ($newQuery as $value) : 
+        // get the term
+        $currentTerm = !empty($value['terms']) ? $value['terms']['0']->slug : '';
+        // set the date
+        $getDate = $value['date'];
+        $newD = DateTime::createFromFormat('Ymd', $getDate);
+        $day = $newD->format('l, F j, Y');
+    $daynum = $newD->format('n/j/y');
+        // set image
+        $image = $value['image']['sizes']['thumbnail'];
+        // Fill in the day
+        if( $getDate != $prevDay ) {
+        ?>
+        <div class="event-page-date js-first-word"><?php echo $day; ?></div>
+        <?php 
+        $prevDay = $getDate;
+        } // if month is not empty
+        ?>
+        
+        <div class="featured-event">
+            <?php if(strcmp($value['culture'],"yes")===0):?>
+                <div class="culture">
+                    <div class="circle">
+                        ?
+                    </div><!--.circle-->
+                    <a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+                        <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+                    </a>
+                    <?php $desc = get_field("culture_block_rollover",54);
+                    if($desc):?>
+                        <div class="rollover">
+                            <?php echo $desc;?>	
+                        </div><!--.rollover-->
+                    <?php endif;?>
+                </div><!--.culture-->
+                <div class="clear"></div>
+            <?php endif;?>
+        <div class="featured-event-content-details">
+            <a href="<?php echo $value['permalink']; ?>">DETAILS</a>
 
-	foreach ($newQuery as $value) : 
-	// get the term
-	$currentTerm = !empty($value['terms']) ? $value['terms']['0']->slug : '';
-	// set the date
-	$getDate = $value['date'];
-	$newD = DateTime::createFromFormat('Ymd', $getDate);
-	$day = $newD->format('l, F j, Y');
-  $daynum = $newD->format('n/j/y');
-	// set image
-	$image = $value['image']['sizes']['thumbnail'];
-	// Fill in the day
-	if( $getDate != $prevDay ) {
-	?>
-    <div class="event-page-date js-first-word"><?php echo $day; ?></div>
-    <?php 
-	$prevDay = $getDate;
-	} // if month is not empty
-	// Show different if premium or featuerd
-	if( $currentTerm == 'premium' || $currentTerm == 'featured' ) :
-	?>
-    
-    <div class="featured-event">
-        <?php if(strcmp($value['culture'],"yes")===0):?>
-            <div class="culture">
-                <div class="circle">
-                    ?
-                </div><!--.circle-->
-                <a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
-				    <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
-                </a>
-                <?php $desc = get_field("culture_block_rollover",54);
-                if($desc):?>
-                    <div class="rollover">
-                        <?php echo $desc;?>	
-                    </div><!--.rollover-->
-                <?php endif;?>
-            </div><!--.culture-->
-            <div class="clear"></div>
-        <?php endif;?>
-      <div class="featured-event-content-details">
-      	<a href="<?php echo $value['permalink']; ?>">DETAILS</a>
+        <div class="featured-event-content-details-text">DETAILS ></div><!-- featured event content -->
+        
+        <div class="featured-event-content">
+                <h2><?php echo $value['title']; ?></h2>
+            <!-- <div class="el-date"><?php echo $daynum; ?></div> -->
+            <div class="el-deets">Venue</div>
+            <div class="fe-start"><?php echo $value['venue']; ?></div>
+            <!--  <div class="el-deets">Address</div>
+                <div class="fe-location"><?php echo $value['location']; ?></div> -->
+                <div class="el-deets">Time</div>
+                <div class="fe-start"><?php echo $value['time']; ?></div>
+                <div class="el-deets">Cost</div>
+                <div class="fe-cost"><?php echo $value['cost']; ?></div>
 
-      <div class="featured-event-content-details-text">DETAILS ></div><!-- featured event content -->
-      
-       <div class="featured-event-content">
-        	<h2><?php echo $value['title']; ?></h2>
-          <!-- <div class="el-date"><?php echo $daynum; ?></div> -->
-          <div class="el-deets">Venue</div>
-          <div class="fe-start"><?php echo $value['venue']; ?></div>
-         <!--  <div class="el-deets">Address</div>
-            <div class="fe-location"><?php echo $value['location']; ?></div> -->
-            <div class="el-deets">Time</div>
-            <div class="fe-start"><?php echo $value['time']; ?></div>
-            <div class="el-deets">Cost</div>
-            <div class="fe-cost"><?php echo $value['cost']; ?></div>
+            </div><!-- featured event content -->
 
-        </div><!-- featured event content -->
+            <div class="featured-event-image">
+                <?php if( $image != '' ) { ?>
+                        <img src="<?php echo $image; ?>" />
+                <?php } ?>
+            </div><!-- featured event image -->
 
-        <div class="featured-event-image">
-            <div class="featured-event-featured">
-              <div class="featured-text">FEATURED</div>
-            </div><!-- featured-event-featured -->
-            <?php if( $image != '' ) { ?>
-                    <img src="<?php echo $image; ?>" />
-            <?php } ?>
-        </div><!-- featured event image -->
-
-        <div class="daynum">
-          <?php echo $daynum; ?>
-        </div>
-        <div class="clear"></div>
-      </div><!-- featured event content -->
-
-     </div><!-- featured event -->
-    
-    <?php else: ?>
-    
-    <div class="eventlist <?php if(strcmp($value['culture'],"yes")===0) echo "culture";?>">
-		<?php if(strcmp($value['culture'],"yes")===0):?>
-			<div class="culture">
-				<div class="circle">
-					?
-				</div><!--.circle-->
-				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
-				    <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
-                </a>
-                <?php $desc = get_field("culture_block_rollover",54);
-				if($desc):?>
-					<div class="rollover">
-						<?php echo $desc;?>	
-					</div><!--.rollover-->
-				<?php endif;?>
-			</div><!--.culture-->
-			<div class="clear"></div>
-		<?php endif;?>
-    	<div class="featured-event-content-details">
-        	<a href="<?php echo $value['permalink']; ?>">DETAILS ></a>
-            <div class="featured-event-content-details-text">DETAILS ></div><!-- featured event content -->
-        	<h2><?php echo $value['title']; ?></h2>
-          <!-- <div class="el-date"><?php echo $daynum; ?></div> -->
-          <div class="el-deets">Venue</div>
-           <div class="fe-start"><?php echo $value['venue']; ?></div>
-          <!-- <div class="el-deets">Address</div>
-            <div class="fe-location"><?php echo $value['location']; ?></div> -->
-            <div class="el-deets">Time</div>
-            <div class="fe-start"><?php echo $value['time']; ?></div>
-
-          <div class="daynum">
-              <?php echo $daynum; ?>
-          </div>
+            <div class="daynum">
+            <?php echo $daynum; ?>
+            </div>
             <div class="clear"></div>
         </div><!-- featured event content -->
 
-     </div><!-- event list -->
-    
-    <?php endif; ?>
-    
-<?php
-// Only go out 10 days..., then get out.
-if( $value['date'] >= $stop ) {break;}
-// end resorted loop
-endforeach;
-?>
+        </div><!-- featured event -->
+        
+    <?php
+    // Only go out 10 days..., then get out.
+    if( $value['date'] >= $stop ) {break;}
+    // end resorted loop
+    endforeach;
+endif;   ?>
 
 
     <div class="button button-thirds button-thirds-first">

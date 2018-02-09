@@ -49,7 +49,7 @@ $return = get_bloginfo('url').'/submit-no-promotion-event/success-no-promotion-e
 						'event_contact_phone_number',
 						'event_contact_email',
 						// 'request_start_showing'
-						//'event_image'
+						'event_image'
 					),
 					'new_post'		=> array(
 						'post_type'		=> 'event',
