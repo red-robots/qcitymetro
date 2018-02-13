@@ -117,7 +117,7 @@ get_header();
 								<?php $image = get_field('image');?>								
 								<?php if ( $image ): ?>
 									<div class="image">
-										<img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="<?php $image['alt'];?>">
+										<img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php $image['alt'];?>">
 									</div><!--.image-->
 								<?php endif; ?>
 								<div class="copy">
@@ -160,7 +160,7 @@ get_header();
 					</div><!--.views-->
 				<?php endif;?>
 				<div class="job-sidebar">
-					<a href="<?php echo get_permalink(46635);?>">Post a Job</a>
+					<a class="button" href="<?php echo get_permalink(46635);?>">Post a Job</a>
 					<?php $copy = get_field("post_job_copy");
 					if($copy):?>
 						<div class="copy">
@@ -179,7 +179,7 @@ get_header();
 								<?php echo $copy;?>
 							</div><!--.copy-->
 						<?php endif;?>
-						<a href="<?php echo get_permalink(21613);?>">Signup</a>
+						<a class="button" href="<?php echo get_permalink(21613);?>">Signup</a>
 					</div><!--.wrapper-->
 				</div><!--.brew-sidebar-->
 			</div><!--.widget-area-->

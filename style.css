@@ -996,13 +996,13 @@ select.eventtype {
 	font-size: 25px;
 	margin: 20px 0;
 }
-.job-sidebar a {
+.job-sidebar a.button {
 	margin: 0 0 20px 0;
 } 
-.brew-sidebar a {
+.brew-sidebar a.button {
 	margin: 20px 0 0 0;
 }
-.job-sidebar a, .brew-sidebar a {
+.job-sidebar a.button, .brew-sidebar a.button {
 	color: white;
 	background-color: #803F26;
 	padding: 20px 40px;
@@ -1019,6 +1019,9 @@ select.eventtype {
 }
 /* ===========SINGLE JOB=========================*/
 .single-job {
+}
+.single-job .entry-content li {
+	font-size: 18px;
 }
 .single-job .job-company-row {
 	margin: 0 0 24px 0;

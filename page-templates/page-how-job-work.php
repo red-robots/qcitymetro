@@ -51,7 +51,7 @@ get_header();
 								<?php echo $copy;?>
 							</div><!--.copy-->
 						<?php endif;?>
-						<a href="<?php echo get_permalink(21613);?>">Signup</a>
+						<a class="button" href="<?php echo get_permalink(21613);?>">Signup</a>
 					</div><!--.wrapper-->
 				</div><!--.brew-sidebar-->
 			</div><!--.widget-area-->

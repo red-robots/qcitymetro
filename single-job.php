@@ -108,7 +108,7 @@ get_header();?>
 						$application_email = get_field("application_email");?>
 						<?php if(strcmp($how_to_apply,"direct")==0&&$application_direct):?>
 							<div class="application button">
-								<a class="button" target="_blank">
+								<a class="button" href="<?php echo $application_direct;?>" target="_blank">
 									Apply
 								</a>
 							</div><!--.application-->
@@ -177,7 +177,7 @@ get_header();?>
 								<?php echo $copy;?>
 							</div><!--.copy-->
 						<?php endif;?>
-						<a href="<?php echo get_permalink(21613);?>">Signup</a>
+						<a class="button" href="<?php echo get_permalink(21613);?>">Signup</a>
 					</div><!--.wrapper-->
 				</div><!--.brew-sidebar-->
 			</div><!-- widget area -->
