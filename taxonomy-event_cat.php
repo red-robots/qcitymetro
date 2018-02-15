@@ -207,7 +207,7 @@ usort($newQuery,'cmp');
 			</div><!--.culture-->
 			<div class="clear"></div>
 		<?php elseif(strcmp($value['cw'],'yes')===0):?>
-			<div class="culture">
+			<div class="culture cw">
 				<div class="circle">
 					?
 				</div><!--.circle-->
@@ -273,7 +273,7 @@ usort($newQuery,'cmp');
 			</div><!--.culture-->
 			<div class="clear"></div>
 		<?php elseif(strcmp($value['cw'],'yes')===0):?>
-			<div class="culture">
+			<div class="culture cw">
 				<div class="circle">
 					?
 				</div><!--.circle-->

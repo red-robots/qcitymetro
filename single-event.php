@@ -141,7 +141,7 @@ get_header(); ?>
 							<img src="<?php echo get_template_directory_uri()."/images/culture-blocks.jpg";?>" alt="Culture Blocks">
  						</a>
 					<?php elseif(strcmp(get_field("charlotte_works_block"),"yes")===0):?>
-						<div class="culture-text">This is a Culture Blocks event, sponsored by <a href="https://www.artsandscience.org/" target="_blank">Arts &amp; Science Council</a>. Culture for All!</div><!--.culture-text-->
+						<div class="culture-text">This is a Charlotte Works event. Careers4All!</div><!--.culture-text-->
 						<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
 							<img src="<?php echo get_template_directory_uri()."/images/charlotte-works-logo.jpg";?>" alt="Charlotte Works">
  						</a>

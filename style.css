@@ -3612,6 +3612,10 @@ img#wpstats {
 		display: block;
 		float: left;
 	}
+	.featured-event .culture.cw img, .eventlist .culture.cw img {
+		width: 120px;
+	}
+	
     .template-video .entry-content h1 {
         font-size: 30px;
     }
