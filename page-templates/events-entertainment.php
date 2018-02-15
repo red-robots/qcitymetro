@@ -129,6 +129,7 @@ $stop = $enddate->format('Ymd');
    $venueName = get_field('name_of_venue');
 	 $postId = get_the_ID();
 	 $culture_block = get_field("culture_block");
+	 $charlotte_works_block = get_field("charlotte_works_block");
 	 $terms = wp_get_post_terms( $postId, 'event_category' );
 	 $date = DateTime::createFromFormat('Ymd', get_field('event_date')); 
 	 $eDate = $date->format('Ymd');
@@ -144,7 +145,8 @@ $stop = $enddate->format('Ymd');
 		'image' => $image,
 		'terms' => $terms,
         'venue' => $venueName,
-        'culture'=> $culture_block
+        'culture'=> $culture_block,
+        'cw'=>$charlotte_works_block
 	 );
 	 
 	 // put in new array
@@ -215,6 +217,22 @@ if(isset($newQuery)):
                         <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
                     </a>
                     <?php $desc = get_field("culture_block_rollover",54);
+                    if($desc):?>
+                        <div class="rollover">
+                            <?php echo $desc;?>	
+                        </div><!--.rollover-->
+                    <?php endif;?>
+                </div><!--.culture-->
+                <div class="clear"></div>
+            <?php elseif(strcmp($value['cw'],'yes')===0):?>
+                <div class="culture">
+                    <div class="circle">
+                        ?
+                    </div><!--.circle-->
+                    <a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+                        <img src="<?php echo get_template_directory_uri()."/images/charlotte-works-logo.jpg";?>" alt="Charlotte Works">
+                    </a>
+                    <?php $desc = get_field("charlotte_works_block_rollover",54);
                     if($desc):?>
                         <div class="rollover">
                             <?php echo $desc;?>	

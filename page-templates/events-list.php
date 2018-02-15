@@ -47,6 +47,7 @@ $wp_query = new WP_Query();
 	 $cost = get_field('cost_of_event');
 	 $venueName = get_field('name_of_venue');
 	 $culture_block = get_field("culture_block");
+	 $charlotte_works_block = get_field("charlotte_works_block");
 	 $postId = get_the_ID();
 	 $terms = wp_get_post_terms( $postId, 'event_category' );
 	 $date = DateTime::createFromFormat('Ymd', get_field('event_date')); 
@@ -65,7 +66,8 @@ $wp_query = new WP_Query();
 		'image' => $image,
 		'terms' => $terms,
 		'venue' => $venueName,
-		'culture'=> $culture_block
+		'culture'=> $culture_block,
+        'cw'=>$charlotte_works_block
 	 );
 	 
 	 $newQuery[] = $mySort;
@@ -167,6 +169,22 @@ echo '</pre>';*/
 				<?php endif;?>
 			</div><!--.culture-->
 			<div class="clear"></div>
+		<?php elseif(strcmp($value['cw'],'yes')===0):?>
+			<div class="culture">
+				<div class="circle">
+					?
+				</div><!--.circle-->
+				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+					<img src="<?php echo get_template_directory_uri()."/images/charlotte-works-logo.jpg";?>" alt="Charlotte Works">
+				</a>
+				<?php $desc = get_field("charlotte_works_block_rollover",54);
+				if($desc):?>
+					<div class="rollover">
+						<?php echo $desc;?>	
+					</div><!--.rollover-->
+				<?php endif;?>
+			</div><!--.culture-->
+			<div class="clear"></div>
 		<?php endif;?>
 		<div class="featured-event-content-details">
         	<a href="<?php echo $value['permalink']; ?>">DETAILS</a>
@@ -209,6 +227,22 @@ echo '</pre>';*/
 					<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
 				</a>
 				<?php $desc = get_field("culture_block_rollover",54);
+				if($desc):?>
+					<div class="rollover">
+						<?php echo $desc;?>	
+					</div><!--.rollover-->
+				<?php endif;?>
+			</div><!--.culture-->
+			<div class="clear"></div>
+		<?php elseif(strcmp($value['cw'],'yes')===0):?>
+			<div class="culture">
+				<div class="circle">
+					?
+				</div><!--.circle-->
+				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+					<img src="<?php echo get_template_directory_uri()."/images/charlotte-works-logo.jpg";?>" alt="Charlotte Works">
+				</a>
+				<?php $desc = get_field("charlotte_works_block_rollover",54);
 				if($desc):?>
 					<div class="rollover">
 						<?php echo $desc;?>	
