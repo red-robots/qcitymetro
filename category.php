@@ -41,7 +41,8 @@ $today = date('Ymd');
 		$thirdsection=0;
 		$page2=0;
 		$postCount = 0;
-		
+		$hCat = null;
+
 		// Which category is this?
 		$category = get_queried_object()->slug;
 		$categoryName = get_queried_object()->name;
@@ -224,9 +225,11 @@ $i++;
 
 				// put Sponsored content choices in here.
 				$ids = array();
-				$ids[] = $sponsoredPost[0]->ID;
-				$ids[] = $sponsoredPost[1]->ID;
-				$ids[] = $sponsoredPost[2]->ID;
+				if($sponsoredPost&&is_array($sponsoredPost)&&count($sponsoredPost)===3):
+					$ids[] = $sponsoredPost[0]->ID;
+					$ids[] = $sponsoredPost[1]->ID;
+					$ids[] = $sponsoredPost[2]->ID;
+				endif;
 				$myIDs = implode(', ', $ids);
 				
 				if( $sponsoredPost ) :
@@ -254,7 +257,8 @@ $i++;
 				endif;
 			endif; // endif is not health category
 
-} elseif ( $bars == 4 || $i == $postcount ) { // after 4 we break out. { ?>
+} 
+if ( $bars == 4 || $i == $postcount ) { // after 4 we break out. { ?>
 			
 			
 
