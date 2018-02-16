@@ -119,9 +119,9 @@ $today = date('Ymd');
 	
 if ($wp_query->have_posts()) : while ($wp_query->have_posts()) :  $wp_query->the_post();	
 
-	if ( in_array( get_the_ID(), $ids ) ) {
+	/*if ( in_array( get_the_ID(), $ids ) ) {
         continue;
-    }
+    }*/
 
 
 $postcount = $wp_query->post_count;
