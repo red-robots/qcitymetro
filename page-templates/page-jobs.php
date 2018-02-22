@@ -58,6 +58,7 @@ get_header();
 		</div><!--.jobs-banner-->
 		<div id="content" role="main" class="wrapper">
 			<div class="site-content job-board">
+				<?php get_template_part('ads/job-board-home');?>
 				<header class="archive-header">
 					<div class="border-title">
 						<div class="catname">
@@ -117,17 +118,19 @@ get_header();
 								<?php $image = get_field('image');?>								
 								<?php if ( $image ): ?>
 									<div class="image">
-										<img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php $image['alt'];?>">
+										<a href="<?php the_permalink();?>">
+											<img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php $image['alt'];?>">
+										</a>
 									</div><!--.image-->
 								<?php endif; ?>
 								<div class="copy">
 									<?php $job_title = get_field("job_title");
-									$job_description_short = get_field("job_description_short");
+									$company_name = get_field("company_name");
 									if($job_title):?>
 										<h2><?php echo $job_title;?></h2>
 									<?php endif;
-									if($job_description_short):?>
-										<div class="excerpt"><?php echo $job_description_short; ?></div><!--.excerpt-->
+									if($company_name):?>
+										<div class="excerpt"><?php echo $company_name; ?></div><!--.excerpt-->
 									<?php endif;?>
 								</div><!-- copy -->	
 								<div class="clear"></div>

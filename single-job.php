@@ -79,7 +79,7 @@ get_header();?>
 							$company_name = get_field("company_name");?>								
 							<?php if ( $image ): ?>
 								<div class="image">
-									<img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="<?php $image['alt'];?>">
+									<img src="<?php echo $image['url']; ?>" alt="<?php $image['alt'];?>">
 								</div><!--.image-->
 							<?php endif; ?>
 							<?php if (function_exists('wpp_get_views')):?>
@@ -146,26 +146,28 @@ get_header();?>
 				</div><!-- site content -->
 			<?php endwhile; // end of the loop.?>
 			<div class="widget-area">
-				<?php if ( function_exists( 'wpp_get_mostpopular' ) ) : ?>
-                    <div class="border-title">
-                        <h2>Most Popular</h2>
-                    </div><!-- border title -->
-					<?php $args = array(
-						'wpp_start'        => '<div class="small-post">',
-						'wpp_end'          => '</div>',
-						'stats_category'   => 0,
-						'post_html'        => '<a href="{url}"><div class="small-post-thumb">{thumb_img}</div><div class="small-post-content"><h2>{text_title}</h2></div></a>',
-						'thumbnail_width'  => 100,
-						'thumbnail_height' => 100,
-						'limit'            => 4,
-						'range'            => 'weekly',
-						'freshness'        => 1,
-						'order_by'         => 'views',
-						'post_type'        => 'job'
-
-					);
-					wpp_get_mostpopular( $args );
-				endif; ?>
+            	<?php get_template_part('ads/right-small'); ?>
+				<div class="border-title">
+					<h2>Most Popular</h2>
+				</div><!-- border title -->
+				<?php $popular_posts = get_field("popular_posts", 46657);
+				$args = array(
+					'post__in'=>$popular_posts
+				);
+				$query = new WP_Query($args);
+				if($query->have_posts()):?>
+					<div class="small-post">
+						<?php while($query->have_posts()): $query->the_post();?>
+							<a href="<?php the_permalink();?>">
+								<div class="small-post-thumb"><?php the_post_thumbnail();?></div>
+								<div class="small-post-content">
+									<h2><?php the_title();?></h2>
+								</div>
+							</a>
+						<?php endwhile;?>
+					</div>
+					<?php wp_reset_postdata();
+				endif;?>
 				<div class="brew-sidebar">
 					<div class="border-title">
 						<h2>Morning Brew</h2>
