@@ -74,6 +74,9 @@ get_header();?>
 						</div><!-- border title -->
 					</header><!-- .archive-header -->
 					<div class="entry-content">
+						<?php if ( function_exists( 'sharing_display' ) ) : ?>
+							<div class="jetpack-social"><?php sharing_display( '', true ); ?></div>
+						<?php endif; ?>
 						<div class="job-company-row">	
 							<?php $image = get_field('image');
 							$company_name = get_field("company_name");?>								
@@ -116,7 +119,17 @@ get_header();?>
 							<div class="application email">
 								<?php echo $application_email;?>
 							</div><!--.application-->
+						<?php endif;
+						$mailto_subject = get_field("mailto_subject",46657);
+						$mailto_body = get_field("mailto_body",46657);
+						$mailto_button_text = get_field("mailto_button_text",46657);
+						if($mailto_body&&$mailto_button_text&&$mailto_subject):?>
+							<div class="mail button">
+								<a class="button" href="mailto:?subject=<?php echo str_replace(" ","%20",$mailto_subject);?>&amp;body=<?php echo str_replace(" ","%20",$mailto_body);?>%20<?php echo get_permalink();?>"><?php echo $mailto_button_text;?></a>
+							</div>
 						<?php endif;?>
+						<div class="fb-like" data-href="<?php the_permalink(); ?>" data-layout="standard" data-action="like"
+						data-size="small" data-show-faces="true" data-share="true"></div>
 					</div><!-- entry content -->
 					<?php $args = array(
 						'post_type'=>'job',

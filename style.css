@@ -1064,7 +1064,10 @@ select.eventtype {
 .single-job .application.button {
 	
 }
-.single-job .application.button a.button {
+.single-job .mail.button {
+	margin: 20px 0 0 0;
+}
+.single-job .application.button a.button, .single-job .mail.button a.button {
 	background-color: #803F26;
 	border: none;
 	color: white;
@@ -1400,6 +1403,12 @@ section#third {
 /* = Single News */
 .template-single-news .entry-content p{
 	line-height: 1.8;
+}
+.template-single-news .fb-like {
+	margin-top: 20px;
+}
+.single-job .mail.button a.button {
+	background-color: #D1BA00;
 }
 /* sponsored */
 .sponsored-row {
