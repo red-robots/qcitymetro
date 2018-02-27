@@ -260,5 +260,21 @@ __________________________________________
 			}
 		});
 	})();
+
+	(function update_cart_count(){
+        $.post(
+            bellaajaxurl.url,
+            {
+                'action': 'bella_get_jobs_count',
+            },
+            function (response) {
+				var $response = $(response);
+				if ($response.find("response_data").length > 0) {
+                    $text = $response.find("response_data").eq(0).text();
+					$('.menu-item-46728').append('<span class="splat">'+$text+"</span>");
+                }
+            }
+        );
+	})();
 });// END #####################################    END Document Ready
 

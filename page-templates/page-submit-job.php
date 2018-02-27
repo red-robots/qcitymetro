@@ -46,8 +46,22 @@ get_header(); ?>
 						$formArg = array (
 							'id' => 'acf-business-form',
 							'post_id'	=> 'new_post',
-							'return' => $return,
+							//'return' => $return,
 							'form' => true,
+							'fields' => array(
+								'job_title',
+								'image',
+								'company_name',
+								'category',
+								'job_level',
+								'job_description',
+								'how_to_apply',
+								'application_direct',
+								'application_email',
+								'submitter_contact_name',
+								'submitter_contact_email',
+								'submitter_phone_number'
+							),
 							'post_title'=>true,
 							'new_post'		=> array(
 								'post_type'		=> 'job',

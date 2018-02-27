@@ -52,7 +52,9 @@
 			get_bloginfo('template_directory') . '/js/custom.js',
 			array('jquery'), '1.0' , true );
 		wp_enqueue_script('custom');
-
+		wp_localize_script( 'custom', 'bellaajaxurl', array(
+			'url' => admin_url( 'admin-ajax.php' )
+		));
 	}
 }
 add_action('wp_enqueue_scripts', 'ineedmyjava');

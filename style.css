@@ -1086,23 +1086,27 @@ select.eventtype {
 }
 .job-board .jobs .job {
 	border-top: 1px solid #999;
-}
-.job-board .jobs .job:last-child {
-	margin: 0;
+	margin: 20px 0 0 0;
+	padding: 20px 0;
 }
 .job-board .jobs .job .image {
+	width: 100px;
+	margin: 0 20px 0 0;
+	float: left;
 }
 .job-board .jobs .job .image img{
 	width: 100%;
 	display: block;
-	max-width: 100%;
 }
 .job-board .jobs .job .copy {
-	margin: 20px 0 0 0;
+	margin: 0;
+	width: calc(100% - 120px);
+	float: left;
 }
 .job-board .jobs .job .copy h2 {
 	color: black;
-	font-size: 20px;
+	font-size: 25px;
+	text-transform: uppercase;
 }
 .job-board .jobs .job .excerpt {
 	margin: 10px 0 0 0;
@@ -2798,7 +2802,8 @@ h2.search {
 	line-height: 1.4;
 	font-size: 18px;
 }
-.entry-content {
+.entry-content ul {
+	font-size: 18px;
 	
 }
 .entry-content ol,
@@ -3530,20 +3535,6 @@ img#wpstats {
 	.job-board .jobs .job:last-child {
 		margin: 0;
 	}
-	.job-board .jobs .job .image {
-		width: 200px;
-		margin: 0 20px 0 0;
-		float: left;
-	}
-	.job-board .jobs .job .image img{
-		width: 100%;
-		display: block;
-	}
-	.job-board .jobs .job .copy {
-		margin: 0;
-		width: calc(100% - 220px);
-		float: left;
-	}
 	.job-board .jobs .job .copy h2 {
 
 	}
@@ -3897,9 +3888,27 @@ section#third {
 	}
 	.main-navigation li a,
 	.main-navigation li {
+		position: relative;
 		display: inline-block;
 		text-decoration: none;
 		
+	}
+	.main-navigation li .splat {
+		position: absolute;
+		z-index: 1;
+		top: 10px;
+		right: -20px;
+		width: 20px;
+		height: 20px;
+		text-align: center;
+		vertical-align: middle;
+		padding: 3px 0 0 0;
+		box-sizing: border-box;
+		line-height: 1;
+		border-radius: 50%;
+		background-color: red;
+		color: white;
+		font-size: 12px;
 	}
 	.main-navigation li.media-gallery a {color: rgba(255,255,255,1);}
 	.main-navigation li.media-gallery ul  {margin: 0 ;}
@@ -4182,7 +4191,7 @@ Business details
 		margin: 0;
 	}
 	.job-board .jobs .job .image {
-		width: 15%;
+		width: 10%;
 		float: none;
 		margin: 0 20px 0 0;
 		max-width: 100%;
@@ -4192,9 +4201,10 @@ Business details
 		display: block;
 	}
 	.job-board .jobs .job .copy {
-		margin: 0 10% 0 0;
-		width: 30%;
+		margin: 0 0 0 0;
+		width: 52%;
 		float: none;
+		text-align: center;
 	}
 	.job-board .jobs .job .copy h2 {
 

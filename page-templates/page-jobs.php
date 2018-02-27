@@ -58,7 +58,6 @@ get_header();
 		</div><!--.jobs-banner-->
 		<div id="content" role="main" class="wrapper">
 			<div class="site-content job-board">
-				<?php get_template_part('ads/job-board-home');?>
 				<header class="archive-header">
 					<div class="border-title">
 						<div class="catname">
@@ -66,7 +65,7 @@ get_header();
 						</div>
 					</div><!-- border title -->
 				</header><!-- .archive-header -->
-				<?php 
+				<?php $today = date('Ymd');
 				$args = array(
 					'post_type'=>'job',
 					'posts_per_page'=>12,
@@ -74,9 +73,25 @@ get_header();
 					'orderby'=>'date',
 					'paged'=>$paged
 				);
-				$meta = array('relation'=>'OR');
+				$meta = array('relation'=>'AND');
+				$meta_sub = array('relation'=>'OR');
+				$meta_cat = null;
+				$meta_level = null;
+				$meta_sub[] = array(
+					'key' => 'post_expire',
+					'value' => $today,
+					'compare' => '>'
+				);
+				$meta_sub[] = array(
+					'key' => 'post_expire',
+					'value' => '',
+					'compare' => '='
+				);
+				$meta_sub[] = array(
+					'key' => 'post_expire',
+					'compare' => 'NOT EXISTS'
+				);
 				if(isset($_GET['search'])&&!empty($_GET['search'])):
-					echo "HERE";
 					$prepare_string = "SELECT ID FROM $wpdb->posts WHERE post_title LIKE '%%%s%%' AND post_type = 'job' ";
 					$prepare_string .= "UNION SELECT object_id FROM $wpdb->term_relationships as r INNER JOIN $wpdb->terms as t ON t.term_id = r.term_taxonomy_id WHERE t.name LIKE '%%%s%%'";
 					$prepare_args[] = $_GET['search'];
@@ -94,22 +109,35 @@ get_header();
 					$args['post__in']= $in;
 				endif;
 				if(isset($_GET['category'])&&!empty($_GET['category'])):
-					$meta[] = array(
+					$meta_cat = array(
 						'key'     => 'category',
 						'value'   => '"'.$_GET['category'].'"',
 						'compare' => 'LIKE'
 					);
 				endif;
 				if(isset($_GET['level'])&&!empty($_GET['level'])):
-					$meta[] = array(
+					$meta_level = array(
 						'key'=>'job_level',
 						'value'   => '"'.$_GET['level'].'"',
 						'compare' => 'LIKE'
 					);
 				endif;
-				if(count($meta)>1):
-					$args['meta_query'] = $meta;
+				if(!empty($meta_cat)&&!empty($meta_level)):
+					$meta_sub_2 = array('relation'=>'AND');
+					$meta_sub_2[] = $meta_cat;
+					$meta_sub_2[] = $meta_level;
+					$meta[] = $meta_sub;
+					$meta[] = $meta_sub_2;
+				elseif(!empty($meta_cat)):
+					$meta[] = $meta_sub;
+					$meta[] = $meta_cat;
+				elseif(!empty($meta_level)):
+					$meta[] = $meta_sub;
+					$meta[] = $meta_level;
+				else:
+					$meta = $meta_sub;
 				endif;
+				$args['meta_query'] = $meta;
 				$query = new WP_Query($args);
 				if($query->have_posts()):?>
 					<section class="jobs">
@@ -119,7 +147,7 @@ get_header();
 								<?php if ( $image ): ?>
 									<div class="image">
 										<a href="<?php the_permalink();?>">
-											<img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php $image['alt'];?>">
+											<img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="<?php $image['alt'];?>">
 										</a>
 									</div><!--.image-->
 								<?php endif; ?>
@@ -156,7 +184,8 @@ get_header();
 				<?php endif;?>
 			</div><!--.site-content-->
 			<div class="widget-area">
-				<?php get_template_part('inc/job-board-partners') ?>
+				<?php get_template_part('ads/job-board-home');?>
+				<?php //get_template_part('inc/job-board-partners') ?>
 				<?php if (function_exists('wpp_get_views')):?>
 					<div class="job-views">
 						Total Montly Job Board Views:&nbsp;<?php echo wpp_get_views( get_the_ID() );?>

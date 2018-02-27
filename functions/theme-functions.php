@@ -191,13 +191,14 @@ function my_page_columns($columns)
 		'title' 	=> 'Title',
 		'thumbnail'	=>	'Thumbnail',
 		'event' 	=> 'Event Date',
+		'bella_views'=>'Views'
 		//'author'	=>	'Author',
 		//'date'		=>	'Date',
 	);
 	return $columns;
 }
 
-function my_custom_columns($column)
+function my_custom_columns($column, $post_id)
 {
 	global $post;
 	if($column == 'event')
@@ -232,10 +233,13 @@ function my_custom_columns($column)
 		} else {
 			echo 'no image with this event';	
 		}
+	} elseif($column == "bella_views") {
+		echo intval(get_post_meta($post_id,'views',true));
+
 	}
 }
 
-add_action("manage_event_posts_custom_column", "my_custom_columns");
+add_action("manage_event_posts_custom_column", "my_custom_columns",10,2);
 add_filter("manage_edit-event_columns", "my_page_columns");
 
 /*-------------------------------------------------------------------------------
@@ -245,10 +249,26 @@ add_filter("manage_edit-event_columns", "my_page_columns");
 function my_column_register_sortable( $columns )
 {
 	$columns['event'] = 'event';
+	$columns['bella_views'] = 'slice';
 	return $columns;
 }
 
 add_filter("manage_edit-event_sortable_columns", "my_column_register_sortable" );
+/* -----------------------------------------------------------------------------
+    Pre get posts sort for sortable views
+--------------------------------------------------------------------------------*/
+add_action( 'pre_get_posts', 'bella_views_orderby' );
+function bella_views_orderby( $query ) {
+    if( ! is_admin() )
+        return;
+ 
+    $orderby = $query->get( 'orderby');
+ 
+    if( 'slice' == $orderby ) {
+        $query->set('meta_key','views');
+        $query->set('orderby','meta_value_num');
+    }
+}
 /*-------------------------------------------------------------------------------
 	Sanatize the ACF form inputs
 
@@ -343,7 +363,7 @@ function rlv_acf_related_search($search_ok) {
 }
 /*-------------------------------------
 	Resonsive Images with Captions
----------------------------------------*/
+---------------------------------------
 function responsive_wp_caption($x = NULL, $attr, $content) {
     extract( shortcode_atts( 
         array(
@@ -372,7 +392,7 @@ function responsive_wp_caption($x = NULL, $attr, $content) {
 }
  
 add_filter( 'img_caption_shortcode', 'responsive_wp_caption', 10, 3 );
-
+*/
 /*-------------------------------------
 	Jetpack Facebook Fallback Share Image
 ---------------------------------------*/

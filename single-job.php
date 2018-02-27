@@ -159,11 +159,14 @@ get_header();?>
 				</div><!-- site content -->
 			<?php endwhile; // end of the loop.?>
 			<div class="widget-area">
-            	<?php get_template_part('ads/right-small'); ?>
-				<div class="border-title">
-					<h2>Most Popular</h2>
-				</div><!-- border title -->
-				<?php $popular_posts = get_field("popular_posts", 46657);
+            	<?php get_template_part('ads/right-small'); 
+				$popular_posts_title = get_field("popular_posts_title");
+				if($popular_posts_title):?>
+					<div class="border-title">
+						<h2><?php $popular_posts_title;?></h2>
+					</div><!-- border title -->
+				<?php endif;
+				$popular_posts = get_field("popular_posts", 46657);
 				$args = array(
 					'post__in'=>$popular_posts
 				);

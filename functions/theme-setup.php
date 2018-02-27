@@ -325,9 +325,50 @@ function twentytwelve_customize_preview_js() {
 }
 add_action( 'customize_preview_init', 'twentytwelve_customize_preview_js' );
 
-/*add_action( 'wp_ajax_bella_get_jobs_count', 'bella_ajax_get_jobs_count' );
+add_action( 'wp_ajax_bella_get_jobs_count', 'bella_ajax_get_jobs_count' );
 add_action( 'wp_ajax_nopriv_bella_get_jobs_count', 'bella_ajax_get_jobs_count' );
 function bella_ajax_get_jobs_count() {
-	
+	$today = date('Ymd');
+	$args = array(
+		'post_type'=>'job',
+		'posts_per_page'=>-1,
+		'post_status'=>'publish',
+		'meta_query' => array(
+			'relation' => 'OR',
+			array(
+				'key' => 'post_expire',
+				'value' => $today,
+				'compare' => '>'
+			),
+			array(
+				'key' => 'post_expire',
+				'value' => '',
+				'compare' => '='
+			),
+			array(
+				'key' => 'post_expire',
+				'compare' => 'NOT EXISTS'
+			),
+		)
+	);
+	$query = new WP_Query($args);
+	$response    = array(
+		'what'   => 'count',
+		'action' => 'bella_get_jobs_count',
+		'data'   => $query->post_count,
+	);
+	$xmlResponse = new WP_Ajax_Response( $response );
+	$xmlResponse->send();
 	die( 0 );
-}*/
+}
+
+function bella_acf_save_post( $post_id )
+{
+	$direct = get_field("application_direct", $post_id);
+	$email = get_field("application_email", $post_id);
+	if(!empty($direct)||!empty($email)):
+		wp_redirect(get_permalink($post_id)); 
+		exit;
+	endif;
+}
+add_action('acf/save_post', 'bella_acf_save_post', 100,1);
