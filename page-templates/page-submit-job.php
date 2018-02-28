@@ -42,7 +42,7 @@ get_header(); ?>
 						<?php the_content(); ?>
 					</div><!-- entry-content -->
 					<div class="entry-content">
-						<?php $return = get_bloginfo('url') . '/business-directory/business-directory-sign-up/business-directory-pay/';
+						<?php $return = get_bloginfo('url');
 						$formArg = array (
 							'id' => 'acf-business-form',
 							'post_id'	=> 'new_post',
