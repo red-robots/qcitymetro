@@ -1163,6 +1163,9 @@ select.eventtype {
 	display: block;
 	text-indent: -9000px;
 }
+.widget-area >.border-title:first-child {
+	margin-top: 0;
+}
 .border-title {
 	border-bottom: 2px solid #813F27;
 	border-top: 1px solid #D1BA00;
@@ -2433,6 +2436,9 @@ figcaption {
 .small-post, .small-post-sponsored {
 	width: 100%;
 	overflow: hidden;	
+}
+.widget-area .small-post a:last-child {
+	border-bottom: 0;
 }
 .small-post a {
 	display: block;

@@ -367,7 +367,7 @@ function bella_acf_save_post( $post_id )
 	$direct = get_field("application_direct", $post_id);
 	$email = get_field("application_email", $post_id);
 	if(!empty($direct)||!empty($email)):
-		wp_redirect(get_permalink($post_id)); 
+		wp_redirect('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RTGB4KW6XD2GN'); 
 		exit;
 	endif;
 }

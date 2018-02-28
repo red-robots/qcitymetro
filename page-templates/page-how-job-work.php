@@ -39,7 +39,31 @@ get_header();
 				</div><!--.entry-content-->
 			</div><!--.site-content-->
 			<div class="widget-area">
-				<?php get_template_part('inc/job-board-partners') ?>
+				<?php //get_template_part('inc/job-board-partners');
+				$popular_posts_title = get_field("popular_posts_title", 46657);
+				if($popular_posts_title):?>
+					<div class="border-title">
+						<h2><?php echo $popular_posts_title;?></h2>
+					</div><!-- border title -->
+				<?php endif;
+				$popular_posts = get_field("popular_posts", 46657);
+				$args = array(
+					'post__in'=>$popular_posts
+				);
+				$query = new WP_Query($args);
+				if($query->have_posts()):?>
+					<div class="small-post">
+						<?php while($query->have_posts()): $query->the_post();?>
+							<a href="<?php the_permalink();?>">
+								<div class="small-post-thumb"><?php the_post_thumbnail();?></div>
+								<div class="small-post-content">
+									<h2><?php the_title();?></h2>
+								</div>
+							</a>
+						<?php endwhile;?>
+					</div>
+					<?php wp_reset_postdata();
+				endif;?>
 				<div class="brew-sidebar">
 					<div class="border-title">
 						<h2>Morning Brew</h2>
