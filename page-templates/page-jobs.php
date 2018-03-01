@@ -147,7 +147,7 @@ get_header();
 								<?php if ( $image ): ?>
 									<div class="image">
 										<a href="<?php the_permalink();?>">
-											<img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="<?php $image['alt'];?>">
+											<img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php $image['alt'];?>">
 										</a>
 									</div><!--.image-->
 								<?php endif; ?>
