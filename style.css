@@ -1106,7 +1106,7 @@ select.eventtype {
 .job-board .jobs .job .copy h2 {
 	color: black;
 	font-size: 22px;
-	text-transform: uppercase;
+	text-transform: capitalize;
 }
 .job-board .jobs .job .excerpt {
 	margin: 10px 0 0 0;
