@@ -118,7 +118,7 @@ get_header();?>
 						<?php elseif($application_email):?>
 							<div class="application button">
 								<a class="button" href="mailto:<?php echo $application_email;?>">
-									Apply
+									Email Resume
 								</a>
 							</div><!--.application-->
 						<?php endif;
