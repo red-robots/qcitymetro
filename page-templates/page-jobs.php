@@ -15,8 +15,8 @@ get_header();
 				</div><!--.row-1-->
 			<?php endif;?>
 			<div class="row-2">
-				<a href="<?php echo get_permalink(46635);?>">Post a Job</a>
-				<a href="<?php echo get_permalink();?>">Find a Job</a>
+				<a class="banner-button" href="<?php echo get_permalink(46635);?>">Post a Job</a>
+				<div class="banner-button find">Find a Job</div>
 			</div><!--.row-1-->
 			<div class="row-3">
 				<form action="<?php echo get_permalink();?>" method="GET">

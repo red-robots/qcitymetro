@@ -902,7 +902,7 @@ select.eventtype {
 .jobs-banner >.row-2 {
 	margin: 30px 0 0 0;
 }
-.jobs-banner >.row-2 a {
+.jobs-banner >.row-2 .banner-button {
 	margin: 10px 5px 0 5px;
 	color: #803F26;
 	background-color: white;
@@ -910,6 +910,7 @@ select.eventtype {
 	text-transform: uppercase;
 	font-size: 20px;
 	display: inline-block;
+	cursor: pointer;
 }
 .jobs-banner >.row-3 {
 	margin: 30px 0 0 0;
@@ -3444,7 +3445,7 @@ img#wpstats {
 		margin: 40px auto 0 auto;
 		width: 80%;
 	}
-	.jobs-banner >.row-2 a {
+	.jobs-banner >.row-2 .banner-button {
 		margin: 0 10px;
 		font-size: 25px;
 	}

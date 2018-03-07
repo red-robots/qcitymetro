@@ -276,5 +276,9 @@ __________________________________________
             }
         );
 	})();
+
+	$('.jobs-banner >.row-2 .find').click(function(){
+		$('.jobs-banner >.row-3 form >.row-1 input').eq(0).focus();
+	});
 });// END #####################################    END Document Ready
 
