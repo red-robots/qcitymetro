@@ -5,8 +5,8 @@
 get_header(); 
 ?>
 	<div id="primary" class="">
-		<?php $banner_image = get_field("banner_image",46657);
-		$banner_copy = get_field("banner_copy",46657);?>
+		<?php $banner_image = get_field("banner_image",48778);
+		$banner_copy = get_field("banner_copy",48778);?>
 		<div class="jobs-banner">
 			<?php if($banner_image) echo '<div class="background" style="background-image: url('.$banner_image['url'].');"></div>';?>
 			<?php if($banner_copy):?>
@@ -14,7 +14,7 @@ get_header();
 					<?php echo $banner_copy;?>
 				</div><!--.row-1-->
 			<?php endif;?>
-			<?php $statistics = get_field("statistics",46657);
+			<?php $statistics = get_field("statistics",48778);
 			if($statistics):?>
 				<div class="statistics">
 					<ul>
@@ -40,13 +40,13 @@ get_header();
 			</div><!--.site-content-->
 			<div class="widget-area">
 				<?php //get_template_part('inc/job-board-partners');
-				$popular_posts_title = get_field("popular_posts_title", 46657);
+				$popular_posts_title = get_field("popular_posts_title", 48778);
 				if($popular_posts_title):?>
 					<div class="border-title">
 						<h2><?php echo $popular_posts_title;?></h2>
 					</div><!-- border title -->
 				<?php endif;
-				$popular_posts = get_field("popular_posts", 46657);
+				$popular_posts = get_field("popular_posts", 48778);
 				$args = array(
 					'post__in'=>$popular_posts
 				);
@@ -69,7 +69,7 @@ get_header();
 						<h2>Morning Brew</h2>
 					</div><!-- border title -->
 					<div class="brew-wrapper">
-						<?php $copy = get_field("morning_brew_copy",46657);
+						<?php $copy = get_field("morning_brew_copy",48778);
 						if($copy):?>
 							<div class="copy">
 								<?php echo $copy;?>

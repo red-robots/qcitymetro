@@ -5,8 +5,8 @@
  */
 get_header();?>
     <div id="primary" class="single-job">
-		<?php $banner_image = get_field("banner_image",46657);
-		$banner_copy = get_field("banner_copy",46657);?>
+		<?php $banner_image = get_field("banner_image",48778);
+		$banner_copy = get_field("banner_copy",48778);?>
 		<div class="jobs-banner">
 			<?php if($banner_image) echo '<div class="background" style="background-image: url('.$banner_image['url'].');"></div>';?>
 			<?php if($banner_copy):?>
@@ -15,11 +15,11 @@ get_header();?>
 				</div><!--.row-1-->
 			<?php endif;?>
 			<div class="row-2">
-				<a class="banner-button" href="<?php echo get_permalink(46635);?>">Post a Job</a>
+				<a class="banner-button" href="<?php echo get_permalink(48786);?>">Post a Job</a>
 				<div class="banner-button find">Find a Job</div>
 			</div><!--.row-1-->
 			<div class="row-3">
-				<form action="<?php echo get_permalink(46657);?>" method="GET">
+				<form action="<?php echo get_permalink(48778);?>" method="GET">
 					<div class="row-1">
 						<input type="text" name="search" placeholder="Search">
 						<button type="submit">
@@ -28,7 +28,7 @@ get_header();?>
 						<div class="clear"></div>
 					</div><!--.row-1-->
 					<div class="row-2">
-						<?php $terms = get_field("categories_to_show",46657);
+						<?php $terms = get_field("categories_to_show",48778);
 						if(is_array($terms)&&!empty($terms)):?>
 							<ul>
 								<li>Popular categories:</li>
@@ -122,9 +122,9 @@ get_header();?>
 								</a>
 							</div><!--.application-->
 						<?php endif;
-						$mailto_subject = get_field("mailto_subject",46657);
-						$mailto_body = get_field("mailto_body",46657);
-						$mailto_button_text = get_field("mailto_button_text",46657);
+						$mailto_subject = get_field("mailto_subject",48778);
+						$mailto_body = get_field("mailto_body",48778);
+						$mailto_button_text = get_field("mailto_button_text",48778);
 						if($mailto_body&&$mailto_button_text&&$mailto_subject):?>
 							<div class="mail button">
 								<a class="button" href="mailto:?subject=<?php echo str_replace(" ","%20",$mailto_subject);?>&amp;body=<?php echo str_replace(" ","%20",$mailto_body);?>%20<?php echo get_permalink();?>"><?php echo $mailto_button_text;?></a>
@@ -162,13 +162,13 @@ get_header();?>
 			<?php endwhile; // end of the loop.?>
 			<div class="widget-area">
             	<?php get_template_part('ads/right-small'); 
-				$popular_posts_title = get_field("popular_posts_title", 46657);
+				$popular_posts_title = get_field("popular_posts_title", 48778);
 				if($popular_posts_title):?>
 					<div class="border-title">
 						<h2><?php echo $popular_posts_title;?></h2>
 					</div><!-- border title -->
 				<?php endif;
-				$popular_posts = get_field("popular_posts", 46657);
+				$popular_posts = get_field("popular_posts", 48778);
 				$args = array(
 					'post__in'=>$popular_posts
 				);
@@ -191,7 +191,7 @@ get_header();?>
 						<h2>Morning Brew</h2>
 					</div><!-- border title -->
 					<div class="brew-wrapper">
-						<?php $copy = get_field("morning_brew_copy",46657);
+						<?php $copy = get_field("morning_brew_copy",48778);
 						if($copy):?>
 							<div class="copy">
 								<?php echo $copy;?>

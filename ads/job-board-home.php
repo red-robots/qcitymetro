@@ -1,5 +1,5 @@
 <?php
-	$post = get_post(46759);
+	$post = get_post(48792);
 	setup_postdata( $post );
 	$googleScript = get_field('ad_script');
 	$enable = get_field('enable_ad');
