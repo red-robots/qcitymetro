@@ -34,6 +34,7 @@ $return = get_bloginfo('url').'/submit-no-promotion-event/success-no-promotion-e
 						'event_date',
 						'event_start_time',
 						'event_end_time',
+						'event_image',
 						// 'event_contact',
 						// 'event_email',
 						// 'phone',
@@ -47,9 +48,8 @@ $return = get_bloginfo('url').'/submit-no-promotion-event/success-no-promotion-e
 						'field_561bc0f76f014', // submitter message
 						'event_contact_name',
 						'event_contact_phone_number',
-						'event_contact_email',
+						'event_contact_email'
 						// 'request_start_showing'
-						'event_image'
 					),
 					'new_post'		=> array(
 						'post_type'		=> 'event',
