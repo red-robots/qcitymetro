@@ -1412,6 +1412,10 @@ section#third {
 .template-single-news .entry-content p{
 	line-height: 1.8;
 }
+.template-single-news .entry-content ol li {
+	line-height: 1.8;
+	font-size: 18px;
+}
 .template-single-news .fb-like {
 	margin-top: 20px;
 }

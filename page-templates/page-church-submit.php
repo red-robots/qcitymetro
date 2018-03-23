@@ -54,7 +54,7 @@ get_header(); ?>
 						'post_type'		=> 'church_listing',
 						'post_status'		=> 'pending',
 						'post_title'    => 'My Church post',
-						'tax_input'      => 'standard'
+						//'tax_input'      => 'standard'
 						),
 					'submit_value'		=> 'Submit a Church'
 					);
