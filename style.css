@@ -332,9 +332,6 @@ input.search-field, input.email-field {
 	box-shadow: none;
 	padding: 0;
 }
-.wp-caption {
-	max-width: 100% !important;
-}
 /* Responsive images */
 .entry-content img,
 .comment-content img,
