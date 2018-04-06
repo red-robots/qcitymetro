@@ -2901,6 +2901,9 @@ h2.search {
 	line-height: 1.714285714;
 	margin: 0 0 24px;
 }
+.wp-caption {
+	max-width: 100%;
+}
 img.alignleft,
 .wp-caption.alignleft {
 	margin: 12px 24px 12px 0;
