@@ -88,44 +88,54 @@ get_header();?>
                     
                     $args = array(
                         'post_type'=>'event',
-                        'posts_per_page' => -1,
+                        'posts_per_page' => 30,
                         'orderby'=>'meta_value',
                         'meta_key'=>'event_date',
                         'order'=>'ASC'
                     );
-                    $meta = array();
-                    $meta_cat = null;
-                    $meta_date = null;
+                    $post__in = array();
                     if($future!==null):
-                        $meta_date = array(
-                            'relation'=>'AND',
-                            array(
-                                'key'=>'event_date',
-                                'value'=>$today,
-                                'compare'=>'>=',
-                                'type'=>'NUMERIC'
-                            ),
-                            array(
-                                'key'=>'event_date',
-                                'value'=>$future,
-                                'compare'=>'<',
-                                'type'=>'NUMERIC'
-                            )
-                        );
+                        //old queries for reference (didn't work generated from wordpress)
+
+                        //LEFT JOIN qcqcq_postmeta ON ( qcqcq_posts.ID = qcqcq_postmeta.post_id ) LEFT JOIN qcqcq_postmeta AS mt1 ON ( qcqcq_posts.ID = mt1.post_id ) LEFT JOIN qcqcq_postmeta AS mt2 ON ( qcqcq_posts.ID = mt2.post_id ) LEFT JOIN qcqcq_postmeta AS mt3 ON ( qcqcq_posts.ID = mt3.post_id ) LEFT JOIN qcqcq_postmeta AS mt4 ON (qcqcq_posts.ID = mt4.post_id AND mt4.meta_key = 'event_date' ) LEFT JOIN qcqcq_postmeta AS mt5 ON ( qcqcq_posts.ID = mt5.post_id )
+
+                        //AND ( ( ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value >= '20180419' ) AND ( mt1.meta_key = 'event_date' AND mt1.meta_value < '20180420' ) ) OR ( ( mt2.meta_key = 'event_date' AND mt2.meta_value < '20180419' ) AND ( mt3.meta_key = 'end_date' AND mt3.meta_value >= '20180420' ) ) OR mt4.post_id IS NULL OR ( mt5.meta_key = 'event_date' AND mt5.meta_value = '' ) )
+
+                        $prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) LEFT JOIN $wpdb->postmeta AS mt1 ON ( $wpdb->posts.ID = mt1.post_id ) WHERE ( ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) AND ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) ) OR ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) AND ( mt1.meta_key = 'end_date' AND mt1.meta_value >= %d ) ) )";
+                        
+                        $prepare_args = array();
+                        array_unshift($prepare_args,$future);
+                        array_unshift($prepare_args,$today);
+                        array_unshift($prepare_args,$future);
+                        array_unshift($prepare_args,$today);
+                        array_unshift($prepare_args,$prepare_string);
+                        $results = $wpdb->get_results( call_user_func_array(array($wpdb, "prepare"),$prepare_args) );
+                        if($results):
+                            foreach($results as $result):
+                                $post__in[] = $result->ID;
+                            endforeach;
+                        else:
+                            $post__in[] = -1;
+                        endif;
                     else: 
-                        $meta_date = array(
-                            'relation'=>'OR',
-                            array(
-                                'key'=>'event_date',
-                                'value'=>$today,
-                                'compare'=>'>=',
-                                'type'=>'NUMERIC'
-                            ),
-                            array(
-                                'key'=>'event_date',
-                                'compare' => 'NOT EXISTS'
-                            )
-                        );
+                        //old queries for reference (generated from wordpress, worked, but bad)
+
+                        //LEFT JOIN qcqcq_postmeta ON ( qcqcq_posts.ID = qcqcq_postmeta.post_id ) LEFT JOIN qcqcq_postmeta AS mt1 ON (qcqcq_posts.ID = mt1.post_id AND mt1.meta_key = 'event_date' )
+                        //AND ( ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value >= '20180419' ) OR mt1.post_id IS NULL OR ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value = '' ) )*/
+                        
+                        $prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) WHERE ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) OR ($wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value = '' ) )";
+                        
+                        $prepare_args = array();
+                        array_unshift($prepare_args,$today);
+                        array_unshift($prepare_args,$prepare_string);
+                        $results = $wpdb->get_results( call_user_func_array(array($wpdb, "prepare"),$prepare_args) );
+                        if($results):
+                            foreach($results as $result):
+                                $post__in[] = $result->ID;
+                            endforeach;
+                        else:
+                            $post__in[] = -1;
+                        endif;
                     endif;
                     if(isset($_GET['search'])&&!empty($_GET['search'])):
                         $prepare_string = "SELECT ID FROM $wpdb->posts WHERE post_title LIKE '%%%s%%' AND post_type = 'event' ";
@@ -134,36 +144,59 @@ get_header();?>
                         array_unshift($prepare_args,$_GET['search']);
                         array_unshift($prepare_args,$prepare_string);
                         $results = $wpdb->get_results(  call_user_func_array(array($wpdb, "prepare"),$prepare_args));
-                        $in = array();
                         if($results):
                             foreach($results as $result):
-                                $in[] = $result->ID;
+                                $post__in[] = $result->ID;
                             endforeach;
                         else:
-                            $in[] = -1;
+                            $post__in[] = -1;
                         endif;
-                        $args['post__in']= $in;
                     endif;
                     if(isset($_GET['category'])&&!empty($_GET['category'])):
-                        $meta_cat = array(
+                        $args['meta_query'] = array(
                             'key'     => 'category',
                             'value'   => '"'.$_GET['category'].'"',
                             'compare' => 'LIKE'
                         );
                     endif;
-                    $meta[] = $meta_date;
-                    if(!empty($meta_cat)):
-                        $meta[] = $meta_cat;
-                    endif;
-                    $args['meta_query'] = $meta;
-                    var_dump($args);
+                    $args['post__in']= $post__in;
                     $query = new WP_Query($args);
-                    if ($query->have_posts()) : 
-                        while ($query->have_posts()) :  $query->the_post(); ?>
-                            <h1><?php the_title();?></h1>
-                            <h2><?php echo get_field('event_date');?></h2> 
-                        <?php endwhile;
-                        wp_reset_postdata();
+                    if ($query->have_posts()) :?>
+                        <div class="tiles events"> 
+                            <?php while ($query->have_posts()) :  $query->the_post(); 
+                                $date = get_field("event_date");
+                                $venue = get_field("name_of_venue");
+                                $image = get_field("event_image");
+                                $terms = wp_get_post_terms( get_the_ID(), 'event_category' );?>
+                                <div class="tile">
+                                    <div class="row-1">
+                                        <img src="<?php echo $image['sizes']['small'];?>" alt="<?php echo $image['alt'];?>">
+                                        <h2><?php the_title();?></h2>
+                                        <?php if($date):?>
+                                            <div class="date">
+                                                <?php echo $date;?>
+                                            </div><!--.date-->
+                                        <?php endif;
+                                        if($venue):?>
+                                            <div class="venue">
+                                                <?php echo $venue;?>
+                                            </div><!--.venue-->
+                                        <?php endif;?>
+                                    </div><!--.row-1-->
+                                    <div class="row-2">
+                                        <div class="col-1">
+                                            <i class="fa fa-gears"></i>
+                                        </div><!--.col-1-->
+                                        <?php if(!is_wp_error($terms) && is_array($terms)&&!empty($terms)):?>
+                                            <div class="col-2">
+                                                <?php echo $terms[0]->name;?> 
+                                            </div><!--.col-2-->
+                                        <?php endif;?>
+                                    </div><!--.row-2-->
+                                </div><!--.tile-->
+                            <?php endwhile;?>
+                        </div><!--.tiles-->
+                        <?php wp_reset_postdata();
                     endif;?> 
                 </div><!-- site content -->
                 

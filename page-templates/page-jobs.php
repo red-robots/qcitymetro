@@ -91,23 +91,6 @@ get_header();
 					'key' => 'post_expire',
 					'compare' => 'NOT EXISTS'
 				);
-				if(isset($_GET['search'])&&!empty($_GET['search'])):
-					$prepare_string = "SELECT ID FROM $wpdb->posts WHERE post_title LIKE '%%%s%%' AND post_type = 'job' ";
-					$prepare_string .= "UNION SELECT object_id FROM $wpdb->term_relationships as r INNER JOIN $wpdb->terms as t ON t.term_id = r.term_taxonomy_id WHERE t.name LIKE '%%%s%%'";
-					$prepare_args[] = $_GET['search'];
-					array_unshift($prepare_args,$_GET['search']);
-					array_unshift($prepare_args,$prepare_string);
-					$results = $wpdb->get_results(  call_user_func_array(array($wpdb, "prepare"),$prepare_args));
-					$in = array();
-					if($results):
-						foreach($results as $result):
-							$in[] = $result->ID;
-						endforeach;
-					else:
-						$in[] = -1;
-					endif;
-					$args['post__in']= $in;
-				endif;
 				if(isset($_GET['category'])&&!empty($_GET['category'])):
 					$meta_cat = array(
 						'key'     => 'category',
