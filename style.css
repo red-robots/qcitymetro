@@ -852,6 +852,70 @@ select.eventtype {
 	color: grey;
 	font-size: 16px;
 }
+/* EVENTS PAGE */
+.tiles * {
+	box-sizing: border-box;
+}
+.tiles .tile {
+	width: 33.333333%;
+	padding: 0 1.75% 3.5% 1.75%;
+}
+.tiles .tile .inner-wrapper {
+	border: 2px solid grey;
+}
+.tiles .tile:hover .inner-wrapper {
+	box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+}
+#offset {
+	display: none;
+}
+.events .tile .row-1 {
+	padding: 10px 10px 30px 10px;
+}
+.events .tile .row-1 img {
+	width: 100%;
+	display: block;
+}
+.events .tile .row-1 h2 {
+	margin: 20px 0 0 0;
+	font-size: 20px;
+	font-family: 'Oswald', sans-serif;
+	color: #813F27;
+	
+}
+.events .tile .row-1 .date {
+	margin: 15px 0 0 0;
+	font-size: 14px;
+	font-weight: 700;
+}
+.events .tile .row-1 .venue {
+	margin: 15px 0 0 0;
+	font-size: 12px;
+}
+.events .tile .row-2 {
+	color: #813F27;
+	padding: 5px;
+	background-color: lightgrey;	
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-align-content: center;
+	align-content: center;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+.events .tile .row-2 .col-1 {
+	font-size: 25px;
+}
+.events .tile .row-2 .col-2 {
+	font-size: 12px;
+	text-align: right;
+	max-width: 60%;
+}
 /*==============JOB BOARD PAGE ===============*/
 .jobs-banner{
 	padding: 30px;

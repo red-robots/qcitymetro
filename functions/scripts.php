@@ -47,14 +47,24 @@
 		wp_enqueue_script('colorbox');
 
 		// Custom Theme scripts...
-		wp_register_script(
+		wp_enqueue_script(
 			'custom',
 			get_bloginfo('template_directory') . '/js/custom.js',
 			array('jquery'), '1.0' , true );
-		wp_enqueue_script('custom');
-		wp_localize_script( 'custom', 'bellaajaxurl', array(
-			'url' => admin_url( 'admin-ajax.php' )
-		));
+		$vars = array(
+			'url' => admin_url( 'admin-ajax.php' ),
+			'postid'=>get_the_ID()
+		);
+		if(isset($_GET['date'])&&!empty($_GET['date'])){
+			$vars['date']=$_GET['date'];
+		} 
+		if(isset($_GET['category'])&&!empty($_GET['category'])){
+			$vars['category']=$_GET['category'];
+		} 
+		if(isset($_GET['search'])&&!empty($_GET['search'])){
+			$vars['search']=$_GET['search'];
+		} 
+		wp_localize_script( 'custom', 'bellaajaxurl', $vars);
 	}
 }
 add_action('wp_enqueue_scripts', 'ineedmyjava');

@@ -88,7 +88,7 @@ get_header();?>
                     
                     $args = array(
                         'post_type'=>'event',
-                        'posts_per_page' => -1,
+                        'posts_per_page' => 9,
                         'orderby'=>'meta_value',
                         'meta_key'=>'event_date',
                         'order'=>'ASC'
@@ -168,41 +168,50 @@ get_header();?>
                     $args['post__in']= $post__in;
                     $query = new WP_Query($args);
                     if ($query->have_posts()) :?>
-                        <div class="tiles events"> 
-                            <?php while ($query->have_posts()) :  $query->the_post(); 
+                        <div id="offset">0</div>
+                        <div id="container" class="tiles events tracking"> 
+                            <?php $i=0;
+                            while ($query->have_posts()) :  $query->the_post(); 
                                 $date = get_field("event_date");
+                                $display_date = null;
+                                if($date):
+                                    $display_date = (new DateTime($date))->format('l, F j, Y');
+                                endif;
                                 $venue = get_field("name_of_venue");
                                 $image = get_field("event_image");
-                                $terms = wp_get_post_terms( get_the_ID(), 'event_category' );?>
-                                <div class="tile">
-                                    <div class="row-1">
-                                        <?php if($image):?>
-                                            <img src="<?php echo $image['sizes']['small'];?>" alt="<?php echo $image['alt'];?>">
-                                        <?php endif;?>
-                                        <h2><?php the_title();?></h2>
-                                        <?php if($date):?>
-                                            <div class="date">
-                                                <?php echo $date;?>
-                                            </div><!--.date-->
-                                        <?php endif;
-                                        if($venue):?>
-                                            <div class="venue">
-                                                <?php echo $venue;?>
-                                            </div><!--.venue-->
-                                        <?php endif;?>
-                                    </div><!--.row-1-->
-                                    <div class="row-2">
-                                        <div class="col-1">
-                                            <i class="fa fa-gears"></i>
-                                        </div><!--.col-1-->
-                                        <?php if(!is_wp_error($terms) && is_array($terms)&&!empty($terms)):?>
-                                            <div class="col-2">
-                                                <?php echo $terms[0]->name;?> 
-                                            </div><!--.col-2-->
-                                        <?php endif;?>
-                                    </div><!--.row-2-->
+                                $terms = wp_get_post_terms( get_the_ID(), 'event_cat' );?>
+                                <div class="tile item <?php if($i%3==0) echo "first";?> <?php if(($i+1)%3==0) echo "last";?>">
+                                    <div class="inner-wrapper">
+                                        <div class="row-1">
+                                            <?php if($image):?>
+                                                <img src="<?php echo $image['sizes']['medium'];?>" alt="<?php echo $image['alt'];?>">
+                                            <?php endif;?>
+                                            <h2><?php the_title();?></h2>
+                                            <?php if($display_date):?>
+                                                <div class="date">
+                                                    <?php echo $display_date;?>
+                                                </div><!--.date-->
+                                            <?php endif;
+                                            if($venue):?>
+                                                <div class="venue">
+                                                    <?php echo $venue;?>
+                                                </div><!--.venue-->
+                                            <?php endif;?>
+                                        </div><!--.row-1-->
+                                        <div class="row-2">
+                                            <div class="col-1">
+                                                <i class="fa fa-gears"></i>
+                                            </div><!--.col-1-->
+                                            <?php if(!is_wp_error($terms) && is_array($terms)&&!empty($terms)):?>
+                                                <div class="col-2">
+                                                    <?php echo $terms[0]->name;?> 
+                                                </div><!--.col-2-->
+                                            <?php endif;?>
+                                        </div><!--.row-2-->
+                                    </div><!--.wrapper-->
                                 </div><!--.tile-->
-                            <?php endwhile;?>
+                                <?php $i++;
+                            endwhile;?>
                         </div><!--.tiles-->
                         <?php wp_reset_postdata();
                     endif;?> 

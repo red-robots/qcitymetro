@@ -111,13 +111,13 @@ __________________________________________
 	
 	//Isotope with images loaded ...
 	var $container = $('#container').imagesLoaded( function() {
-  	$container.isotope({
-    // options
-	 itemSelector: '.item',
-		  masonry: {
-			gutter: 15
+		$container.isotope({
+		// options
+		itemSelector: '.item',
+			masonry: {
+				gutter: 0
 			}
- 		 });
+		});
 	});
 	
 	
@@ -261,7 +261,7 @@ __________________________________________
 		});
 	})();
 
-	(function update_cart_count(){
+	(function(){
         $.post(
             bellaajaxurl.url,
             {
@@ -280,5 +280,68 @@ __________________________________________
 	$('.jobs-banner >.row-2 .find').click(function(){
 		$('.jobs-banner >.row-3 form >.row-1 input').eq(0).focus();
 	});
+
+	//ajaxLock is just a flag to prevent double clicks and spamming
+	var ajaxLock = false;
+
+	var postOffset = parseInt(jQuery( '#offset' ).text());
+	//Change that to your right site url unless you've already set global ajaxURL
+	var ajaxURL = bellaajaxurl.url;
+
+	function ajax_next_event() {
+		if( ! ajaxLock && postOffset != NaN) {
+			ajaxLock = true;
+			
+			//Parameters you want to pass to query
+			ajaxData ='&post_offset=' + postOffset + '&action=bella_ajax_next_event';
+			if(bellaajaxurl.date!=null){
+				ajaxData+='&date='+bellaajaxurl.date;
+			}
+			if(bellaajaxurl.category!=null){
+				ajaxData+='&category='+bellaajaxurl.category;
+			}
+			if(bellaajaxurl.search!=null){
+				ajaxData+='&search='+bellaajaxurl.search;
+			}
+
+			//Ajax call itself
+			jQuery.ajax({
+				type: 'get',
+				url:  ajaxURL,
+				data: ajaxData,
+				dataType: 'json',
+
+				//Ajax call is successful
+				success: function ( response ) {
+					if(parseInt(response[1])!==0){
+						$tracking.append(response[0]);
+						postOffset+=parseInt(response[1]);
+						ajaxLock = false;
+					}
+				},
+
+				//Ajax call is not successful, still remove lock in order to try again
+				error: function (err) {
+					ajaxLock = false;
+				}
+			});
+		}
+	}
+	var $window = $(window);
+	var $document = $(document);
+	var $tracking = $('.tracking');
+	var $footer = $('#colophon');
+	if($tracking.length>0){
+		var top = $tracking.offset().top;
+		var footer_height = $footer.height();
+		$window.scroll(function(){
+			var height = $tracking.height();
+			var w_height = $window.height();
+			var d_scroll = $document.scrollTop();
+			if(w_height+d_scroll+600>height+top-footer_height){
+				ajax_next_event();
+			}
+		});
+	}
 });// END #####################################    END Document Ready
 
