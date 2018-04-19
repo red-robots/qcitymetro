@@ -88,7 +88,7 @@ get_header();?>
                     
                     $args = array(
                         'post_type'=>'event',
-                        'posts_per_page' => 30,
+                        'posts_per_page' => -1,
                         'orderby'=>'meta_value',
                         'meta_key'=>'event_date',
                         'order'=>'ASC'
@@ -137,6 +137,7 @@ get_header();?>
                             $post__in[] = -1;
                         endif;
                     endif;
+                    $temp__in = array();
                     if(isset($_GET['search'])&&!empty($_GET['search'])):
                         $prepare_string = "SELECT ID FROM $wpdb->posts WHERE post_title LIKE '%%%s%%' AND post_type = 'event' ";
                         $prepare_string .= "UNION SELECT object_id FROM $wpdb->term_relationships as r INNER JOIN $wpdb->terms as t ON t.term_id = r.term_taxonomy_id WHERE t.name LIKE '%%%s%%'";
@@ -146,11 +147,16 @@ get_header();?>
                         $results = $wpdb->get_results(  call_user_func_array(array($wpdb, "prepare"),$prepare_args));
                         if($results):
                             foreach($results as $result):
-                                $post__in[] = $result->ID;
+                                if(in_array($result->ID,$post__in)):
+                                    $temp__in[] = $result->ID;
+                                endif;
                             endforeach;
-                        else:
-                            $post__in[] = -1;
+                        else: 
+                            $temp__in[] = -1;
                         endif;
+                    endif;
+                    if(!empty($temp__in)):
+                        $post__in = $temp__in;
                     endif;
                     if(isset($_GET['category'])&&!empty($_GET['category'])):
                         $args['meta_query'] = array(
@@ -170,7 +176,9 @@ get_header();?>
                                 $terms = wp_get_post_terms( get_the_ID(), 'event_category' );?>
                                 <div class="tile">
                                     <div class="row-1">
-                                        <img src="<?php echo $image['sizes']['small'];?>" alt="<?php echo $image['alt'];?>">
+                                        <?php if($image):?>
+                                            <img src="<?php echo $image['sizes']['small'];?>" alt="<?php echo $image['alt'];?>">
+                                        <?php endif;?>
                                         <h2><?php the_title();?></h2>
                                         <?php if($date):?>
                                             <div class="date">
