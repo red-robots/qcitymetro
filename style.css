@@ -868,9 +868,25 @@ select.eventtype {
 }
 .tiles .tile .inner-wrapper {
 	border: 2px solid grey;
+	position: relative;
 }
 .tiles .tile:hover .inner-wrapper {
 	box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+}
+.tiles .tile .inner-wrapper .culture {
+	box-sizing: border-box;
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	background-color: white;
+	border: 2px solid lightgrey;
+	padding: 2px 5px;
+}
+.tiles .tile .inner-wrapper .culture .circle {
+	margin: 7px 5px 0 0;
+}
+.tiles .tile .inner-wrapper .culture img {
+	margin: 0;
 }
 #offset {
 	display: none;
@@ -2311,12 +2327,12 @@ nav.footermenu a {
 	font-size: 12px;
 	margin: 40px 0 10px 0;
 }
-.featured-event .culture, .eventlist .culture {
+.featured-event .culture, .eventlist .culture, .tile .culture {
 	position: relative;
 	float: left;
 	cursor: pointer;
 }
-.featured-event .culture .circle, .eventlist .culture .circle {
+.featured-event .culture .circle, .eventlist .culture .circle, .tile .culture .circle {
 	display: none;
 	width: 6px;
 	height: 6px;
@@ -2329,7 +2345,7 @@ nav.footermenu a {
 	float: left;
 	margin: 10px 5px 0 0;
 }
-.featured-event .culture .rollover, .eventlist .culture .rollover{
+.featured-event .culture .rollover, .eventlist .culture .rollover, .tile .culture .rollover {
 	display: none;
 	position: absolute;
 	top: 100%;
@@ -2341,10 +2357,10 @@ nav.footermenu a {
 	border: 1px solid black;
 	z-index: 2;
 }
-.featured-event .culture:hover .rollover, .eventlist .culture:hover .rollover{
+.featured-event .culture:hover .rollover, .eventlist .culture:hover .rollover, .tile .culture:hover .rollover{
 	display: block;
 }
-.featured-event .culture img, .eventlist .culture img {
+.featured-event .culture img, .eventlist .culture img, .tile .culture img {
 	width: 150px;
 	margin: 5px 0 10px 0;
 	display: block;
@@ -3679,25 +3695,25 @@ img#wpstats {
 		margin-right: 24px;
 		margin-bottom: 0;
 	}
-	.featured-event .culture .circle, .eventlist .culture .circle {
+	.featured-event .culture .circle, .eventlist .culture .circle, .tile .culture .circle {
 		display: block;
 	}
-	.featured-event .culture, .eventlist .culture {
+	.featured-event .culture, .eventlist .culture, .tile .culture {
 		position: relative;
 		float: right;
 	}
-	.featured-event .culture .rollover, .eventlist .culture .rollover{
+	.featured-event .culture .rollover, .eventlist .culture .rollover, .tile .culture .rollover{
 		bottom: auto;
 		left: auto;
 		top: 0;
 		right: 105%;
 	}
-	.featured-event .culture img, .eventlist .culture img {
+	.featured-event .culture img, .eventlist .culture img, .tile .culture img {
 		width: 200px;
 		display: block;
 		float: left;
 	}
-	.featured-event .culture.cw img, .eventlist .culture.cw img {
+	.featured-event .culture.cw img, .eventlist .culture.cw img, .tile .culture.cw img {
 		width: 120px;
 	}
 	
