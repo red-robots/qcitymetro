@@ -857,8 +857,8 @@ select.eventtype {
 	box-sizing: border-box;
 }
 .tiles .tile {
-	width: 33.333333%;
-	padding: 0 1.75% 3.5% 1.75%;
+	width: 100%;
+	padding: 0 0 3.5% 0;
 }
 .tiles .tile .inner-wrapper {
 	border: 2px solid grey;
@@ -3489,6 +3489,10 @@ img#wpstats {
 }
 /* Minimum width of 600 pixels. */
 @media screen and (min-width: 652px) {
+	.tiles .tile {
+		width: 50%;
+		padding: 0 1.75% 3.5% 1.75%;
+	}
 
 	.job-sidebar h3 {
 		font-size: 35px;
@@ -4202,6 +4206,13 @@ Business details
 }
 /* Minimum width of 960 pixels. */
 @media screen and (min-width: 1150px) {
+	.tiles .tile {
+		width: 33.333333%;
+		padding: 0 1.75% 3.5% 1.75%;
+	}
+	.template-events .site-content {
+		margin-top: 55px;
+	}
 	header.archive-header {padding-bottom: 0px;}
 	.home-nav {left:5%;top: 14px}
 	.main-navigation li { font-size: 17px; margin: 0 18px 0 18px; }

@@ -5,7 +5,7 @@
 
 get_header();?>
     <?php if ( have_posts() ) : the_post(); ?>
-        <div id="primary" class="">
+        <div id="primary" class="template-events">
             <?php $banner_image = get_field("banner_image");
             $banner_copy = get_field("banner_copy");?>
             <div class="jobs-banner event-banner">
@@ -217,17 +217,79 @@ get_header();?>
                     endif;?> 
                 </div><!-- site content -->
                 
-                <!-- 
-                            Ad Zone
-
-                ======================================================== -->        
                 <div class="widget-area">
-                    <?php 
-                    //get_template_part('ads/right-big'); 
-                    //get_template_part('ads/right-small');
-                   // get_template_part('ads/right-rail');
-                    ?>
-                </div><!-- widget area -->
+                    <?php get_template_part('ads/events-home');?>
+                    <?php $wp_query = new WP_Query();
+                    $wp_query->query(array(
+                        'post_type' => 'post',
+                        'posts_per_page' => 4, // 4 if sponsored, 5 if no sponsored
+                        'category__in'=>array(5),
+                        // Special Query for Expired Posts
+                        'meta_query' => array(
+                            'relation' => 'OR',
+                            array(
+                                'key' => 'post_expire',
+                                'value' => NULL,
+                                'compare' => '='
+                            ),
+                            array(
+                                'key' => 'post_expire',
+                                'compare' => 'NOT EXISTS'
+                            ),
+                            array(
+                                'key' => 'post_expire',
+                                'value' => $today,
+                                'compare' => '>'
+                            )
+                        )
+                    ));
+                    if ($wp_query->have_posts()) : 
+                        while ($wp_query->have_posts()) : $wp_query->the_post(); 
+                            if ( has_post_thumbnail() ) {
+                                $smallClass = 'small-post-content';
+                            } else {
+                                $smallClass = 'small-post-content-full';
+                            }
+                            $pId = get_the_ID();
+                            $termName = 'Entertainment';?>
+                            <div class="small-post">
+                                    <a href="<?php the_permalink(); ?>">
+                                    <div class="small-post-thumb">
+                                    <?php if ( has_post_thumbnail() ) {
+                                                    the_post_thumbnail('thumbnail');
+                                                } ?>
+                                    </div><!-- small post thumb -->
+                                    <div class="<?php echo $smallClass; ?>">
+                                        <h3><?php echo $termName; ?></h3>
+                                        <div class="clear"></div>
+                                        <h2><?php the_title(); ?></h2>
+                                    </div><!-- small post content -->
+                                    </a>
+                            </div><!-- smalll post -->
+                        <?php endwhile; 
+                        wp_reset_postdata(); 
+                    endif; // end query 3 latest
+                    if ( function_exists( 'wpp_get_mostpopular' ) ) : ?>
+                        <div class="border-title">
+                            <h2>Most Popular</h2>
+                        </div><!-- border title -->
+                        <?php $args = array(
+                            'wpp_start'        => '<div class="small-post">',
+                            'wpp_end'          => '</div>',
+                            'stats_category'   => 0,
+                            'post_html'        => '<a href="{url}"><div class="small-post-thumb">{thumb_img}</div><div class="small-post-content"><h2>{text_title}</h2></div></a>',
+                            'thumbnail_width'  => 100,
+                            'thumbnail_height' => 100,
+                            'limit'            => 4,
+                            'range'            => 'weekly',
+                            'freshness'        => 1,
+                            'order_by'         => 'views',
+                            'post_type'        => 'post'
+
+                        );
+                        wpp_get_mostpopular( $args );
+                    endif;?>
+                </div><!--.widget-area-->
         
             </div><!-- #content -->
         </div><!-- #primary -->
