@@ -856,6 +856,9 @@ select.eventtype {
 .template-events .widget-area {
 	margin-bottom: 40px;
 }
+.template-events #container {
+	width: 100%;
+}
 .tiles * {
 	box-sizing: border-box;
 }
