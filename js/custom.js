@@ -314,7 +314,10 @@ __________________________________________
 				//Ajax call is successful
 				success: function ( response ) {
 					if(parseInt(response[1])!==0){
-						$tracking.append(response[0]);
+						$(response[0]).filter('.tile').each(function(i, el){
+							console.log(el)
+							$container.isotope().append($(el)).isotope('appended',$(el)).isotope('layout');
+						});
 						postOffset+=parseInt(response[1]);
 						ajaxLock = false;
 					}
@@ -338,7 +341,7 @@ __________________________________________
 			var height = $tracking.height();
 			var w_height = $window.height();
 			var d_scroll = $document.scrollTop();
-			if(w_height+d_scroll+600>height+top-footer_height){
+			if(w_height+d_scroll+1000>height+top-footer_height){
 				ajax_next_event();
 			}
 		});

@@ -540,10 +540,9 @@ function bella_ajax_next_event() {
 						<?php endif;?>
 					</div><!--.row-2-->
 				</div><!--.inner-wrapper-->
-			</div><!--.tile-->
-			<?php $i++;
+			</div>
+		<?php $i++;
 		}    
-
         //"Save" results' HTML as variable
         $results_html = ob_get_clean();  
     }
