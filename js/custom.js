@@ -314,9 +314,12 @@ __________________________________________
 				//Ajax call is successful
 				success: function ( response ) {
 					if(parseInt(response[1])!==0){
-						$(response[0]).filter('.tile').each(function(i, el){
-							console.log(el)
-							$container.isotope().append($(el)).isotope('appended',$(el)).isotope('layout');
+						$els = $(response[0]).filter('.tile');
+						$els.css("opacity",0);
+						$container.isotope().append($els);
+						$container.imagesLoaded(function(){
+							$container.isotope().isotope('appended',$els).isotope('layout');
+							$els.css("opacity","");
 						});
 						postOffset+=parseInt(response[1]);
 						ajaxLock = false;
