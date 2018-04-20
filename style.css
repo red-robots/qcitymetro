@@ -853,6 +853,9 @@ select.eventtype {
 	font-size: 16px;
 }
 /* EVENTS PAGE */
+.template-events .widget-area {
+	margin-bottom: 40px;
+}
 .tiles * {
 	box-sizing: border-box;
 }
