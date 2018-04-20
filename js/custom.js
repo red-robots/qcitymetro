@@ -316,9 +316,11 @@ __________________________________________
 					if(parseInt(response[1])!==0){
 						$els = $(response[0]).filter('.tile');
 						$els.css("opacity",0);
-						$container.isotope().append($els);
 						$container.imagesLoaded(function(){
-							$container.isotope().isotope('appended',$els).isotope('layout');
+							$els.each(function(i,el){
+								$container.isotope().append($(el)).isotope('appended',$(el)).isotope('layout');
+
+							});
 							$els.css("opacity","");
 						});
 						postOffset+=parseInt(response[1]);
