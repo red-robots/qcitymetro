@@ -339,15 +339,14 @@ __________________________________________
 	var $window = $(window);
 	var $document = $(document);
 	var $tracking = $('.tracking');
-	var $footer = $('#colophon');
-	if($tracking.length>0){
+	var $container = $('#container');
+	if($tracking.length>0 && $container.length>0){
 		var top = $tracking.offset().top;
-		var footer_height = $footer.height();
 		$window.scroll(function(){
 			var height = $tracking.height();
 			var w_height = $window.height();
 			var d_scroll = $document.scrollTop();
-			if(w_height+d_scroll+1000>height+top-footer_height){
+			if(w_height+d_scroll+500>height+top){
 				ajax_next_event();
 			}
 		});
