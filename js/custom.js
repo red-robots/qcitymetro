@@ -318,7 +318,8 @@ __________________________________________
 						$els.css("opacity",0);
 						$container.imagesLoaded(function(){
 							$els.each(function(i,el){
-								$container.isotope().append($(el)).isotope('appended',$(el)).isotope('layout');
+								$el = $(el);
+								$container.isotope().append($el).isotope('appended',$el).isotope('layout');
 
 							});
 							$els.css("opacity","");
