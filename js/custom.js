@@ -112,11 +112,9 @@ __________________________________________
 	//Isotope with images loaded ...
 	var $container = $('#container').imagesLoaded( function() {
 		$container.isotope({
-		// options
-		itemSelector: '.item',
-			masonry: {
-				gutter: 0
-			}
+			// options
+			layoutMode: 'fitRows',
+			itemSelector: '.item',
 		});
 	});
 	
