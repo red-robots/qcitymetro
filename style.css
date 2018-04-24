@@ -875,7 +875,7 @@ select.eventtype {
 	padding: 0 0 3.5% 0;
 }
 .tiles .tile .inner-wrapper {
-	border: 2px solid grey;
+	border: 3px solid #DEDFE0;
 	height: 100%;
 	position: relative;
 }
@@ -946,7 +946,7 @@ select.eventtype {
 	margin: auto 0 0 0;
 	color: #813F27;
 	padding: 5px;
-	background-color: lightgrey;	
+	background-color: #F2F2F2;	
 	display: -webkit-box;
 	display: -moz-box;
 	display: -ms-flexbox;
