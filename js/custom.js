@@ -340,7 +340,7 @@ __________________________________________
 			var height = $tracking.height();
 			var w_height = $window.height();
 			var d_scroll = $document.scrollTop();
-			if(w_height+d_scroll>height+top){
+			if(w_height+d_scroll+500>height+top){
 				ajax_next_event();
 			}
 		});
