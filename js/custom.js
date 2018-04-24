@@ -275,6 +275,22 @@ __________________________________________
         );
 	})();
 
+	(function(){
+        $.post(
+            bellaajaxurl.url,
+            {
+                'action': 'bella_get_events_count',
+            },
+            function (response) {
+				var $response = $(response);
+				if ($response.find("response_data").length > 0) {
+                    $text = $response.find("response_data").eq(0).text();
+					$('.menu-item-56').append('<span class="splat">'+$text+"</span>");
+                }
+            }
+        );
+	})();
+
 	$('.jobs-banner >.row-2 .find').click(function(){
 		$('.jobs-banner >.row-3 form >.row-1 input').eq(0).focus();
 	});

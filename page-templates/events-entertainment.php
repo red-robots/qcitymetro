@@ -122,10 +122,12 @@ get_header();?>
 
                         //LEFT JOIN qcqcq_postmeta ON ( qcqcq_posts.ID = qcqcq_postmeta.post_id ) LEFT JOIN qcqcq_postmeta AS mt1 ON (qcqcq_posts.ID = mt1.post_id AND mt1.meta_key = 'event_date' )
                         //AND ( ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value >= '20180419' ) OR mt1.post_id IS NULL OR ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value = '' ) )*/
-                        
-                        $prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) WHERE ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) OR ($wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value = '' ) )";
+                            
+                        $prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) LEFT JOIN $wpdb->postmeta AS mt1 ON ( $wpdb->posts.ID = mt1.post_id ) WHERE ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) OR ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) AND ( mt1.meta_key = 'end_date' AND mt1.meta_value >= %d ) ) OR ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value = '' ) )";
                         
                         $prepare_args = array();
+                        array_unshift($prepare_args,$today);
+                        array_unshift($prepare_args,$today);
                         array_unshift($prepare_args,$today);
                         array_unshift($prepare_args,$prepare_string);
                         $results = $wpdb->get_results( call_user_func_array(array($wpdb, "prepare"),$prepare_args) );
@@ -182,24 +184,24 @@ get_header();?>
                                 $terms = wp_get_post_terms( get_the_ID(), 'event_cat' );?>
                                 <div class="tile blocks <?php if($i%3==0) echo "first";?> <?php if(($i+1)%3==0) echo "last";?>">
                                     <div class="inner-wrapper">
+                                        <?php $culture_block = get_field("culture_block");
+                                        if(strcmp($culture_block,'yes')==0):?>
+                                            <div class="culture">
+                                                <div class="circle">
+                                                    ?
+                                                </div><!--.circle-->
+                                                <a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+                                                    <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+                                                </a>
+                                                <?php $desc = get_field("culture_block_rollover",54);
+                                                if($desc):?>
+                                                    <div class="rollover">
+                                                        <?php echo $desc;?>	
+                                                    </div><!--.rollover-->
+                                                <?php endif;?>
+                                            </div><!--.culture-->
+                                        <?php endif;?>
                                         <a href="<?php echo get_permalink();?>">
-                                            <?php $culture_block = get_field("culture_block");
-                                            if(strcmp($culture_block,'yes')==0):?>
-                                                <div class="culture">
-                                                    <div class="circle">
-                                                        ?
-                                                    </div><!--.circle-->
-                                                    <a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
-                                                        <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
-                                                    </a>
-                                                    <?php $desc = get_field("culture_block_rollover",54);
-                                                    if($desc):?>
-                                                        <div class="rollover">
-                                                            <?php echo $desc;?>	
-                                                        </div><!--.rollover-->
-                                                    <?php endif;?>
-                                                </div><!--.culture-->
-                                            <?php endif;?>
                                             <div class="row-1">
                                                 <?php if($image):?>
                                                     <img src="<?php echo $image['sizes']['medium'];?>" alt="<?php echo $image['alt'];?>">

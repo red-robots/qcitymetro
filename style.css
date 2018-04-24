@@ -877,12 +877,12 @@ select.eventtype {
 .tiles .tile .inner-wrapper {
 	border: 2px solid grey;
 	height: 100%;
+	position: relative;
 }
 .tiles .tile .inner-wrapper > a {
 	color: inherit;
 	text-decoration: none;
 	height: 100%;
-	position: relative;
 	display: block;
 	display: -webkit-box;
 	display: -moz-box;
