@@ -169,7 +169,7 @@ get_header();?>
                     $query = new WP_Query($args);
                     if ($query->have_posts()) :?>
                         <div id="offset">9</div>
-                        <div id="container" class="tiles events tracking"> 
+                        <div class="tiles events tracking"> 
                             <?php $i=0;
                             while ($query->have_posts()) :  $query->the_post(); 
                                 $date = get_field("event_date");
@@ -180,7 +180,7 @@ get_header();?>
                                 $venue = get_field("name_of_venue");
                                 $image = get_field("event_image");
                                 $terms = wp_get_post_terms( get_the_ID(), 'event_cat' );?>
-                                <div class="tile item <?php if($i%3==0) echo "first";?> <?php if(($i+1)%3==0) echo "last";?>">
+                                <div class="tile blocks <?php if($i%3==0) echo "first";?> <?php if(($i+1)%3==0) echo "last";?>">
                                     <div class="inner-wrapper">
                                         <a href="<?php echo get_permalink();?>">
                                             <?php $culture_block = get_field("culture_block");

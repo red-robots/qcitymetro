@@ -285,7 +285,7 @@ __________________________________________
 	var postOffset = parseInt(jQuery( '#offset' ).text());
 	//Change that to your right site url unless you've already set global ajaxURL
 	var ajaxURL = bellaajaxurl.url;
-
+	$.fn.matchHeight._maintainScroll = true;
 	function ajax_next_event() {
 		if( ! ajaxLock && postOffset != NaN) {
 			ajaxLock = true;
@@ -313,15 +313,8 @@ __________________________________________
 				success: function ( response ) {
 					if(parseInt(response[1])!==0){
 						$els = $(response[0]).filter('.tile');
-						$els.css("opacity",0);
-						$container.imagesLoaded(function(){
-							$els.each(function(i,el){
-								$el = $(el);
-								$container.isotope().append($el).isotope('appended',$el).isotope('layout');
-
-							});
-							$els.css("opacity","");
-						});
+						$tracking.append($els);
+						setTimeout(function(){$('.blocks').matchHeight();},200);
 						postOffset+=parseInt(response[1]);
 						ajaxLock = false;
 					}
@@ -337,14 +330,13 @@ __________________________________________
 	var $window = $(window);
 	var $document = $(document);
 	var $tracking = $('.tracking');
-	var $container = $('#container');
-	if($tracking.length>0 && $container.length>0){
-		var top = $tracking.offset().top;
+	if($tracking.length>0){
 		$window.scroll(function(){
+			var top = $tracking.offset().top;
 			var height = $tracking.height();
 			var w_height = $window.height();
 			var d_scroll = $document.scrollTop();
-			if(w_height+d_scroll+500>height+top){
+			if(w_height+d_scroll>height+top){
 				ajax_next_event();
 			}
 		});
