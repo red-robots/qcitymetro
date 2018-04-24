@@ -313,8 +313,12 @@ __________________________________________
 				success: function ( response ) {
 					if(parseInt(response[1])!==0){
 						$els = $(response[0]).filter('.tile');
+						$els.css("opacity","0");
 						$tracking.append($els);
-						setTimeout(function(){$('.blocks').matchHeight();},200);
+						setTimeout(function(){
+							$('.blocks').matchHeight();
+							$els.css("opacity","");
+						},200);
 						postOffset+=parseInt(response[1]);
 						ajaxLock = false;
 					}
