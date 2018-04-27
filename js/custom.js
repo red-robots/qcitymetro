@@ -122,6 +122,7 @@ __________________________________________
 	// Equal heights divs
 	$('.blocks').matchHeight();
 	$('.js-titles').matchHeight();
+	$('.bottom-blocks').matchHeight();
 	/*var byRow = $('body').hasClass('test-rows');
 		$('.blocks-container').each(function() {
 		 $(this).children('.blocks').matchHeight({
@@ -333,6 +334,7 @@ __________________________________________
 						$tracking.append($els);
 						setTimeout(function(){
 							$('.blocks').matchHeight();
+							$('.bottom-blocks').matchHeight();
 							$els.css("opacity","");
 						},200);
 						postOffset+=parseInt(response[1]);

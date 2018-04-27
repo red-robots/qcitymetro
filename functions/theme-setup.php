@@ -545,25 +545,8 @@ function bella_ajax_next_event() {
 			$terms = wp_get_post_terms( get_the_ID(), 'event_cat' );?>
 			<div class="tile blocks <?php if($i%3==0) echo "first";?> <?php if(($i+1)%3==0) echo "last";?>">
 				<div class="inner-wrapper">
-					<?php $culture_block = get_field("culture_block");
-					if(strcmp($culture_block,'yes')==0):?>
-						<div class="culture">
-							<div class="circle">
-								?
-							</div><!--.circle-->
-							<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
-								<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
-							</a>
-							<?php $desc = get_field("culture_block_rollover",54);
-							if($desc):?>
-								<div class="rollover">
-									<?php echo $desc;?>	
-								</div><!--.rollover-->
-							<?php endif;?>
-						</div><!--.culture-->
-					<?php endif;?>
-					<a href="<?php echo get_permalink();?>">
-						<div class="row-1">
+					<div class="row-1">
+						<a href="<?php echo get_permalink();?>">
 							<?php if($image):?>
 								<img src="<?php echo $image['sizes']['medium'];?>" alt="<?php echo $image['alt'];?>">
 							<?php endif;?>
@@ -578,18 +561,47 @@ function bella_ajax_next_event() {
 									<?php echo $venue;?>
 								</div><!--.venue-->
 							<?php endif;?>
-						</div><!--.row-1-->
-						<div class="row-2">
-							<div class="col-1">
-								<!--<i class="fa fa-share-alt"></i>-->
-							</div><!--.col-1-->
-							<?php if(!is_wp_error($terms) && is_array($terms)&&!empty($terms)):?>
-								<div class="col-2">
-									<?php echo $terms[0]->name;?> 
-								</div><!--.col-2-->
+						</a>
+					</div><!--.row-1-->
+					<div class="row-2 bottom-blocks">
+						<div class="col-1">
+							<?php $culture_block = get_field("culture_block");
+							$premium_terms = get_the_terms(get_the_ID(),"event_category");
+							if(strcmp($culture_block,'yes')==0):?>
+								<div class="culture">
+									<div class="circle">
+										?
+									</div><!--.circle-->
+									<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+										<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+									</a>
+									<?php $desc = get_field("culture_block_rollover",54);
+									if($desc):?>
+										<div class="rollover">
+											<?php echo $desc;?>	
+										</div><!--.rollover-->
+									<?php endif;?>
+									<div class="clear"></div>
+								</div><!--.culture-->
+							<?php elseif(!is_wp_error($premium_terms)&&is_array($premium_terms)&&!empty($premium_terms)):
+								foreach($premium_terms as $term):
+									if($term->term_id==36):?>
+										<div class="featured">
+											Featured
+										</div><!--.featured-->
+										<?php break;
+									endif;?>
+								<?php endforeach;?>
 							<?php endif;?>
-						</div><!--.row-2-->
-					</a>
+						</div><!--.col-1-->
+						<?php if(!is_wp_error($terms) && is_array($terms)&&!empty($terms)):?>
+							<div class="col-2">
+								<a href="<?php echo get_term_link($term[0]->term_id,'event_cat');?>">
+									<?php echo $terms[0]->name;?> 
+								</a>
+							</div><!--.col-2-->
+						<?php endif;?>
+					</div><!--.row-2-->
 				</div><!--.inner-wrapper-->
 			</div>
 		<?php $i++;
