@@ -541,8 +541,7 @@ function bella_ajax_next_event() {
 				$display_date = (new DateTime($date))->format('l, F j, Y');
 			endif;
 			$venue = get_field("name_of_venue");
-			$image = get_field("event_image");
-			$terms = wp_get_post_terms( get_the_ID(), 'event_cat' );?>
+			$image = get_field("event_image");?>
 			<div class="tile blocks <?php if($i%3==0) echo "first";?> <?php if(($i+1)%3==0) echo "last";?>">
 				<div class="inner-wrapper">
 					<div class="row-1">
@@ -594,9 +593,10 @@ function bella_ajax_next_event() {
 								<?php endforeach;?>
 							<?php endif;?>
 						</div><!--.col-1-->
-						<?php if(!is_wp_error($terms) && is_array($terms)&&!empty($terms)):?>
+						<?php $terms = wp_get_post_terms( get_the_ID(), 'event_cat' );
+						if(!is_wp_error($terms) && is_array($terms)&&!empty($terms)):?>
 							<div class="col-2">
-								<a href="<?php echo get_term_link($term[0]->term_id,'event_cat');?>">
+								<a href="<?php echo get_term_link($terms[0]->term_id,'event_cat');?>">
 									<?php echo $terms[0]->name;?> 
 								</a>
 							</div><!--.col-2-->
