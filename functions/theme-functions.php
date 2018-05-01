@@ -189,7 +189,7 @@ function my_page_columns($columns)
 	$columns = array(
 		'cb' => '<input type="checkbox" />',
 		'title' 	=> 'Title',
-		'thumbnail'	=>	'Thumbnail',
+		//'thumbnail'	=>	'Thumbnail',
 		'event' 	=> 'Event Date',
 		'bella_views'=>'Views'
 		//'author'	=>	'Author',

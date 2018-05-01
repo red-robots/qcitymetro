@@ -380,12 +380,13 @@ wp_reset_query();
 							$color = get_field( 'category_color', 'category_'.$termId ); 
 							$sponsors = get_field('sponsors',$post->ID);?>	
 							<div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
-								<h2 style="background-color: <?php echo $color; ?>"><?php 
-									if($sponsors):
+								<h2 style="background-color: <?php echo $color; ?>">
+									Sponsored Content
+									<?php /*if($sponsors):
 										echo $sponsors[0]->post_title;
 									else:
 										echo $term[0]->name;
-									endif;?>
+									endif;*/?>
 								</h2>
 							</div><!-- border title -->
 							
