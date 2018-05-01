@@ -16,7 +16,7 @@ get_header();?>
                     </div><!--.row-1-->
                 <?php endif;?>
                 <div class="row-2">
-                    <a class="banner-button" href="<?php echo get_permalink(48786);?>">Post an Event</a>
+                    <div class="banner-button post-event">Post an Event</div>
                     <div class="banner-button find">Find an Event</div>
                 </div><!--.row-1-->
                 <div class="row-3">
