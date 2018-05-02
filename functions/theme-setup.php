@@ -432,7 +432,6 @@ function bella_ajax_next_event() {
 	
 	$args = array(
 		'post_type'=>'event',
-		'posts_per_page' => 6,
 		'orderby'=>'meta_value',
 		'meta_key'=>'event_date',
 		'order'=>'ASC'
@@ -535,6 +534,8 @@ function bella_ajax_next_event() {
         while ( $query_results->have_posts() ) { 
 			$query_results->the_post();
 			
+			if($i>=6) break; //end loop after returning 6
+
 			$date = get_field("event_date");
 			$display_date = null;
 			if($date):
