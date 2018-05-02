@@ -431,14 +431,12 @@ function bella_ajax_next_event() {
 	endif;//if for date set
 	
 	$args = array(
+		'posts_per_page'=>-1,
 		'post_type'=>'event',
 		'orderby'=>'meta_value',
 		'meta_key'=>'event_date',
 		'order'=>'ASC'
 	);
-    if( ! empty( $_GET['post_offset'] ) ) {
-		$args['offset'] = intval($_GET['post_offset']);
-	}
 	$post__in = array();
 	if($future!==null):
 		//old queries for reference (didn't work generated from wordpress)
@@ -525,15 +523,20 @@ function bella_ajax_next_event() {
     //Results found
     if ( $query_results->have_posts() ) {
 
-        $count_results = $query_results->post_count;
 
         //Start "saving" results' HTML
 		ob_start();
 		
 		$i=0;
+		$skip = 0;
         while ( $query_results->have_posts() ) { 
 			$query_results->the_post();
 			
+			if( ! empty( $_GET['post_offset'] ) ) {
+				if($skip++<intval($_GET['post_offset'])){
+					continue; //skip all offset posts
+				}
+			} 
 			if($i>=6) break; //end loop after returning 6
 
 			$date = get_field("event_date");
@@ -607,6 +610,8 @@ function bella_ajax_next_event() {
 			</div>
 		<?php $i++;
 		}    
+		
+        $count_results = ++$i;
         //"Save" results' HTML as variable
         $results_html = ob_get_clean();  
     }
