@@ -170,7 +170,7 @@ get_header();?>
                     $args['post__in']= $post__in;
                     $query = new WP_Query($args);
                     if ($query->have_posts()) :?>
-                        <div id="offset">10</div>
+                        <div id="offset">9</div>
                         <div class="tiles events tracking"> 
                             <?php $i=0;
                             while ($query->have_posts()) :  $query->the_post(); 
