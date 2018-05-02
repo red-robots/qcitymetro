@@ -853,6 +853,9 @@ select.eventtype {
 	font-size: 16px;
 }
 /* EVENTS PAGE */
+html.pum-open.pum-open-overlay.pum-open-scrollable body > .ui-datepicker[aria-hidden] {
+	padding-right: 0;
+}
 .template-events .leaderboard {
 	margin-top: 0;
 }
