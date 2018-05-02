@@ -286,7 +286,7 @@ get_header();?>
                             $pId = get_the_ID();
                             $termName = 'Entertainment';?>
                             <div class="small-post">
-                                    <a href="<?php the_permalink(); ?>">
+                                <a href="<?php the_permalink(); ?>">
                                     <div class="small-post-thumb">
                                     <?php if ( has_post_thumbnail() ) {
                                                     the_post_thumbnail('thumbnail');
@@ -297,7 +297,7 @@ get_header();?>
                                         <div class="clear"></div>
                                         <h2><?php the_title(); ?></h2>
                                     </div><!-- small post content -->
-                                    </a>
+                                </a>
                             </div><!-- smalll post -->
                         <?php endwhile; 
                         wp_reset_postdata(); 
