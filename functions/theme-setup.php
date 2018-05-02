@@ -438,7 +438,7 @@ function bella_ajax_next_event() {
 		'order'=>'ASC'
 	);
     if( ! empty( $_GET['post_offset'] ) ) {
-		$args['offset'] = $_GET['post_offset'];
+		$args['offset'] = intval($_GET['post_offset']);
 	}
 	$post__in = array();
 	if($future!==null):
@@ -518,7 +518,7 @@ function bella_ajax_next_event() {
 	endif;
 	$args['post__in']= $post__in;
 
-    $count_results = '';
+    $count_results = 0;
 
     $query_results = new WP_Query( $args );
 
