@@ -88,7 +88,7 @@ get_header();?>
                     
                     $args = array(
                         'post_type'=>'event',
-                        'posts_per_page' => 9,
+                        'posts_per_page' => -1,
                         'orderby'=>'meta_value',
                         'meta_key'=>'event_date',
                         'order'=>'ASC'
@@ -173,7 +173,9 @@ get_header();?>
                         <div id="offset">0</div>
                         <div class="tiles events tracking"> 
                             <?php $i=0;
-                            while ($query->have_posts()) :  $query->the_post(); 
+                            while ($query->have_posts()) :
+                                if($i++>=6) break;
+                                $query->the_post(); 
                                 $date = get_field("event_date");
                                 $display_date = null;
                                 if($date):
