@@ -174,7 +174,7 @@ get_header();?>
                         <div class="tiles events tracking"> 
                             <?php $i=0;
                             while ($query->have_posts()) :
-                                if($i++>=6) break;
+                                if($i>=6) break;
                                 $query->the_post(); 
                                 $date = get_field("event_date");
                                 $display_date = null;
