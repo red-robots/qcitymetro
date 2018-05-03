@@ -434,6 +434,7 @@ function bella_ajax_next_event() {
 		'posts_per_page' => -1,
 		'orderby'=>'meta_value',
 		'meta_key'=>'event_date',
+		'post_status'=>'publish',
 		'order'=>'ASC'
 	);
 	$post__in = array();
