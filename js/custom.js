@@ -321,7 +321,6 @@ __________________________________________
 				ajaxData.search = bellaajaxurl.search;
 			}
 
-			console.log(postOffset);
 			//Ajax call itself
 			jQuery.ajax({
 				type: 'post',
