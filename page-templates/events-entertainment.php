@@ -171,11 +171,11 @@ get_header();?>
                     $args['post__in']= $post__in;
                     $query = new WP_Query($args);
                     if ($query->have_posts()) :?>
-                        <div id="offset">0</div>
+                        <div id="offset">12</div>
                         <div class="tiles events tracking"> 
                             <?php $i=0;
                             while ($query->have_posts()) :
-                                if($i>=20) break;
+                                if($i>=12) break;
                                 $query->the_post(); 
                                 $date = get_field("event_date");
                                 $display_date = null;
