@@ -408,19 +408,18 @@ add_action('wp_ajax_nopriv_bella_ajax_next_event', 'bella_ajax_next_event');
 function bella_ajax_next_event() {
 
 	global $wpdb;
-	//Build query
-	
+
     $today = date('Ymd');
 	$future = null;
-	if(isset($_GET['date'])&&!empty($_GET['date'])):
+	if(isset($_POST['date'])&&!empty($_POST['date'])):
 		$add = null;
-		if(strcmp($_GET['date'],'today')==0):
+		if(strcmp($_POST['date'],'today')==0):
 			$add = 'P1D';
-		elseif(strcmp($_GET['date'],'week')==0):
+		elseif(strcmp($_POST['date'],'week')==0):
 			$add = 'P7D';
-		elseif(strcmp($_GET['date'],'month')==0):
+		elseif(strcmp($_POST['date'],'month')==0):
 			$add = 'P1M';
-		elseif(strcmp($_GET['date'],'year')==0):
+		elseif(strcmp($_POST['date'],'year')==0):
 			$add = 'P1Y';
 		endif;
 		if($add!==null):
@@ -429,10 +428,10 @@ function bella_ajax_next_event() {
 			$future = $enddate->format('Ymd');
 		endif;//if add not null
 	endif;//if for date set
-	
+
 	$args = array(
-		'posts_per_page'=>-1,
 		'post_type'=>'event',
+		'posts_per_page' => -1,
 		'orderby'=>'meta_value',
 		'meta_key'=>'event_date',
 		'order'=>'ASC'
@@ -446,7 +445,7 @@ function bella_ajax_next_event() {
 		//AND ( ( ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value >= '20180419' ) AND ( mt1.meta_key = 'event_date' AND mt1.meta_value < '20180420' ) ) OR ( ( mt2.meta_key = 'event_date' AND mt2.meta_value < '20180419' ) AND ( mt3.meta_key = 'end_date' AND mt3.meta_value >= '20180420' ) ) OR mt4.post_id IS NULL OR ( mt5.meta_key = 'event_date' AND mt5.meta_value = '' ) )
 
 		$prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) LEFT JOIN $wpdb->postmeta AS mt1 ON ( $wpdb->posts.ID = mt1.post_id ) WHERE ( ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) AND ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) ) OR ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) AND ( mt1.meta_key = 'end_date' AND mt1.meta_value >= %d ) ) )";
-                        
+		
 		$prepare_args = array();
 		array_unshift($prepare_args,$future);
 		array_unshift($prepare_args,$today);
@@ -466,11 +465,9 @@ function bella_ajax_next_event() {
 
 		//LEFT JOIN qcqcq_postmeta ON ( qcqcq_posts.ID = qcqcq_postmeta.post_id ) LEFT JOIN qcqcq_postmeta AS mt1 ON (qcqcq_posts.ID = mt1.post_id AND mt1.meta_key = 'event_date' )
 		//AND ( ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value >= '20180419' ) OR mt1.post_id IS NULL OR ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value = '' ) )*/
-		
-		//$prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) WHERE ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) OR ($wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value = '' ) )";
-		
+			
 		$prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) LEFT JOIN $wpdb->postmeta AS mt1 ON ( $wpdb->posts.ID = mt1.post_id ) WHERE ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) OR ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) AND ( mt1.meta_key = 'end_date' AND mt1.meta_value >= %d ) ) OR ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value = '' ) )";
-                        	
+		
 		$prepare_args = array();
 		array_unshift($prepare_args,$today);
 		array_unshift($prepare_args,$today);
@@ -486,11 +483,11 @@ function bella_ajax_next_event() {
 		endif;
 	endif;
 	$temp__in = array();
-	if(isset($_GET['search'])&&!empty($_GET['search'])):
+	if(isset($_POST['search'])&&!empty($_POST['search'])):
 		$prepare_string = "SELECT ID FROM $wpdb->posts WHERE post_title LIKE '%%%s%%' AND post_type = 'event' ";
 		$prepare_string .= "UNION SELECT object_id FROM $wpdb->term_relationships as r INNER JOIN $wpdb->terms as t ON t.term_id = r.term_taxonomy_id WHERE t.name LIKE '%%%s%%'";
-		$prepare_args[] = $_GET['search'];
-		array_unshift($prepare_args,$_GET['search']);
+		$prepare_args[] = $_POST['search'];
+		array_unshift($prepare_args,$_POST['search']);
 		array_unshift($prepare_args,$prepare_string);
 		$results = $wpdb->get_results(  call_user_func_array(array($wpdb, "prepare"),$prepare_args));
 		if($results):
@@ -506,10 +503,10 @@ function bella_ajax_next_event() {
 	if(!empty($temp__in)):
 		$post__in = $temp__in;
 	endif;
-	if(isset($_GET['category'])&&!empty($_GET['category'])):
+	if(isset($_POST['category'])&&!empty($_POST['category'])):
 		$args['meta_query'] = array(
 			'key'     => 'category',
-			'value'   => '"'.$_GET['category'].'"',
+			'value'   => '"'.$_POST['category'].'"',
 			'compare' => 'LIKE'
 		);
 	endif;
@@ -532,8 +529,8 @@ function bella_ajax_next_event() {
         while ( $query_results->have_posts() ) { 
 			$query_results->the_post();
 			
-			if( ! empty( $_GET['post_offset'] ) ) {
-				if($skip++<intval($_GET['post_offset'])){
+			if( ! empty( $_POST['post_offset'] ) ) {
+				if($skip++<intval($_POST['post_offset'])){
 					continue; //skip all offset posts
 				}
 			} 
@@ -611,7 +608,7 @@ function bella_ajax_next_event() {
 		<?php $i++;
 		}    
 		
-        $count_results = ++$i;
+        $count_results = $i;
         //"Save" results' HTML as variable
         $results_html = ob_get_clean();  
     }

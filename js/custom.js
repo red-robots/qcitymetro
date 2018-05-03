@@ -308,20 +308,23 @@ __________________________________________
 			ajaxLock = true;
 			
 			//Parameters you want to pass to query
-			ajaxData ='&post_offset=' + postOffset + '&action=bella_ajax_next_event';
+			ajaxData = {};
+			ajaxData.post_offset= postOffset;
+			ajaxData.action = 'bella_ajax_next_event';
 			if(bellaajaxurl.date!=null){
-				ajaxData+='&date='+bellaajaxurl.date;
+				ajaxData.date = bellaajaxurl.date;
 			}
 			if(bellaajaxurl.category!=null){
-				ajaxData+='&category='+bellaajaxurl.category;
+				ajaxData.category =bellaajaxurl.category;
 			}
 			if(bellaajaxurl.search!=null){
-				ajaxData+='&search='+bellaajaxurl.search;
+				ajaxData.search = bellaajaxurl.search;
 			}
 
+			console.log(postOffset);
 			//Ajax call itself
 			jQuery.ajax({
-				type: 'get',
+				type: 'post',
 				url:  ajaxURL,
 				data: ajaxData,
 				dataType: 'json',
