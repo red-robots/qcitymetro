@@ -397,7 +397,11 @@ wp_reset_query();
 									<?php echo get_the_post_thumbnail($post->ID,'thirds'); ?>
 								</div>
 							<?php } ?>
-								
+								<h3><?php if($sponsors):
+										echo $sponsors[0]->post_title;
+									else:
+										echo $term[0]->name;
+									endif;?></h3>
 								<h2><?php echo get_the_title($post->ID); ?></h2>
 								<div class="postdate"><?php echo get_the_date('',$post->ID); ?></div>
 								<div class="q-readmore"><a href="<?php the_permalink($post->ID); ?>">Read more</a></div>
