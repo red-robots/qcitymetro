@@ -33,6 +33,8 @@ get_header(); ?>
             $noCost = get_field('cost_no_pro');
             $noLink = get_field('link_no_pro');
 
+			$title_text_slider = get_field('title_text_slider');
+            $title_text_eblast = get_field('title_text_eblast');
 			$button_text_newsletter = get_field('button_text_newsletter');
             $button_text_slider = get_field('button_text_slider');
             $button_text_both = get_field('button_text_both');
@@ -74,7 +76,7 @@ get_header(); ?>
             </section>
 
             <section class="event-submit first-event blocks">
-                <h5>Slider + Newsletter</h5>
+                <h5><?php echo $title_text_slider;?></h5>
                 <div class="clear"></div>
                 <h4>Cost: <?php echo $premiumCost; ?></h4>
                     <?php echo $premiumBenefits; ?>
@@ -82,7 +84,7 @@ get_header(); ?>
             </section>
 
             <section class="event-submit last-event blocks">
-                <h5>No Promotion</h5>
+                <h5><?php echo $title_text_eblast;?></h5>
                 <div class="clear"></div>
                 <h4>Cost: <?php echo $noCost; ?></h4>
                     <?php echo $noBenefits; ?>
