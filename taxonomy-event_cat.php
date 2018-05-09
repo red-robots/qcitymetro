@@ -52,12 +52,17 @@ get_header();?>
                             <?php endif;?>
                         </div><!--.row-2-->
                         <div class="row-3">
-                            <ul>
+                            <?php $tax = get_query_var( 'taxonomy' );
+                            $term = get_query_var( 'term' );
+                            if($tax&&$term):?>
+                                <a class="banner-button" href="<?php echo add_query_arg('date','weekend',get_term_link($term,$tax));?>">Events this Weekend</a>
+                            <?php endif;?>
+                            <!--<ul>
                                 <li>date:</li>
                                 <li>
                                     <input type="radio" name="date" id="date-weekend" value="weekend"><label for="date-weekend">Events this Weekend</label>
                                 </li>
-                                <!--<li>
+                                <li>
                                     <input type="radio" name="date" id="date-today" value="today"><label for="date-today">today</label>
                                 </li>
                                 <li>
@@ -68,8 +73,8 @@ get_header();?>
                                 </li>
                                 <li>
                                     <input type="radio" name="date" id="date-year" value="year"><label for="date-year">this year</label>
-                                </li>-->
-                            </ul>
+                                </li>
+                            </ul>-->
                         </div><!--.row-3-->
                     </form>
                 </div><!--.row-1-->
@@ -114,8 +119,6 @@ get_header();?>
                         'post_status'=>'publish',
                         'order'=>'ASC'
                     );
-                    $tax = get_query_var( 'taxonomy' );
-                    $term = get_query_var( 'term' );
                     if($tax&&$term):
                         $args['tax_query']=array(array(
                             'taxonomy'=>$tax,

@@ -1,7 +1,4 @@
 <?php
-/**
- * Template Name: Events & Entertainment
- */
 
 get_header(); 
 
