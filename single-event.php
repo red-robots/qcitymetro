@@ -160,9 +160,9 @@ get_header(); ?>
 
 
 			<div class="event-single-details blocks">
-                
-               <div class="el-date"><?php echo $startDate->format('n/j/y') ?></div>
-
+				<?php if($startDate):?>
+               		<div class="el-date"><?php echo $startDate->format('n/j/y') ?></div>
+ 				<?php endif;?>
             	<?php if( $venueName != '' ) { ?>
                 	<div class="el-deets">Venue</div>
                 	<div class="fe-start"><?php echo $venueName; ?></div>
