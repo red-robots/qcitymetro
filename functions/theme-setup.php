@@ -437,6 +437,13 @@ function bella_ajax_next_event() {
 		'post_status'=>'publish',
 		'order'=>'ASC'
 	);
+	if(isset($_POST['tax'])&&!empty($_POST['tax'])&&isset($_POST['term'])&&!empty($_POST['term'])):
+		$args['tax_query']=array(array(
+			'taxonomy'=>$_POST['tax'],
+			'field'=>'slug',
+			'terms'=>$_POST['term']
+		));
+	endif;
 	$post__in = array();
 	if($future!==null):
 		//old queries for reference (didn't work generated from wordpress)
@@ -483,8 +490,8 @@ function bella_ajax_next_event() {
 			$post__in[] = -1;
 		endif;
 	endif;
-	$temp__in = array();
 	if(isset($_POST['search'])&&!empty($_POST['search'])):
+		$temp__in = array();
 		$prepare_string = "SELECT ID FROM $wpdb->posts WHERE post_title LIKE '%%%s%%' AND post_type = 'event' ";
 		$prepare_string .= "UNION SELECT object_id FROM $wpdb->term_relationships as r INNER JOIN $wpdb->terms as t ON t.term_id = r.term_taxonomy_id WHERE t.name LIKE '%%%s%%'";
 		$prepare_args[] = $_POST['search'];
@@ -497,11 +504,10 @@ function bella_ajax_next_event() {
 					$temp__in[] = $result->ID;
 				endif;
 			endforeach;
-		else: 
-			$temp__in[] = -1;
 		endif;
-	endif;
-	if(!empty($temp__in)):
+		if(empty($temp__in)):
+			$temp__in = array(-1);
+		endif;
 		$post__in = $temp__in;
 	endif;
 	if(isset($_POST['category'])&&!empty($_POST['category'])):

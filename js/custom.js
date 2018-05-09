@@ -320,6 +320,12 @@ __________________________________________
 			if(bellaajaxurl.search!=null){
 				ajaxData.search = bellaajaxurl.search;
 			}
+			if(bellaajaxurl.tax!=null){
+				ajaxData.tax = bellaajaxurl.tax;
+			}
+			if(bellaajaxurl.term!=null){
+				ajaxData.term = bellaajaxurl.term;
+			}
 
 			//Ajax call itself
 			jQuery.ajax({

@@ -55,6 +55,14 @@
 			'url' => admin_url( 'admin-ajax.php' ),
 			'postid'=>get_the_ID()
 		);
+		$tax = get_query_var( 'taxonomy' );
+		$term = get_query_var( 'term' );
+		if(!empty($tax)){
+			$vars['tax']=$tax;
+		} 
+		if(!empty($term)){
+			$vars['term']=$term;
+		} 
 		if(isset($_GET['date'])&&!empty($_GET['date'])){
 			$vars['date']=$_GET['date'];
 		} 

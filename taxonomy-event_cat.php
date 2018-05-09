@@ -1,333 +1,366 @@
 <?php
 /**
-   Taxonomy template
- 
-	To create different taxonomy templates, copy
-	this file and create a new...
-	
-	Ex: taxonomy-my_custom_tax.php
- 	
-*/
-get_header(); ?>
- 
- 	<div id="primary" class="">
-		<div id="content" role="main" class="wrapper">
-<?php 
-// get some info about the term queried
-$queried_object = get_queried_object(); 
-$taxonomy = $queried_object->taxonomy;
-$term_id = $queried_object->term_id;
-$term_name = $queried_object->name; 
-$term_slug = $queried_object->slug; 
+ * Template Name: Events & Entertainment
+ */
 
-?>
- 
-<?php //Get the correct taxonomy ID by id
-$term = get_term_by( 'id', get_query_var( 'term' ), get_query_var( 'taxonomy' ) ); ?>
- 
-<?php // use the term to echo the description of the term 
-echo term_description( $term, $taxonomy ) ?>
- <div class="site-content">
-            
-    <header class="archive-header">
-        <div class="border-title">
-            <h1>Events - <?php echo $term_name; ?></h1>
-        </div><!-- border title -->
-    </header><!-- .archive-header -->	
-    
-<?php get_template_part('inc/event-header-searchby'); ?>
+get_header();?>
+    <?php if ( have_posts() ) : the_post(); ?>
+        <div id="primary" class="template-events">
+            <?php $banner_image = get_field("banner_image",54);
+            $banner_copy = get_field("banner_copy",54);?>
+            <div class="jobs-banner event-banner">
+                <?php if($banner_image) echo '<div class="background" style="background-image: url('.$banner_image['url'].');"></div>';?>
+                <?php if($banner_copy):?>
+                    <div class="row-1">
+                        <?php echo $banner_copy;?>
+                    </div><!--.row-1-->
+                <?php endif;?>
+                <div class="row-2">
+                    <div class="banner-button post-event">Post an Event</div>
+                    <div class="banner-button find">Event Categories
+                        <?php $terms = get_terms(array('taxonomy'=>'event_cat'));
+                        if(!is_wp_error($terms)&&is_array($terms)&&!empty($terms)):?>
+                            <ul>
+                                <?php foreach($terms as $term):?>
+                                    <li>
+                                        <a href="<?php echo get_term_link($term->term_id);?>"><?php echo $term->name;?></a>    
+                                    </li>
+                                <?php endforeach;?>
+                            </ul>
+                        <?php endif;?>
+                    </div>
+                </div><!--.row-1-->
+                <div class="row-3">
+                    <form action="" method="GET">
+                        <div class="row-1">
+                            <input type="text" name="search" placeholder="Search">
+                            <button type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <div class="clear"></div>
+                        </div><!--.row-1-->
+                        <div class="row-2">
+                            <?php $terms = get_field("categories_to_show");
+                            if(is_array($terms)&&!empty($terms)):?>
+                                <ul>
+                                    <li>categories:</li>
+                                    <?php foreach($terms as $term):?>
+                                        <li>
+                                            <input type="radio" name="category" id="<?php echo $term->slug;?>" value="<?php echo $term->term_id;?>"><label for="<?php echo $term->slug;?>"><?php echo $term->name;?></label>
+                                        </li>
+                                    <?php endforeach;?>
+                                </ul>
+                            <?php endif;?>
+                        </div><!--.row-2-->
+                        <div class="row-3">
+                            <ul>
+                                <li>date:</li>
+                                <li>
+                                    <input type="radio" name="date" id="date-today" value="today"><label for="date-today">today</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="date" id="date-week" value="week"><label for="date-week">this week</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="date" id="date-month" value="month"><label for="date-month">this month</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="date" id="date-year" value="year"><label for="date-year">this year</label>
+                                </li>
+                            </ul>
+                        </div><!--.row-3-->
+                    </form>
+                </div><!--.row-1-->
+            </div><!--.event-banner-->
+            <div id="content" role="main" class="wrapper">
 
+                <div class="site-content">
 
-<?php
-$today = date('Ymd');
-$wp_query = new WP_Query();
-	$wp_query->query(array(
-	'post_type'=>'event',
-	'posts_per_page' => -1,
-	'meta_key' => 'event_date',
-	'orderby' => 'event_date',
-    'meta_value' => $today,
-    'meta_compare' => '>=',
-	'tax_query' => array(
-		array(
-			'taxonomy' => 'event_cat', // your custom taxonomy
-			'field' => 'slug',
-			'terms' => array( $term_slug ) // the terms (categories) you created
-		)
-	)
-));
-	if ($wp_query->have_posts()) :  while ($wp_query->have_posts()) :  $wp_query->the_post(); 
+                    <?php // for query of today and forward
+                    $today = date('Ymd');
+                    $future = null;
+                    if(isset($_GET['date'])&&!empty($_GET['date'])):
+                        $add = null;
+                        if(strcmp($_GET['date'],'today')==0):
+                            $add = 'P1D';
+                        elseif(strcmp($_GET['date'],'week')==0):
+                            $add = 'P7D';
+                        elseif(strcmp($_GET['date'],'month')==0):
+                            $add = 'P1M';
+                        elseif(strcmp($_GET['date'],'year')==0):
+                            $add = 'P1Y';
+                        endif;
+                        if($add!==null):
+                            $enddate = new DateTime('NOW');
+                            $enddate->add(new DateInterval($add));
+                            $future = $enddate->format('Ymd');
+                        endif;//if add not null
+                    endif;//if for date set
+                    
+                    $args = array(
+                        'post_type'=>'event',
+                        'posts_per_page' => -1,
+                        'orderby'=>'meta_value',
+                        'meta_key'=>'event_date',
+                        'post_status'=>'publish',
+                        'order'=>'ASC'
+                    );
+                    $tax = get_query_var( 'taxonomy' );
+                    $term = get_query_var( 'term' );
+                    if($tax&&$term):
+                        $args['tax_query']=array(array(
+                            'taxonomy'=>$tax,
+                            'field'=>'slug',
+                            'terms'=>$term
+                        ));
+                    endif;
+                    $post__in = array();
+                    if($future!==null):
+                        //old queries for reference (didn't work generated from wordpress)
 
+                        //LEFT JOIN qcqcq_postmeta ON ( qcqcq_posts.ID = qcqcq_postmeta.post_id ) LEFT JOIN qcqcq_postmeta AS mt1 ON ( qcqcq_posts.ID = mt1.post_id ) LEFT JOIN qcqcq_postmeta AS mt2 ON ( qcqcq_posts.ID = mt2.post_id ) LEFT JOIN qcqcq_postmeta AS mt3 ON ( qcqcq_posts.ID = mt3.post_id ) LEFT JOIN qcqcq_postmeta AS mt4 ON (qcqcq_posts.ID = mt4.post_id AND mt4.meta_key = 'event_date' ) LEFT JOIN qcqcq_postmeta AS mt5 ON ( qcqcq_posts.ID = mt5.post_id )
 
-/*	$wp_query = new WP_Query();
-	$wp_query->query(array(
-	'post_type'=>'church_listing',
-	'posts_per_page' => 10,
-	'paged' => $paged,
-	'orderby' => 'title',
-	'order' => 'ASC',
-	'tax_query' => array(
-		array(
-			'taxonomy' => 'denomination', // your custom taxonomy
-			'field' => 'slug',
-			'terms' => array( $term_name ) // the terms (categories) you created
-		)
-	)
-));
-if ($wp_query->have_posts()) :*/ ?>
-<?php //while ($wp_query->have_posts()) : ?>
-<?php //$wp_query->the_post();  
+                        //AND ( ( ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value >= '20180419' ) AND ( mt1.meta_key = 'event_date' AND mt1.meta_value < '20180420' ) ) OR ( ( mt2.meta_key = 'event_date' AND mt2.meta_value < '20180419' ) AND ( mt3.meta_key = 'end_date' AND mt3.meta_value >= '20180420' ) ) OR mt4.post_id IS NULL OR ( mt5.meta_key = 'event_date' AND mt5.meta_value = '' ) )
 
-// our Event variables
-	 $title = get_the_title();
-	 $permalink = get_the_permalink();
-	 $image = get_field('event_image'); 
-	 $location = get_field('venue_address');
-	 $start = get_field('event_start_time');
-	 $cost = get_field('cost_of_event');
-	 $venueName = get_field('name_of_venue');
-	 $postId = get_the_ID();
-	 $culture_block = get_field("culture_block");
-	 $charlotte_works_block = get_field("charlotte_works_block");
-	 $terms = wp_get_post_terms( $postId, 'event_category' );
-	 $date = DateTime::createFromFormat('Ymd', get_field('event_date')); 
-	 $eDate = $date->format('Ymd');
+                        $prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) LEFT JOIN $wpdb->postmeta AS mt1 ON ( $wpdb->posts.ID = mt1.post_id ) WHERE ( ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) AND ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) ) OR ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) AND ( mt1.meta_key = 'end_date' AND mt1.meta_value >= %d ) ) )";
+                        
+                        $prepare_args = array();
+                        array_unshift($prepare_args,$future);
+                        array_unshift($prepare_args,$today);
+                        array_unshift($prepare_args,$future);
+                        array_unshift($prepare_args,$today);
+                        array_unshift($prepare_args,$prepare_string);
+                        $results = $wpdb->get_results( call_user_func_array(array($wpdb, "prepare"),$prepare_args) );
+                        if($results):
+                            foreach($results as $result):
+                                $post__in[] = $result->ID;
+                            endforeach;
+                        else:
+                            $post__in[] = -1;
+                        endif;
+                    else: 
+                        //old queries for reference (generated from wordpress, worked, but bad)
 
-// create the array
-	 
-	 $mySort = array (
-	 	'date' => $eDate,
-		'title' => $title,
-		'permalink' => $permalink,
-		'location' => $location,
-		'time' => $start,
-		'cost' => $cost,
-		'image' => $image,
-		'terms' => $terms,
-		'venue' => $venueName,
-		'culture'=> $culture_block,
-        'cw'=>$charlotte_works_block
-	 );
-	 
-	 $newQuery[] = $mySort;
-	
-	endwhile; 
-	else:
-	echo 'All Events for this Event Type have passed.';
-	endif;
-// end of loop	
-
-
-// Now we sort by date with the sort function
-
-function cmp($a, $b) {
-   $result = 0;
-   // Sort rank for names.
-   $rank['premium']  = 3;
-   $rank['featured'] = 2;
-   $rank['standard'] = 1;
- 
-   if ( $a['date'] == $b['date'] ) {
-      // Dates are same so compare names within the date.
-      if(!empty($a['terms'])&&!empty($b['terms'])){
-		$aname = strtolower($a['terms']['0']->slug['0']);
-		$bname = strtolower($b['terms']['0']->slug['0']);
-		$arank = (isset($rank[$aname])) ? $rank[$aname] : 0;
-		$brank = (isset($rank[$bname])) ? $rank[$bname] : 0;
-		if ( $arank < $brank )
-			$result = -1;
-		else
-			if ( $arank > $brank )
-
-				$result = 1;
-	  }
-   }
-   else {
-      // Dates differ so just compare on date.
-      if ( $a['date'] < $b['date'] )
-         $result = -1;
-      else
-         $result = 1;
-   }
-   return $result;
-}
-
-
-// sort
-usort($newQuery,'cmp');
-
-// loop through results
-	
-	$prevMonth = '';
-	foreach ($newQuery as $value) : 
-	
-	$currentTerm = !empty($value['terms']) ? $value['terms']['0']->slug : '';
-	// set the month
-	$newEd = $value['date'];
-	$eD = DateTime::createFromFormat('Ymd', $newEd);
-	$month = $eD->format('F');
-	
-	// set the date
-	$getDate = $value['date'];
-	$newD = DateTime::createFromFormat('Ymd', $getDate);
-	$day = $newD->format('l, F j, Y');
-	 $daynum = $newD->format('n/j/y');
-
-	if( $month != $prevMonth ) {
-	
-	?>
-    <div class="event-page-date"><?php echo $month; ?></div>
-    <?php 
-	$prevMonth = $month;
-	} // if month is not empty
-	
-	$image = $value['image']['sizes']['thumbnail'];
-	
-	/*echo '<pre>';
-	print_r($value);
-	echo '</pre>';*/
-	if( $currentTerm == 'premium' || $currentTerm == 'featured' ) :
-	?>
-    
-    <div class="featured-event">
-		<?php if(strcmp($value['culture'],"yes")===0):?>
-			<div class="culture">
-				<div class="circle">
-					?
-				</div><!--.circle-->
-				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
-					<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
-				</a>
-				<?php $desc = get_field("culture_block_rollover",54);
-				if($desc):?>
-					<div class="rollover">
-						<?php echo $desc;?>	
-					</div><!--.rollover-->
-				<?php endif;?>
-			</div><!--.culture-->
-			<div class="clear"></div>
-		<?php elseif(strcmp($value['cw'],'yes')===0):?>
-			<div class="culture cw">
-				<div class="circle">
-					?
-				</div><!--.circle-->
-				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
-					<img src="<?php echo get_template_directory_uri()."/images/charlotte-works-logo.jpg";?>" alt="Charlotte Works">
-				</a>
-				<?php $desc = get_field("charlotte_works_block_rollover",54);
-				if($desc):?>
-					<div class="rollover">
-						<?php echo $desc;?>	
-					</div><!--.rollover-->
-				<?php endif;?>
-			</div><!--.culture-->
-			<div class="clear"></div>
-		<?php endif;?>
-    	<div class="featured-event-content-details">
-        	<a href="<?php echo $value['permalink']; ?>">DETAILS</a>
-        <div class="featured-event-content-details-text">DETAILS</div><!-- featured event content -->
-    
-       <div class="featured-event-content">
-        	<h2><?php echo $value['title']; ?></h2>
-          	<div class="el-date"><?php echo $daynum; ?></div>
-          	<div class="el-deets">Venue</div>
-          <div class="fe-start"><?php echo $value['venue']; ?></div>
-          	<div class="el-deets">Address</div>
-            <div class="fe-location"><?php echo $value['location']; ?></div>
-            <div class="el-deets">Time</div>
-            <div class="fe-start"><?php echo $value['time']; ?></div>
-            <div class="el-deets">Cost</div>
-            <div class="fe-cost"><?php echo $value['cost']; ?></div>
-        </div><!-- featured event content -->
-
-        <div class="featured-event-image">
-            <div class="featured-event-featured">
-            	<div class="featured-text">FEATURED</div>
-            </div><!-- featured-event-featured -->
-            <?php if( $image != '' ) { ?>
-                    <img src="<?php echo $image; ?>" />
-            <?php } ?>
-        </div><!-- featured event image -->
-        <div class="clear"></div>
-        </div><!-- featured event content -->
-        
-     </div><!-- featured event -->
-    
-    <?php else: ?>
-    
-    <div class="eventlist <?php if(strcmp($value['culture'],"yes")===0) echo "culture";?>">
-		<?php if(strcmp($value['culture'],"yes")===0):?>
-			<div class="culture">
-				<div class="circle">
-					?
-				</div><!--.circle-->
-				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
-					<img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
-				</a>
-				<?php $desc = get_field("culture_block_rollover",54);
-				if($desc):?>
-					<div class="rollover">
-						<?php echo $desc;?>	
-					</div><!--.rollover-->
-				<?php endif;?>
-			</div><!--.culture-->
-			<div class="clear"></div>
-		<?php elseif(strcmp($value['cw'],'yes')===0):?>
-			<div class="culture cw">
-				<div class="circle">
-					?
-				</div><!--.circle-->
-				<a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
-					<img src="<?php echo get_template_directory_uri()."/images/charlotte-works-logo.jpg";?>" alt="Charlotte Works">
-				</a>
-				<?php $desc = get_field("charlotte_works_block_rollover",54);
-				if($desc):?>
-					<div class="rollover">
-						<?php echo $desc;?>	
-					</div><!--.rollover-->
-				<?php endif;?>
-			</div><!--.culture-->
-			<div class="clear"></div>
-		<?php endif;?>
-    	<div class="featured-event-content-details">
-        	<a href="<?php echo $value['permalink']; ?>">DETAILS</a>
-        	<div class="featured-event-content-details-text">DETAILS</div><!-- featured event content -->
-        	<h2><?php echo $value['title']; ?></h2>
-          <div class="el-date"><?php echo $daynum; ?></div>
-          <div class="el-deets">Venue</div>
-          <div class="fe-start"><?php echo $value['venue']; ?></div>
-          <div class="el-deets">Address</div>
-            <div class="fe-location"><?php echo $value['location']; ?></div>
-            <div class="el-deets">Time</div>
-            <div class="fe-start"><?php echo $value['time']; ?></div>
-        <div class="clear"></div>
-        </div><!-- featured event content -->
-     </div><!-- event list -->
-    
-    <?php endif; ?>
-            
-<?php endforeach; 
-?>	
-
-<div class="clear"></div>
- 
-<?php 
-// references pagination function in your functions.php file
-	//pagi_posts_nav(); ?>	
-    </div><!-- site content -->
-
-<!-- 
-			Ad Zone
-
-======================================================== -->        
-        <div class="widget-area">
-        	<?php get_template_part('ads/right-big'); ?>
-        </div><!-- widget area -->
-        
-        
+                        //LEFT JOIN qcqcq_postmeta ON ( qcqcq_posts.ID = qcqcq_postmeta.post_id ) LEFT JOIN qcqcq_postmeta AS mt1 ON (qcqcq_posts.ID = mt1.post_id AND mt1.meta_key = 'event_date' )
+                        //AND ( ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value >= '20180419' ) OR mt1.post_id IS NULL OR ( qcqcq_postmeta.meta_key = 'event_date' AND qcqcq_postmeta.meta_value = '' ) )*/
+                            
+                        $prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) LEFT JOIN $wpdb->postmeta AS mt1 ON ( $wpdb->posts.ID = mt1.post_id ) WHERE ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) OR ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) AND ( mt1.meta_key = 'end_date' AND mt1.meta_value >= %d ) ) OR ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value = '' ) )";
+                        
+                        $prepare_args = array();
+                        array_unshift($prepare_args,$today);
+                        array_unshift($prepare_args,$today);
+                        array_unshift($prepare_args,$today);
+                        array_unshift($prepare_args,$prepare_string);
+                        $results = $wpdb->get_results( call_user_func_array(array($wpdb, "prepare"),$prepare_args) );
+                        if($results):
+                            foreach($results as $result):
+                                $post__in[] = $result->ID;
+                            endforeach;
+                        else:
+                            $post__in[] = -1;
+                        endif;
+                    endif;
+                    if(isset($_GET['search'])&&!empty($_GET['search'])):
+                        $temp__in = array();
+                        $prepare_string = "SELECT ID FROM $wpdb->posts WHERE post_title LIKE '%%%s%%' AND post_type = 'event' ";
+                        $prepare_string .= "UNION SELECT object_id FROM $wpdb->term_relationships as r INNER JOIN $wpdb->terms as t ON t.term_id = r.term_taxonomy_id WHERE t.name LIKE '%%%s%%'";
+                        $prepare_args[] = $_GET['search'];
+                        array_unshift($prepare_args,$_GET['search']);
+                        array_unshift($prepare_args,$prepare_string);
+                        $results = $wpdb->get_results(  call_user_func_array(array($wpdb, "prepare"),$prepare_args));
+                        if($results):
+                            foreach($results as $result):
+                                if(in_array($result->ID,$post__in)):
+                                    $temp__in[] = $result->ID;
+                                endif;
+                            endforeach;
+                        endif;
+                        if(empty($temp__in)):
+                            $temp__in = array(-1);
+                        endif;
+                        $post__in = $temp__in;
+                    endif;
+                    if(isset($_GET['category'])&&!empty($_GET['category'])):
+                        $args['meta_query'] = array(
+                            'key'     => 'category',
+                            'value'   => '"'.$_GET['category'].'"',
+                            'compare' => 'LIKE'
+                        );
+                    endif;
+                    $args['post__in']= $post__in;
+                    $query = new WP_Query($args);
+                    if ($query->have_posts()) :?>
+                        <div id="offset">12</div>
+                        <div class="tiles events tracking"> 
+                            <?php $i=0;
+                            while ($query->have_posts()) :
+                                if($i>=12) break;
+                                $query->the_post(); 
+                                $date = get_field("event_date");
+                                $display_date = null;
+                                if($date):
+                                    $display_date = (new DateTime($date))->format('l, F j, Y');
+                                endif;
+                                $venue = get_field("name_of_venue");
+                                $image = get_field("event_image");?>
+                                <div class="tile blocks <?php if($i%3==0) echo "first";?> <?php if(($i+1)%3==0) echo "last";?>">
+                                    <div class="inner-wrapper">
+                                        <div class="row-1">
+                                            <a href="<?php echo get_permalink();?>">
+                                                <?php if($image):?>
+                                                    <img src="<?php echo $image['sizes']['medium'];?>" alt="<?php echo $image['alt'];?>">
+                                                <?php endif;?>
+                                                <h2><?php the_title();?></h2>
+                                                <?php if($display_date):?>
+                                                    <div class="date">
+                                                        <?php echo $display_date;?>
+                                                    </div><!--.date-->
+                                                <?php endif;
+                                                if($venue):?>
+                                                    <div class="venue">
+                                                        <?php echo $venue;?>
+                                                    </div><!--.venue-->
+                                                <?php endif;?>
+                                            </a>
+                                        </div><!--.row-1-->
+                                        <div class="row-2 bottom-blocks">
+                                            <div class="col-1">
+                                                <?php $culture_block = get_field("culture_block");
+							                    $premium_terms = get_the_terms(get_the_ID(),"event_category");
+                                                if(strcmp($culture_block,'yes')==0):?>
+                                                    <div class="culture">
+                                                        <div class="circle">
+                                                            ?
+                                                        </div><!--.circle-->
+                                                        <a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+                                                            <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+                                                        </a>
+                                                        <?php $desc = get_field("culture_block_rollover",54);
+                                                        if($desc):?>
+                                                            <div class="rollover">
+                                                                <?php echo $desc;?>	
+                                                            </div><!--.rollover-->
+                                                        <?php endif;?>
+                                                        <div class="clear"></div>
+                                                    </div><!--.culture-->
+                                                <?php elseif(!is_wp_error($premium_terms)&&is_array($premium_terms)&&!empty($premium_terms)):
+                                                    foreach($premium_terms as $term):
+                                                        if($term->term_id==36):?>
+                                                            <div class="featured">
+                                                                Featured
+                                                            </div><!--.featured-->
+                                                            <?php break;
+                                                        endif;?>
+                                                    <?php endforeach;?>
+                                                <?php endif;?>
+                                            </div><!--.col-1-->
+                                            <?php $terms = wp_get_post_terms( get_the_ID(), 'event_cat' );
+                                            if(!is_wp_error($terms) && is_array($terms)&&!empty($terms)):?>
+                                                <div class="col-2">
+                                                    <a href="<?php echo get_term_link($terms[0]->term_id,'event_cat');?>">
+                                                        <?php echo $terms[0]->name;?> 
+                                                    </a>
+                                                </div><!--.col-2-->
+                                            <?php endif;?>
+                                        </div><!--.row-2-->
+                                    </div><!--.wrapper-->
+                                </div><!--.tile-->
+                                <?php $i++;
+                            endwhile;?>
+                        </div><!--.tiles-->
+                        <?php wp_reset_postdata();
+                    endif;?> 
+                </div><!-- site content -->
                 
-          
+                <div class="widget-area">
+                    <?php get_template_part('ads/events-home');?>
+                    <?php $wp_query = new WP_Query();
+                    $wp_query->query(array(
+                        'post_type' => 'post',
+                        'posts_per_page' => 4, // 4 if sponsored, 5 if no sponsored
+                        'category__in'=>array(5),
+                        // Special Query for Expired Posts
+                        'meta_query' => array(
+                            'relation' => 'OR',
+                            array(
+                                'key' => 'post_expire',
+                                'value' => NULL,
+                                'compare' => '='
+                            ),
+                            array(
+                                'key' => 'post_expire',
+                                'compare' => 'NOT EXISTS'
+                            ),
+                            array(
+                                'key' => 'post_expire',
+                                'value' => $today,
+                                'compare' => '>'
+                            )
+                        )
+                    ));
+                    if ($wp_query->have_posts()) : 
+                        while ($wp_query->have_posts()) : $wp_query->the_post(); 
+                            if ( has_post_thumbnail() ) {
+                                $smallClass = 'small-post-content';
+                            } else {
+                                $smallClass = 'small-post-content-full';
+                            }
+                            $pId = get_the_ID();
+                            $termName = 'Entertainment';?>
+                            <div class="small-post">
+                                <a href="<?php the_permalink(); ?>">
+                                    <div class="small-post-thumb">
+                                    <?php if ( has_post_thumbnail() ) {
+                                                    the_post_thumbnail('thumbnail');
+                                                } ?>
+                                    </div><!-- small post thumb -->
+                                    <div class="<?php echo $smallClass; ?>">
+                                        <h3><?php echo $termName; ?></h3>
+                                        <div class="clear"></div>
+                                        <h2><?php the_title(); ?></h2>
+                                    </div><!-- small post content -->
+                                </a>
+                            </div><!-- smalll post -->
+                        <?php endwhile; 
+                        wp_reset_postdata(); 
+                    endif; // end query 3 latest?>
+                    <div class="brew-sidebar">
+                        <div class="border-title">
+                            <h2>Morning Brew</h2>
+                        </div><!-- border title -->
+                        <div class="brew-wrapper">
+                            <?php $copy = get_field("morning_brew_copy",48778);
+                            if($copy):?>
+                                <div class="copy">
+                                    <?php echo $copy;?>
+                                </div><!--.copy-->
+                            <?php endif;?>
+                            <a class="button" href="<?php echo get_permalink(21613);?>">Signup</a>
+                        </div><!--.wrapper-->
+                    </div><!--.brew-sidebar-->
+                    <?php if ( function_exists( 'wpp_get_mostpopular' ) ) : ?>
+                        <div class="border-title">
+                            <h2>Most Popular</h2>
+                        </div><!-- border title -->
+                        <?php $args = array(
+                            'wpp_start'        => '<div class="small-post">',
+                            'wpp_end'          => '</div>',
+                            'stats_category'   => 0,
+                            'post_html'        => '<a href="{url}"><div class="small-post-thumb">{thumb_img}</div><div class="small-post-content"><h2>{text_title}</h2></div></a>',
+                            'thumbnail_width'  => 100,
+                            'thumbnail_height' => 100,
+                            'limit'            => 4,
+                            'range'            => 'weekly',
+                            'freshness'        => 1,
+                            'order_by'         => 'views',
+                            'post_type'        => 'post'
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
+                        );
+                        wpp_get_mostpopular( $args );
+                    endif;?>
+                </div><!--.widget-area-->
+        
+            </div><!-- #content -->
+        </div><!-- #primary -->
+    <?php endif; //main loop?>
 <?php get_footer(); ?>

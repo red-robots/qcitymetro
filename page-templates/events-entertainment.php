@@ -17,10 +17,21 @@ get_header();?>
                 <?php endif;?>
                 <div class="row-2">
                     <div class="banner-button post-event">Post an Event</div>
-                    <div class="banner-button find">Find an Event</div>
+                    <div class="banner-button find">Event Categories
+                        <?php $terms = get_terms(array('taxonomy'=>'event_cat'));
+                        if(!is_wp_error($terms)&&is_array($terms)&&!empty($terms)):?>
+                            <ul>
+                                <?php foreach($terms as $term):?>
+                                    <li>
+                                        <a href="<?php echo get_term_link($term->term_id);?>"><?php echo $term->name;?></a>    
+                                    </li>
+                                <?php endforeach;?>
+                            </ul>
+                        <?php endif;?>
+                    </div>
                 </div><!--.row-1-->
                 <div class="row-3">
-                    <form action="<?php echo get_permalink();?>" method="GET">
+                    <form action="" method="GET">
                         <div class="row-1">
                             <input type="text" name="search" placeholder="Search">
                             <button type="submit">
@@ -140,8 +151,8 @@ get_header();?>
                             $post__in[] = -1;
                         endif;
                     endif;
-                    $temp__in = array();
                     if(isset($_GET['search'])&&!empty($_GET['search'])):
+                        $temp__in = array();
                         $prepare_string = "SELECT ID FROM $wpdb->posts WHERE post_title LIKE '%%%s%%' AND post_type = 'event' ";
                         $prepare_string .= "UNION SELECT object_id FROM $wpdb->term_relationships as r INNER JOIN $wpdb->terms as t ON t.term_id = r.term_taxonomy_id WHERE t.name LIKE '%%%s%%'";
                         $prepare_args[] = $_GET['search'];
@@ -154,11 +165,10 @@ get_header();?>
                                     $temp__in[] = $result->ID;
                                 endif;
                             endforeach;
-                        else: 
-                            $temp__in[] = -1;
                         endif;
-                    endif;
-                    if(!empty($temp__in)):
+                        if(empty($temp__in)):
+                            $temp__in = array(-1);
+                        endif;
                         $post__in = $temp__in;
                     endif;
                     if(isset($_GET['category'])&&!empty($_GET['category'])):
