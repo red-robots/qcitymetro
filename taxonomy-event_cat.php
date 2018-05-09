@@ -1,7 +1,4 @@
 <?php
-/**
- * Template Name: Events & Entertainment
- */
 
 get_header();?>
     <?php if ( have_posts() ) : the_post(); ?>
@@ -9,7 +6,9 @@ get_header();?>
             <?php $banner_image = get_field("banner_image",54);
             $banner_copy = get_field("banner_copy",54);?>
             <div class="jobs-banner event-banner">
-                <?php if($banner_image) echo '<div class="background" style="background-image: url('.$banner_image['url'].');"></div>';?>
+                <?php if($banner_image):?>
+                    <div class="background" style="background-image:url(<?php echo $banner_image['url'];?>);"></div>
+                <?php endif;?>
                 <?php if($banner_copy):?>
                     <div class="row-1">
                         <?php echo $banner_copy;?>
@@ -56,6 +55,9 @@ get_header();?>
                             <ul>
                                 <li>date:</li>
                                 <li>
+                                    <input type="radio" name="date" id="date-weekend" value="weekend"><label for="date-weekend">Events this Weekend</label>
+                                </li>
+                                <!--<li>
                                     <input type="radio" name="date" id="date-today" value="today"><label for="date-today">today</label>
                                 </li>
                                 <li>
@@ -66,7 +68,7 @@ get_header();?>
                                 </li>
                                 <li>
                                     <input type="radio" name="date" id="date-year" value="year"><label for="date-year">this year</label>
-                                </li>
+                                </li>-->
                             </ul>
                         </div><!--.row-3-->
                     </form>
@@ -89,6 +91,13 @@ get_header();?>
                             $add = 'P1M';
                         elseif(strcmp($_GET['date'],'year')==0):
                             $add = 'P1Y';
+                        elseif(strcmp($_GET['date'],'weekend')==0):
+                            $start = new DateTime('NOW');
+                            $start->modify('friday this week');
+                            $today = $start->format('Ymd');
+                            $enddate = new DateTime('NOW');
+                            $enddate->modify('monday next week');
+                            $future = $enddate->format('Ymd');
                         endif;
                         if($add!==null):
                             $enddate = new DateTime('NOW');

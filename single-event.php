@@ -23,12 +23,22 @@ get_header(); ?>
 				    	<a href="<?php bloginfo('url'); ?>/submit-an-event">Submit an event</a>
 				    </div>
 				    <div class="button button-thirds button-thirds-first">
-				    	<a href="<?php bloginfo('url'); ?>/submit-an-event">promote your event</a>
+				    	<a href="<?php bloginfo('url'); ?>/submit-an-event">boost your event</a>
 				    </div><!-- -->
-				    <div class="button button-thirds button-thirds-last">
-				    	<a href="<?php bloginfo('url'); ?>/event-list">view all events</a>
+				    <div class="button button-thirds button-thirds-last event-cat-button">
+						Event categories
+                        <?php $terms = get_terms(array('taxonomy'=>'event_cat'));
+                        if(!is_wp_error($terms)&&is_array($terms)&&!empty($terms)):?>
+                            <ul>
+                                <?php foreach($terms as $term):?>
+                                    <li>
+                                        <a href="<?php echo get_term_link($term->term_id);?>"><?php echo $term->name;?></a>    
+                                    </li>
+                                <?php endforeach;?>
+                            </ul>
+                        <?php endif;?>
 				    </div>
-			    
+			    <div class="clear"></div>
 			</div><!-- eb-right -->
 
 
@@ -248,10 +258,6 @@ get_header(); ?>
             <a href="<?php bloginfo('url'); ?>/events">Return to main Events Page</a>
           </div>
 
-		<div class="event-viewall">
-            <a href="<?php bloginfo('url'); ?>/event-list">View all Events</a>
-          </div>
-
           
 
 
@@ -260,63 +266,7 @@ get_header(); ?>
 
 
 
-<div class="single-event-dropdown">
-<script>
-    $(function(){
-      // bind change event to select
-      $('#eventtype').on('change', function () {
-          var url = $(this).val(); // get selected value
-          if (url) { // require a URL
-              window.location = url; // redirect
-          }
-          return false;
-      });
-    });
-	
-</script>                
-                <?php 
-$url = get_bloginfo('url');
-$cDir = $url . '/event-list';
-//echo $url;
 
-$denomargs = array(
-    'orderby'           => 'name', 
-    'order'             => 'ASC',
-    'hide_empty'        => true, 
-    'fields'            => 'all', 
-); 
-
-$dterms = get_terms('event_cat', $denomargs);
-
-/*echo '<pre>';
-print_r($dterms);
-echo '<pre>';*/
-?>
-<form id="category-select" class=""  action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
-
-        <select name='eventtype' id='eventtype' class="eventtype"  >
-        	<?php 
-			echo '<option class="">View by Event Type</option>';
-			echo '<option class="" value="' . $cDir . '">All</option>';
-			foreach( $dterms as $dterm ) :
-				echo '<option class="level-0" value="'.$url.'/event-category/'.$dterm->slug.'">'.$dterm->name.'</option>';
-			endforeach;
-			
-			?>
-        </select>
-
-		<noscript>
-			<input type="submit" value="View" />
-		</noscript>
-</form>
-                
-</div><!-- signle event dropdown -->               
-              
-               
-                <?php /*$time_date = get_field('event_date');
-			$endDate = get_field('end_date');
-			$post_date = substr($time_date, 0, 10);
-						print_r($post_date);*/ ?>
                 
 					</div><!-- .entry-content -->
 

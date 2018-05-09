@@ -421,6 +421,13 @@ function bella_ajax_next_event() {
 			$add = 'P1M';
 		elseif(strcmp($_POST['date'],'year')==0):
 			$add = 'P1Y';
+		elseif(strcmp($_POST['date'],'weekend')==0):
+			$start = new DateTime('NOW');
+			$start->modify('friday this week');
+			$today = $start->format('Ymd');
+			$enddate = new DateTime('NOW');
+			$enddate->modify('monday next week');
+			$future = $enddate->format('Ymd');
 		endif;
 		if($add!==null):
 			$enddate = new DateTime('NOW');
