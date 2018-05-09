@@ -3868,9 +3868,9 @@ img#wpstats {
 }
 .home-nav a {width: 25px;}
 .entry-content h1.posttitle { font-size: 30px;}
-.button a {font-size: 8px;}
+.button a, .event-cat-button, .button.post-event {font-size: 8px;}
 .button-thirds, select.button-thirds {
-	width: 32.5%;
+	width: 32%;
 	float: left;
 }
 .button-thirds-first {margin: 20px 1% 20px 0}
@@ -4313,7 +4313,7 @@ Business details
 @media screen and (min-width: 860px) {
 	.home-nav {left:3%;top: 10px}
 	.main-navigation li { font-size: 15px; margin: 0 8px 0 8px; }
-	.button a {font-size: 12px;}
+	.button a, .event-cat-button, .button.post-event {font-size: 12px;}
 	.small-post-content h2, .small-post-content-full h2 {font-size: 16px;}
 	.large-post h2 {font-size: 28px;}
 	/*.featured-event-featured {top: 39%;right: 42%;}*/
@@ -4367,7 +4367,7 @@ Business details
 	.main-navigation li { font-size: 17px; margin: 0 18px 0 18px; }
 	.event-box-date {font-size: 28px;}
 	.event-box-title {font-size: 16px;}
-	.button a {font-size: 14px;}
+	.button a, .event-cat-button, .button.post-event {font-size: 14px;}
 	.entry-content.single .jetpack-social .social-float {
 		left: -4%;
 	}
@@ -4465,7 +4465,7 @@ Business details
 	}
 }
 @media screen and (min-width: 1340px) {
-	.button a {font-size: 18px;}
+	.button a, .event-cat-button, .button.post-event {font-size: 18px;}
 	.home-nav {left:8%;top: 14px}
 	.entry-content.single .jetpack-social .social-float {
 		left: -3%;
