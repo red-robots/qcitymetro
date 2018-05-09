@@ -79,9 +79,6 @@ get_header(); ?>
                 <h4>Cost: <?php echo $premiumCost; ?></h4>
                     <?php echo $premiumBenefits; ?>
                     <div class="clear"></div>
-                <div class="button viewmore-short left">
-                    <a href="<?php echo $premiumLink; ?>"><?php echo $button_text_both; ?></a>
-                </div><!-- button -->
             </section>
 
             <section class="event-submit last-event blocks">
@@ -90,9 +87,6 @@ get_header(); ?>
                 <h4>Cost: <?php echo $noCost; ?></h4>
                     <?php echo $noBenefits; ?>
                     <div class="clear"></div>
-                <div class="button viewmore-short left">
-                    <a href="<?php echo $noLink; ?>"><?php echo $button_text_no_pro; ?></a>
-                </div><!-- button -->
             </section>
             
             <div class="clear"></div>
