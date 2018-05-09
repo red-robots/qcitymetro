@@ -665,7 +665,7 @@ a:hover {
 	font-family: 'Raleway', sans-serif;
 	/*font-family: 'Montserrat', sans-serif;*/
 }
-.button a, .button-advertise, .event-cat-button {
+.button a, .button-advertise, .event-cat-button, .button.post-event {
 	padding:10px 0;
 	text-align: center;	
 	color: #803F26;
