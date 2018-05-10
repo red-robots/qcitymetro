@@ -4,7 +4,7 @@
 	if (!is_admin()) {
  
 		wp_deregister_script('jquery');
-		wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js', false, '1.7', true);
+		wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', false, '1.12.4', true);
 		wp_enqueue_script('jquery');
 		
 		
@@ -21,7 +21,7 @@
 		wp_register_script(
 			'isotope',
 			get_bloginfo('template_directory') . '/js/isotope.js',
-			array('jquery') );
+			array('jquery'), false, true );
 		wp_enqueue_script('isotope');
 		
 		
@@ -29,21 +29,21 @@
 		wp_register_script(
 			'imagesloaded',
 			get_bloginfo('template_directory') . '/js/images-loaded.js',
-			array('jquery') );
+			array('jquery'), false, true );
 		wp_enqueue_script('imagesloaded');
 		
 		// Equal heights div...
 		wp_register_script(
 			'blocks',
 			get_bloginfo('template_directory') . '/js/blocks.js',
-			array('jquery') );
+			array('jquery'), false, true );
 		wp_enqueue_script('blocks');
 		
 		// Colorbox...
 		wp_register_script(
 			'colorbox',
 			get_bloginfo('template_directory') . '/js/colorbox.js',
-			array('jquery') );
+			array('jquery'),false, true );
 		wp_enqueue_script('colorbox');
 
 		// Custom Theme scripts...

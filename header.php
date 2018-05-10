@@ -38,10 +38,7 @@
 </script>
 <script type="text/javascript"async src="https://launch.newsinc.com/js/embed.js" id="_nw2e-js"></script>
 <?php wp_head(); ?>
-<?php $facebook_pixel = get_field("facebook_pixel","option");
-if($facebook_pixel):
-    echo $facebook_pixel;
-endif;?>
+
 <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
 <script>
   var googletag = googletag || {};
@@ -95,17 +92,6 @@ endif;?>
 </head>
 
 <body <?php body_class(); ?>>
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=548063915340770";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 
 <?php get_template_part('ads/pencil');  ?>
 
