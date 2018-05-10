@@ -19,8 +19,8 @@ get_header(); ?>
 
 			<div class="single-event-e-links">
 				
-				    <div class="button button-thirds button-thirds-first post-event">
-				    	Submit an event
+				    <div class="button button-thirds button-thirds-first">
+				    	<a href="<?php echo get_permalink(54);?>">Submit an event</a>
 				    </div>
 				    <div class="button button-thirds button-thirds-first">
 				    	<a href="<?php bloginfo('url'); ?>/submit-an-event">boost your event</a>
