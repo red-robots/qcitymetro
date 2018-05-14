@@ -95,13 +95,6 @@ __________________________________________
         }
 	});
 	
-	
-	// Flexslider
-	// front page slider 
-/*	$('.flexslider').flexslider({
-		animation: "slide",
-	}); // end register flexslider*/
-	
 	// Colorbox
 	$('a.gallery').colorbox({
 		rel:'gal',
@@ -141,8 +134,8 @@ __________________________________________
 	(function() {
 
       // store the slider in a local variable
-      var $window = $(window),
-          flexslider;
+      var $window = $(window);
+    	var $flexslider = $('.flexslider');
 
       // tiny helper function to add breakpoints
       function getGridSize() {
@@ -154,8 +147,8 @@ __________________________________________
         //SyntaxHighlighter.all();
       //});
 
-      $window.load(function() {
-        $('.flexslider').flexslider({
+      $flexslider.imagesLoaded( function() {
+        $flexslider.flexslider({
           animation: "slide",
 		   controlNav:false,
           animationSpeed: 400,
@@ -166,18 +159,9 @@ __________________________________________
           maxItems: getGridSize(), // use function to pull in initial value
           start: function(slider){
             $('body').removeClass('loading');
-            flexslider = slider;
           }
         });
       });
-
-      // check grid size on resize event
-      /*$window.resize(function() {
-        var gridSize = getGridSize();
-
-        flexslider.vars.minItems = gridSize;
-        flexslider.vars.maxItems = gridSize;
-      });*/
     }());
 
 
