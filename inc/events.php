@@ -2,16 +2,11 @@
 <?php
 $i=0;
 $today = date("Ymd"); 
+$post__in = array();
 
-//meta query
-$prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) LEFT JOIN $wpdb->postmeta AS mt1 ON ( $wpdb->posts.ID = mt1.post_id ) WHERE ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) OR ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) AND ( mt1.meta_key = 'end_date' AND mt1.meta_value >= %d ) ) OR ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value = '' ) )";
-                        
-$prepare_args = array();
-array_unshift($prepare_args,$today);
-array_unshift($prepare_args,$today);
-array_unshift($prepare_args,$today);
-array_unshift($prepare_args,$prepare_string);
-$results = $wpdb->get_results( call_user_func_array(array($wpdb, "prepare"),$prepare_args) );
+//tax query
+$prepare_string = "SELECT DISTINCT tr.object_id as ID FROM $wpdb->term_relationships as tr INNER JOIN $wpdb->term_taxonomy as tt ON tt.term_taxonomy_id = tr.term_taxonomy_id INNER JOIN $wpdb->terms as t ON t.term_id = tt.term_id WHERE t.slug LIKE 'premium';";
+$results = $wpdb->get_results( $prepare_string );
 if($results):
     foreach($results as $result):
         $post__in[] = $result->ID;
@@ -20,12 +15,16 @@ else:
     $post__in[] = -1;
 endif;
 
-
-//tax query
+//meta query
 $temp__in = array();
-$prepare_string = "SELECT DISTINCT tr.object_id as ID FROM $wpdb->term_relationships as tr INNER JOIN $wpdb->term_taxonomy as tt ON tt.term_taxonomy_id = tr.term_taxonomy_id INNER JOIN $wpdb->terms as t ON t.term_id = tt.term_id WHERE t.slug LIKE 'premium';";
+$prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) LEFT JOIN $wpdb->postmeta AS mt1 ON ( $wpdb->posts.ID = mt1.post_id ) WHERE ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) OR ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) AND ( mt1.meta_key = 'end_date' AND mt1.meta_value >= %d ) ) OR ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value = '' ) ) ORDER BY CAST($wpdb->postmeta.meta_value as SIGNED) ASC";
+                        
+$prepare_args = array();
+array_unshift($prepare_args,$today);
+array_unshift($prepare_args,$today);
+array_unshift($prepare_args,$today);
 array_unshift($prepare_args,$prepare_string);
-$results = $wpdb->get_results(  call_user_func_array(array($wpdb, "prepare"),$prepare_args));
+$results = $wpdb->get_results( call_user_func_array(array($wpdb, "prepare"),$prepare_args) );
 if($results):
     foreach($results as $result):
         if(in_array($result->ID,$post__in)):
@@ -42,8 +41,7 @@ $wp_query = new WP_Query();
 $wp_query->query(array(
     'post_type'=>'event',
     'post__in'=> $post__in,
-    'orderby' => 'meta_value', // order by date
-    'order' => 'ASC',
+    'orderby' => 'post__in'
 ));
 
 if ($wp_query->have_posts()) : ?>
