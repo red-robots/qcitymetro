@@ -20,30 +20,30 @@
 		// Isotpope...
 		wp_register_script(
 			'isotope',
-			get_bloginfo('template_directory') . '/js/isotope.js',
-			array('jquery'), false, true );
+			'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js',
+			array('jquery'), '1.01', true );
 		wp_enqueue_script('isotope');
 		
 		
 		// Images loaded...
 		wp_register_script(
 			'imagesloaded',
-			get_bloginfo('template_directory') . '/js/images-loaded.js',
-			array('jquery'), false, true );
+			'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js',
+			array('jquery'), '1.01', true );
 		wp_enqueue_script('imagesloaded');
 		
 		// Equal heights div...
 		wp_register_script(
 			'blocks',
 			get_bloginfo('template_directory') . '/js/blocks.js',
-			array('jquery'), false, true );
+			array('jquery'), '1.01', true );
 		wp_enqueue_script('blocks');
 		
 		// Colorbox...
 		wp_register_script(
 			'colorbox',
 			get_bloginfo('template_directory') . '/js/colorbox.js',
-			array('jquery'),false, true );
+			array('jquery'),'1.01', true );
 		wp_enqueue_script('colorbox');
 
 		// Custom Theme scripts...
