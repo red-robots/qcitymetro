@@ -29,7 +29,7 @@
 		wp_register_script(
 			'imagesloaded',
 			'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js',
-			array('jquery'), '1.2', true );
+			array('jquery'), '3.2.1', true );
 		wp_enqueue_script('imagesloaded');
 		
 		// Equal heights div...
