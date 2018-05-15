@@ -13,7 +13,7 @@
 		// Homepage slider 'flexslider' scripts...
 		wp_register_script(
 			'flexslider',
-			get_bloginfo('template_directory') . '/js/jquery.flexslider.js',
+			get_bloginfo('template_directory') . '/js/flexslider.js',
 			array('jquery') , '1.0' , true );
 		wp_enqueue_script('flexslider');
 		
@@ -26,10 +26,11 @@
 		
 		
 		// Images loaded...
+		wp_deregister_script('imagesloaded');
 		wp_register_script(
 			'imagesloaded',
 			'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js',
-			array('jquery'), '3.2.1', true );
+			array('jquery'), '3.2.2', true );
 		wp_enqueue_script('imagesloaded');
 		
 		// Equal heights div...
