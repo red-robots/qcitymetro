@@ -989,6 +989,9 @@ html.pum-open.pum-open-overlay.pum-open-scrollable body > .ui-datepicker[aria-hi
 	color: inherit;
 	text-decoration: none;
 }
+.main-navigation li .splat {
+	display: none;
+}
 /*==============JOB BOARD PAGE ===============*/
 .jobs-banner-wrapper {
 	position: relative;
@@ -4107,6 +4110,7 @@ section#third {
 	}
 	.main-navigation li .splat {
 		position: absolute;
+		display: block;
 		z-index: 1;
 		top: 10px;
 		right: -20px;
