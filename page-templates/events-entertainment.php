@@ -276,8 +276,14 @@ get_header();?>
                 </div><!-- site content -->
                 
                 <div class="widget-area">
-                    <?php get_template_part('ads/events-home');?>
-                    <?php $wp_query = new WP_Query();
+                    <?php get_template_part('ads/events-home');
+                    $news_header = get_field("news_header");
+                    if($news_header):?>
+                        <div class="border-title">
+                            <h2><?php echo $news_header;?></h2>
+                        </div><!-- border title -->
+                    <?php endif;
+                    $wp_query = new WP_Query();
                     $wp_query->query(array(
                         'post_type' => 'post',
                         'posts_per_page' => 4, // 4 if sponsored, 5 if no sponsored
