@@ -192,15 +192,6 @@ get_header();?>
                                                         <?php endif;?>
                                                         <div class="clear"></div>
                                                     </div><!--.culture-->
-                                                <?php elseif(!is_wp_error($premium_terms)&&is_array($premium_terms)&&!empty($premium_terms)):
-                                                    foreach($premium_terms as $term):
-                                                        if($term->term_id==36):?>
-                                                            <div class="featured">
-                                                                Featured
-                                                            </div><!--.featured-->
-                                                            <?php break;
-                                                        endif;?>
-                                                    <?php endforeach;?>
                                                 <?php endif;?>
                                             </div><!--.col-1-->
                                             <?php $terms = wp_get_post_terms( get_the_ID(), 'event_cat' );
