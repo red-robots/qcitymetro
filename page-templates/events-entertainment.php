@@ -82,9 +82,6 @@ get_header();?>
 
                 <div class="site-content">
 
-                    <div class="border-title">
-                        <h2>Sponsored Happenings</h2>
-                    </div><!-- border title -->
                     <?php // for query of today and forward
                     $today = date('Ymd');
                     $future = null;
@@ -125,6 +122,14 @@ get_header();?>
                     endif;
                     $post__in = $temp__in;
 
+                    //last two posts are marketing so remove
+                    if(count($post__in)>2):
+                        array_pop($post__in);
+                        array_pop($post__in);
+                    elseif(count($post__in)==2):
+                        $post__in = array(-1);
+                    endif;
+
                     $args = array(
                         'post_type'=>'event',
                         'post__in'=> $post__in,
@@ -132,6 +137,9 @@ get_header();?>
                     );
                     $query = new WP_Query($args);
                     if ($query->have_posts()) :?>
+                        <div class="border-title">
+                            <h2>Sponsored Happenings</h2>
+                        </div><!-- border title -->
                         <div class="tiles events"> 
                             <?php $i=0;
                             while ($query->have_posts()) :
@@ -213,9 +221,6 @@ get_header();?>
                     endif;
                     //end featured section?>
                     
-                    <div class="border-title">
-                        <h2>More Happenings</h2>
-                    </div><!-- border title -->
                     <?php if(isset($_GET['date'])&&!empty($_GET['date'])):
                         $add = null;
                         if(strcmp($_GET['date'],'today')==0):
@@ -324,6 +329,9 @@ get_header();?>
                     $args['post__in']= $post__in;
                     $query = new WP_Query($args);
                     if ($query->have_posts()) :?>
+                        <div class="border-title">
+                            <h2>More Happenings</h2>
+                        </div><!-- border title -->
                         <div id="offset">12</div>
                         <div class="tiles events tracking"> 
                             <?php $i=0;
