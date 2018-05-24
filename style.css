@@ -884,7 +884,7 @@ html.pum-open.pum-open-overlay.pum-open-scrollable body > .ui-datepicker[aria-hi
 	position: relative;
 }
 .tiles .tile.top-blocks .inner-wrapper {
-	background-color: #7E3518;
+	background-color: #DEDFE0;
 }
 .tiles .tile .inner-wrapper {
 	height: 100%;
@@ -944,9 +944,6 @@ html.pum-open.pum-open-overlay.pum-open-scrollable body > .ui-datepicker[aria-hi
 .events .tile .row-1 img {
 	width: 100%;
 	display: block;
-}
-.events .tile.top-blocks .row-1 h2 {
-	color: white;
 }
 .events .tile .row-1 h2 {
 	margin: 20px 0 0 0;
