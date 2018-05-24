@@ -138,7 +138,7 @@ get_header();?>
                     $query = new WP_Query($args);
                     if ($query->have_posts()) :?>
                         <div class="border-title">
-                            <h2>Sponsored Happenings</h2>
+                            <h2>Sponsored</h2>
                         </div><!-- border title -->
                         <div class="tiles events"> 
                             <?php $i=0;
