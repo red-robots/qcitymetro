@@ -48,7 +48,7 @@
 		wp_enqueue_script(
 			'custom',
 			get_bloginfo('template_directory') . '/js/custom.js',
-			array('jquery','isotope','colorbox','blocks','imagesloaded','flexslider'), '1.04' , false );
+			array('jquery','isotope','colorbox','blocks','imagesloaded','flexslider'), '1.06' , false );
 		$vars = array(
 			'url' => admin_url( 'admin-ajax.php' ),
 			'postid'=>get_the_ID()

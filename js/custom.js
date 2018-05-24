@@ -113,22 +113,11 @@ __________________________________________
 	
 	
 	// Equal heights divs
+	$.fn.matchHeight._maintainScroll = true;
+	$('.bottom-blocks').matchHeight();
 	$('.blocks').matchHeight();
 	$('.js-titles').matchHeight();
-	$('.bottom-blocks').matchHeight();
-	/*var byRow = $('body').hasClass('test-rows');
-		$('.blocks-container').each(function() {
-		 $(this).children('.blocks').matchHeight({
-			   byRow: byRow
-		//property: 'min-height'
-		});
-	});*/
-
-
-	    // Relocate Jetpack sharing buttons down into the comments form
-	   // jQuery( '#sharing' ).html( jQuery( '.sharedaddy' ).detach() );
-
-	
+	$('.top-blocks').matchHeight();
 	
 
 	(function() {
@@ -143,9 +132,6 @@ __________________________________________
                (window.innerWidth < 900) ? 3 : 4;
       }
 
-      //$(function() {
-        //SyntaxHighlighter.all();
-      //});
 
       $flexslider.imagesLoaded( function() {
         $flexslider.flexslider({
@@ -286,7 +272,6 @@ __________________________________________
 	var postOffset = parseInt(jQuery( '#offset' ).text());
 	//Change that to your right site url unless you've already set global ajaxURL
 	var ajaxURL = bellaajaxurl.url;
-	$.fn.matchHeight._maintainScroll = true;
 	function ajax_next_event() {
 		if( ! ajaxLock && postOffset != NaN) {
 			ajaxLock = true;
@@ -325,8 +310,8 @@ __________________________________________
 						$els.css("opacity","0");
 						$tracking.append($els);
 						setTimeout(function(){
-							$('.blocks').matchHeight();
 							$('.bottom-blocks').matchHeight();
+							$('.blocks').matchHeight();
 							$els.css("opacity","");
 						},200);
 						postOffset+=parseInt(response[1]);
@@ -341,10 +326,13 @@ __________________________________________
 			});
 		}
 	}
+
 	var $window = $(window);
 	var $document = $(document);
 	var $tracking = $('.tracking');
+	
 	if($tracking.length>0){
+
 		$window.scroll(function(){
 			var top = $tracking.offset().top;
 			var height = $tracking.height();

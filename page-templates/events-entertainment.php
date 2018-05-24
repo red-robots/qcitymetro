@@ -82,10 +82,141 @@ get_header();?>
 
                 <div class="site-content">
 
+                    <div class="border-title">
+                        <h2>Sponsored Happenings</h2>
+                    </div><!-- border title -->
                     <?php // for query of today and forward
                     $today = date('Ymd');
                     $future = null;
-                    if(isset($_GET['date'])&&!empty($_GET['date'])):
+
+                    //begin sponsored query 
+                    $post__in = array();
+
+                    //tax query
+                    $prepare_string = "SELECT DISTINCT tr.object_id as ID FROM $wpdb->term_relationships as tr INNER JOIN $wpdb->term_taxonomy as tt ON tt.term_taxonomy_id = tr.term_taxonomy_id INNER JOIN $wpdb->terms as t ON t.term_id = tt.term_id WHERE t.slug LIKE 'premium';";
+                    $results = $wpdb->get_results( $prepare_string );
+                    if($results):
+                        foreach($results as $result):
+                            $post__in[] = $result->ID;
+                        endforeach;
+                    else:
+                        $post__in[] = -1;
+                    endif;
+
+                    //meta query
+                    $temp__in = array();
+                    $prepare_string = "SELECT DISTINCT ID FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) LEFT JOIN $wpdb->postmeta AS mt1 ON ( $wpdb->posts.ID = mt1.post_id ) WHERE ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value >= %d ) OR ( ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value < %d ) AND ( mt1.meta_key = 'end_date' AND mt1.meta_value >= %d ) ) OR ( $wpdb->postmeta.meta_key = 'event_date' AND $wpdb->postmeta.meta_value = '' ) ) ORDER BY CAST($wpdb->postmeta.meta_value as SIGNED) ASC";
+                                            
+                    $prepare_args = array();
+                    array_unshift($prepare_args,$today);
+                    array_unshift($prepare_args,$today);
+                    array_unshift($prepare_args,$today);
+                    array_unshift($prepare_args,$prepare_string);
+                    $results = $wpdb->get_results( call_user_func_array(array($wpdb, "prepare"),$prepare_args) );
+                    if($results):
+                        foreach($results as $result):
+                            if(in_array($result->ID,$post__in)):
+                                $temp__in[] = $result->ID;
+                            endif;
+                        endforeach;
+                    endif;
+                    if(empty($temp__in)):
+                        $temp__in = array(-1);
+                    endif;
+                    $post__in = $temp__in;
+
+                    $args = array(
+                        'post_type'=>'event',
+                        'post__in'=> $post__in,
+                        'orderby' => 'post__in'
+                    );
+                    $query = new WP_Query($args);
+                    if ($query->have_posts()) :?>
+                        <div class="tiles events"> 
+                            <?php $i=0;
+                            while ($query->have_posts()) :
+                                if($i>=12) break;
+                                $query->the_post(); 
+                                $date = get_field("event_date");
+                                $display_date = null;
+                                if($date):
+                                    $display_date = (new DateTime($date))->format('l, F j, Y');
+                                endif;
+                                $venue = get_field("name_of_venue");
+                                $image = get_field("event_image");?>
+                                <div class="tile top-blocks <?php if($i%3==0) echo "first";?> <?php if(($i+1)%3==0) echo "last";?>">
+                                    <div class="inner-wrapper">
+                                        <div class="row-1">
+                                            <a href="<?php echo get_permalink();?>">
+                                                <?php if($image):?>
+                                                    <img src="<?php echo $image['sizes']['medium'];?>" alt="<?php echo $image['alt'];?>">
+                                                <?php endif;?>
+                                                <h2><?php the_title();?></h2>
+                                                <?php if($display_date):?>
+                                                    <div class="date">
+                                                        <?php echo $display_date;?>
+                                                    </div><!--.date-->
+                                                <?php endif;
+                                                if($venue):?>
+                                                    <div class="venue">
+                                                        <?php echo $venue;?>
+                                                    </div><!--.venue-->
+                                                <?php endif;?>
+                                            </a>
+                                        </div><!--.row-1-->
+                                        <div class="row-2 bottom-blocks">
+                                            <div class="col-1">
+                                                <?php $culture_block = get_field("culture_block");
+							                    $premium_terms = get_the_terms(get_the_ID(),"event_category");
+                                                if(strcmp($culture_block,'yes')==0):?>
+                                                    <div class="culture">
+                                                        <div class="circle">
+                                                            ?
+                                                        </div><!--.circle-->
+                                                        <a href="https://www.artsandscience.org/programs/for-community/culture-blocks/asc-culture-blocks-upcoming-events/" target="_blank">
+                                                            <img src="<?php echo get_template_directory_uri()."/images/culture-blocks-title.jpg";?>" alt="Culture Blocks">
+                                                        </a>
+                                                        <?php $desc = get_field("culture_block_rollover",54);
+                                                        if($desc):?>
+                                                            <div class="rollover">
+                                                                <?php echo $desc;?>	
+                                                            </div><!--.rollover-->
+                                                        <?php endif;?>
+                                                        <div class="clear"></div>
+                                                    </div><!--.culture-->
+                                                <?php elseif(!is_wp_error($premium_terms)&&is_array($premium_terms)&&!empty($premium_terms)):
+                                                    foreach($premium_terms as $term):
+                                                        if($term->term_id==36):?>
+                                                            <div class="featured">
+                                                                Featured
+                                                            </div><!--.featured-->
+                                                            <?php break;
+                                                        endif;?>
+                                                    <?php endforeach;?>
+                                                <?php endif;?>
+                                            </div><!--.col-1-->
+                                            <?php $terms = wp_get_post_terms( get_the_ID(), 'event_cat' );
+                                            if(!is_wp_error($terms) && is_array($terms)&&!empty($terms)):?>
+                                                <div class="col-2">
+                                                    <a href="<?php echo get_term_link($terms[0]->term_id,'event_cat');?>">
+                                                        <?php echo $terms[0]->name;?> 
+                                                    </a>
+                                                </div><!--.col-2-->
+                                            <?php endif;?>
+                                        </div><!--.row-2-->
+                                    </div><!--.wrapper-->
+                                </div><!--.tile-->
+                                <?php $i++;
+                            endwhile;?>
+                        </div><!--.tiles-->
+                        <?php wp_reset_postdata();
+                    endif;
+                    //end featured section?>
+                    
+                    <div class="border-title">
+                        <h2>More Happenings</h2>
+                    </div><!-- border title -->
+                    <?php if(isset($_GET['date'])&&!empty($_GET['date'])):
                         $add = null;
                         if(strcmp($_GET['date'],'today')==0):
                             $add = 'P1D';
